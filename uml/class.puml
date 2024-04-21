@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Tower implements Purchasable {
+    - resourceType
+    - resourceAmount
+    - reloadSpeed
+    - xp
+
+    + getLevel(): Integer
+    + applyUpgrade(Item): void
+}
+
+class Cart {
+    - size
+    - resourceType
+    - speed
+}
+
+class Round {
+    - carts
+    - difficulty
+
+    + setDifficulty(): void
+}
+
+enum Difficulty {
+    EASY
+    MEDIUM
+    HARD
+}
+
+class Item implements Purchasable {
+    - name
+    - cost
+    - effectType
+    - effectAmount
+}
+
+interface Purchasable {
+    - cost
+}
+@enduml
