@@ -59,8 +59,12 @@ public class GameManager {
         setupScreenLauncher.accept(this);
     }
 
+    public void launchGameScreen() {
+        gameScreenLauncher.accept(this);
+    }
+
     public void closeSetupScreen() {
         clearScreen.run();
-//        launchMainScreen();
+        launchGameScreen();
     }
 }

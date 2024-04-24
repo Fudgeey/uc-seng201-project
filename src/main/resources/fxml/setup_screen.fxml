@@ -132,7 +132,7 @@
          <children>
             <Label fx:id="inventoryLabel" text="Label" />
          </children></Pane>
-      <Button mnemonicParsing="false" style="-fx-background-color: green;" text="Start Game" textFill="WHITE" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+      <Button fx:id="startButton" mnemonicParsing="false" style="-fx-background-color: green;" text="Start Game" textFill="WHITE" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <font>
             <Font size="30.0" />
          </font>

@@ -31,7 +31,7 @@ public class FXWrapper {
     public void init(Stage stage) {
         this.stage = stage;
 
-        new GameManager(this::launchSetupScreen, this::clearPane);
+        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::clearPane);
     }
 
     /**
@@ -53,6 +53,17 @@ public class FXWrapper {
             /* Sets game to be fullscreen and disables the hint */
             stage.setFullScreenExitHint("");
             stage.setFullScreen(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void launchGameScreen(GameManager gameManager) {
+        try {
+            FXMLLoader gameScreenLoader = new FXMLLoader(getClass().getResource("/fxml/game_screen.fxml"));
+            gameScreenLoader.setControllerFactory(param -> new SetupScreenController(gameManager));
+            Parent setupParent  = gameScreenLoader.load();
+            pane.getChildren().add(setupParent);
         } catch (IOException e) {
             e.printStackTrace();
         }

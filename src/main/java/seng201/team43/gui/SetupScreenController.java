@@ -49,6 +49,9 @@ public class SetupScreenController {
     @FXML
     private Label inventoryLabel;
 
+    @FXML
+    private Button startButton;
+
     public SetupScreenController(GameManager gameManager) {
         this.gameManager = gameManager;
         this.setupService = new SetupService(this.gameManager);
@@ -113,6 +116,10 @@ public class SetupScreenController {
 
                 inventoryLabel.setText(activeTowers.toString());
             });
+        });
+
+        startButton.setOnAction(event -> {
+            gameManager.closeSetupScreen();
         });
     }
 }
