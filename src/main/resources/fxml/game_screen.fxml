@@ -46,7 +46,7 @@
     </Button>
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
       <font>
-        <Font size="80.0" />
+        <Font name="System Bold" size="80.0" />
       </font>
       <GridPane.margin>
         <Insets />
