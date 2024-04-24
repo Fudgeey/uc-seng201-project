@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Controller for the setup_screen.fxml window
- * @author seng201 teaching team
+ * @author Riley Jeffcote and Luke Hallet
  */
 public class SetupScreenController {
     private final GameManager gameManager;

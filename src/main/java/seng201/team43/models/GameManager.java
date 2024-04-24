@@ -1,7 +1,11 @@
 package seng201.team43.models;
 
 import java.util.function.Consumer;
-
+/**
+ * Controller for the game_screen.fxml window
+ *
+ * @author Luke Hallet and Riley Jeffcote
+ */
 public class GameManager {
     private String playerName;
     private Integer roundCount;
@@ -11,9 +15,12 @@ public class GameManager {
 
     private final Consumer<GameManager> setupScreenLauncher;
     private final Consumer<GameManager> gameScreenLauncher;
+    private final Consumer<GameManager> inventoryScreenLauncher;
+    private final Consumer<GameManager> pauseScreenLauncher;
+    private final Consumer<GameManager> shopScreenLauncher;
     private final Runnable clearScreen;
 
-    public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Runnable clearScreen) {
+    public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Runnable clearScreen) {
         this.roundCount = 5;
         this.currentRound = 1;
         this.difficulty = Difficulty.EASY;
@@ -21,7 +28,11 @@ public class GameManager {
 
         this.setupScreenLauncher = setupScreenLauncher;
         this.gameScreenLauncher = gameScreenLauncher;
+        this.inventoryScreenLauncher = inventoryScreenLauncher;
+        this.pauseScreenLauncher = pauseScreenLauncher;
+        this.shopScreenLauncher = shopScreenLauncher;
         this.clearScreen = clearScreen;
+
 
         launchSetupScreen();
     }
@@ -62,9 +73,28 @@ public class GameManager {
     public void launchGameScreen() {
         gameScreenLauncher.accept(this);
     }
+    public void launchInventoryScreen() {inventoryScreenLauncher.accept(this); }
+    public void launchPauseScreen() {pauseScreenLauncher.accept(this); }
+    public void launchShopScreen() {shopScreenLauncher.accept(this); }
 
     public void closeSetupScreen() {
         clearScreen.run();
         launchGameScreen();
+    }
+    public void closeInventoryScreen() {
+        clearScreen.run();
+        launchGameScreen();
+    }
+    public void openInventoryScreen() {
+        clearScreen.run();
+        launchInventoryScreen();
+    }
+    public void openPauseScreen() {
+        clearScreen.run();
+        launchPauseScreen();
+    }
+    public void openShopScreen() {
+        clearScreen.run();
+        launchShopScreen();
     }
 }

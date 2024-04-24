@@ -31,7 +31,7 @@ public class FXWrapper {
     public void init(Stage stage) {
         this.stage = stage;
 
-        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::clearPane);
+        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::launchInventoryScreen, this::launchPauseScreen, this::launchShopScreen, this::clearPane);
     }
 
     /**
@@ -67,6 +67,37 @@ public class FXWrapper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void launchInventoryScreen(GameManager gameManager) {
+        try {
+            FXMLLoader inventoryScreenLoader = new FXMLLoader(getClass().getResource("/fxml/inventory_screen.fxml"));
+            inventoryScreenLoader.setControllerFactory(param -> new InventoryScreenController(gameManager));
+            Parent setupParent  = inventoryScreenLoader.load();
+            pane.getChildren().add(setupParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void launchShopScreen(GameManager gameManager) {
+        try {
+            FXMLLoader shopScreenLoader = new FXMLLoader(getClass().getResource("/fxml/shop_screen.fxml"));
+            shopScreenLoader.setControllerFactory(param -> new ShopScreenController(gameManager));
+            Parent setupParent  = shopScreenLoader.load();
+            pane.getChildren().add(setupParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void launchPauseScreen(GameManager gameManager) {
+        try {
+            FXMLLoader pauseScreenLoader = new FXMLLoader(getClass().getResource("/fxml/pause_screen.fxml"));
+            pauseScreenLoader.setControllerFactory(param -> new PauseScreenController(gameManager));
+            Parent setupParent  = pauseScreenLoader.load();
+            pane.getChildren().add(setupParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     }
 
     /**
