@@ -2,13 +2,13 @@
 'https://plantuml.com/class-diagram
 
 class Tower implements Purchasable {
-    - resourceType
+    - resourceType: Resource
     - resourceAmount
     - reloadSpeed
     - xp
 
     + getLevel(): Integer
-    + applyUpgrade(Item): void
+    + applyUpgrade(Upgrade): void
 }
 
 class Cart {
@@ -30,11 +30,22 @@ enum Difficulty {
     HARD
 }
 
-class Item implements Purchasable {
+enum Resource {
+    WATER
+    WOOD
+    FOOD
+}
+
+abstract Upgrade implements Purchasable {
     - name
-    - cost
     - effectType
     - effectAmount
+}
+
+class ProductionUpgrade extends Upgrade {
+}
+
+class ReloadSpeedUpgrade extends Upgrade {
 }
 
 interface Purchasable {
