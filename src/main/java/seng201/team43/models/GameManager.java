@@ -4,20 +4,23 @@ import java.util.function.Consumer;
 
 public class GameManager {
     private String playerName;
-    private Integer rounds;
+    private Integer roundCount;
+    private Integer currentRound;
     private Difficulty difficulty;
     private final Inventory inventory;
 
     private final Consumer<GameManager> setupScreenLauncher;
-//    private final Consumer<GameManager> mainScreenLauncher;
+    private final Consumer<GameManager> gameScreenLauncher;
     private final Runnable clearScreen;
 
-    public GameManager(Consumer<GameManager> setupScreenLauncher, Runnable clearScreen) {
-        this.rounds = 5;
+    public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Runnable clearScreen) {
+        this.roundCount = 5;
+        this.currentRound = 1;
         this.difficulty = Difficulty.EASY;
         this.inventory = new Inventory();
 
         this.setupScreenLauncher = setupScreenLauncher;
+        this.gameScreenLauncher = gameScreenLauncher;
         this.clearScreen = clearScreen;
 
         launchSetupScreen();
@@ -31,13 +34,13 @@ public class GameManager {
         return this.playerName;
     }
 
-    public void setRounds(Integer setRounds) {
+    public void setRoundCount(Integer setRounds) {
         if(setRounds < 5 || setRounds > 15) {
 //            throw new GameError("Amount of rounds is not between 5 and 15.");
             System.out.println("Amount of rounds is not between 5 and 15.");
         }
 
-        this.rounds = setRounds;
+        this.roundCount = setRounds;
     }
 
     public void setDifficulty(Difficulty difficulty) {

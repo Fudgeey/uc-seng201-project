@@ -5,10 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
+import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.Difficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
+import seng201.team43.services.SetupService;
 
 import java.util.List;
 
@@ -18,9 +20,10 @@ import java.util.List;
  */
 public class SetupScreenController {
     private final GameManager gameManager;
+    private final SetupService setupService;
 
     @FXML
-    private TextField inputName;
+    private TextField nameField;
 
     @FXML
     private Slider roundCountSlider;
@@ -46,16 +49,21 @@ public class SetupScreenController {
     @FXML
     private Label inventoryLabel;
 
-    SetupScreenController(GameManager gameManager) {
+    public SetupScreenController(GameManager gameManager) {
         this.gameManager = gameManager;
+        this.setupService = new SetupService(this.gameManager);
     }
 
     public void initialize() {
         List<Button> difficultyButtons = List.of(difficultyEasyButton, difficultyMediumButton, difficultyHardButton);
         List<Button> towerButtons = List.of(waterTowerButton, woodTowerButton, foodTowerButton);
 
+        nameField.setOnAction(event -> {
+            this.setupService.setName(nameField.getText());
+        });
+
         roundCountSlider.setOnDragDone(event -> {
-            this.gameManager.setRounds((int) roundCountSlider.getValue());
+            this.gameManager.setRoundCount((int) roundCountSlider.getValue());
         });
 
         difficultyButtons.forEach(button -> {
@@ -67,15 +75,18 @@ public class SetupScreenController {
                 switch(button.getText()) {
                     case "Easy":
                         this.gameManager.setDifficulty(Difficulty.EASY);
-                        button.setStyle("-fx-background-color: #22a359; -fx-background-radius: 5;");
+                        ButtonHelper.setBackground(button, "#22a359");
+
                         break;
                     case "Medium":
                         this.gameManager.setDifficulty(Difficulty.MEDIUM);
-                        button.setStyle("-fx-background-color: #ff9c1c; -fx-background-radius: 5;");
+                        ButtonHelper.setBackground(button, "#ff9c1c");
+
                         break;
                     case "Hard":
                         this.gameManager.setDifficulty(Difficulty.HARD);
-                        button.setStyle("-fx-background-color: #ff3737; -fx-background-radius: 5;");
+                        ButtonHelper.setBackground(button, "#ff3737");
+
                         break;
                 }
             });
@@ -85,13 +96,13 @@ public class SetupScreenController {
             button.setOnAction(event -> {
                 switch(button.getText()) {
                     case "Water":
-                        this.gameManager.getInventory().addActiveTower(new Tower(Resource.WATER));
+                        this.setupService.addStartingTower(Resource.WATER);
                         break;
                     case "Wood":
-                        this.gameManager.getInventory().addActiveTower(new Tower(Resource.WOOD));
+                        this.setupService.addStartingTower(Resource.WOOD);
                         break;
                     case "Food":
-                        this.gameManager.getInventory().addActiveTower(new Tower(Resource.FOOD));
+                        this.setupService.addStartingTower(Resource.FOOD);
                         break;
                 }
 
@@ -103,10 +114,5 @@ public class SetupScreenController {
                 inventoryLabel.setText(activeTowers.toString());
             });
         });
-    }
-
-    @FXML
-    private void onNameInput() {
-        this.gameManager.setName(inputName.getText());
     }
 }

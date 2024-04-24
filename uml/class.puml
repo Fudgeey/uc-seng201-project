@@ -52,4 +52,23 @@ class ReloadSpeedUpgrade extends Upgrade {
 interface Storable {
     - cost
 }
+
+class Inventory {
+    - activeTowers: ArrayList<Tower>
+}
+
+class GameManager {
+    - playerName: string
+    - roundCount: Integer
+    - currentRound: Integer
+    - difficulty: Difficulty
+    - inventory: Inventory
+    - setupScreenLauncher: Consumer<GameManager>
+    - mainScreenLauncher: Consumer<GameManager>
+    - clearScreen: Runnable
+}
+
+GameManager *- Difficulty
+GameManager *- Inventory
+Inventory o- Tower
 @enduml
