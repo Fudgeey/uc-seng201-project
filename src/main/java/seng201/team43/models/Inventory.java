@@ -18,4 +18,8 @@ public class Inventory {
     public void addActiveTower(Tower tower) {
         activeTowers.add(tower);
     }
+
+    public Integer getActiveTowerCount() {
+        return activeTowers.size();
+    }
 }

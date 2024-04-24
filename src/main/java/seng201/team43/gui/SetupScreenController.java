@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.Difficulty;
 import seng201.team43.models.GameManager;
@@ -47,7 +49,13 @@ public class SetupScreenController {
     private Button foodTowerButton;
 
     @FXML
-    private Label inventoryLabel;
+    private GridPane startingTowerOnePane;
+
+    @FXML
+    private GridPane startingTowerTwoPane;
+
+    @FXML
+    private GridPane startingTowerThreePane;
 
     @FXML
     private Button startButton;
@@ -60,6 +68,7 @@ public class SetupScreenController {
     public void initialize() {
         List<Button> difficultyButtons = List.of(difficultyEasyButton, difficultyMediumButton, difficultyHardButton);
         List<Button> towerButtons = List.of(waterTowerButton, woodTowerButton, foodTowerButton);
+        List<GridPane> startingTowerPanes = List.of(startingTowerOnePane, startingTowerTwoPane, startingTowerThreePane);
 
         nameField.setOnAction(event -> {
             this.setupService.setName(nameField.getText());
@@ -97,29 +106,12 @@ public class SetupScreenController {
 
         towerButtons.forEach(button -> {
             button.setOnAction(event -> {
-                switch(button.getText()) {
-                    case "Water":
-                        this.setupService.addStartingTower(Resource.WATER);
-                        break;
-                    case "Wood":
-                        this.setupService.addStartingTower(Resource.WOOD);
-                        break;
-                    case "Food":
-                        this.setupService.addStartingTower(Resource.FOOD);
-                        break;
-                }
-
-                StringBuilder activeTowers = new StringBuilder();
-                this.gameManager.getInventory().getActiveTowers().forEach(tower -> {
-                    activeTowers.append(tower.getResourceType().label);
-                });
-
-                inventoryLabel.setText(activeTowers.toString());
+                this.setupService.addStartingTower(button.getText(), startingTowerPanes);
             });
         });
 
         startButton.setOnAction(event -> {
-            gameManager.closeSetupScreen();
+            this.setupService.startGame();
         });
     }
 }

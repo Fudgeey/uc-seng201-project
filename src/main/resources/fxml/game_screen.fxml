@@ -28,7 +28,7 @@
   </rowConstraints>
   <children>
     <Pane opacity="0.49" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Grey;" GridPane.columnSpan="5" />
-    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Pause" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+    <Button fx:id="pauseButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Pause" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
       <GridPane.margin>
         <Insets />
       </GridPane.margin>
@@ -36,7 +36,7 @@
             <Font size="35.0" />
          </font>
     </Button>
-    <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Inventory" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+    <Button fx:id="inventoryButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Inventory" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
       <GridPane.margin>
         <Insets />
       </GridPane.margin>

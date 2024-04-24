@@ -25,6 +25,7 @@ public class GameScreenController {
         inventoryButton.setOnAction(event -> {
             gameManager.openInventoryScreen();
         });
+
         pauseButton.setOnAction(event -> {
             gameManager.openPauseScreen();
         });
