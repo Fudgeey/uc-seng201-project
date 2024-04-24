@@ -8,7 +8,7 @@ public enum Difficulty {
     public final String label;
     public final double multiplier;
 
-    private Difficulty(String label, double multiplier) {
+    Difficulty(String label, double multiplier) {
         this.label = label;
         this.multiplier = multiplier;
     }

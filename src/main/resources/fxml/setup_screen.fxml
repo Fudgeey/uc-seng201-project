@@ -49,7 +49,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Slider blockIncrement="1.0" majorTickUnit="1.0" max="15.0" min="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Slider fx:id="roundCountSlider" blockIncrement="1.0" majorTickUnit="1.0" max="15.0" min="5.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Difficulty" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <font>
             <Font size="23.0" />
@@ -68,7 +68,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="difficultyEasyButton" mnemonicParsing="false" text="Easy">
+            <Button fx:id="difficultyEasyButton" mnemonicParsing="false" style="-fx-background-color: #22a359; -fx-background-radius: 5;" text="Easy">
                <font>
                   <Font size="29.0" />
                </font>
@@ -103,17 +103,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Water">
+            <Button fx:id="waterTowerButton" mnemonicParsing="false" text="Water">
                <font>
                   <Font size="29.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Wood" GridPane.columnIndex="1">
+            <Button fx:id="woodTowerButton" mnemonicParsing="false" text="Wood" GridPane.columnIndex="1">
                <font>
                   <Font size="29.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Food" GridPane.columnIndex="2">
+            <Button fx:id="foodTowerButton" mnemonicParsing="false" text="Food" GridPane.columnIndex="2">
                <font>
                   <Font size="29.0" />
                </font>
@@ -128,7 +128,10 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Label>
-      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <Label fx:id="inventoryLabel" text="Label" />
+         </children></Pane>
       <Button mnemonicParsing="false" style="-fx-background-color: green;" text="Start Game" textFill="WHITE" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <font>
             <Font size="30.0" />

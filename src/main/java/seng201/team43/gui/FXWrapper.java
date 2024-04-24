@@ -32,7 +32,7 @@ public class FXWrapper {
             setupLoader.setControllerFactory(param -> new SetupScreenController(gameManager));
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
-            stage.setTitle("Rocket Manager Setup");
+            stage.setTitle("Tower Dynasty");
         } catch (IOException e) {
             e.printStackTrace();
         }

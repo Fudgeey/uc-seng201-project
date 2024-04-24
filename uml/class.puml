@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Tower implements Purchasable {
+class Tower implements Storable {
     - resourceType: Resource
     - resourceAmount
     - reloadSpeed
@@ -36,7 +36,7 @@ enum Resource {
     FOOD
 }
 
-abstract Upgrade implements Purchasable {
+abstract Upgrade implements Storable {
     - name
     - effectType
     - effectAmount
@@ -48,7 +48,8 @@ class ProductionUpgrade extends Upgrade {
 class ReloadSpeedUpgrade extends Upgrade {
 }
 
-interface Purchasable {
+
+interface Storable {
     - cost
 }
 @enduml
