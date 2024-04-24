@@ -98,7 +98,7 @@ public class FXWrapper {
             e.printStackTrace();
         }
     }
-    }
+
 
     /**
      * Clears the current screen.
