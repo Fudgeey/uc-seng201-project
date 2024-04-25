@@ -27,6 +27,9 @@ public class GameScreenController {
     @FXML
     private Label currentRoundLabel;
 
+    @FXML
+    private Label cartCountLabel;
+
     public GameScreenController(GameManager gameManager) {
         this.gameManager = gameManager;
         this.gameService = new GameService(this.gameManager);
@@ -41,6 +44,6 @@ public class GameScreenController {
             gameManager.openPauseScreen();
         });
 
-        this.gameService.updateStats(statsLabel, currentRoundLabel);
+        this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
     }
 }

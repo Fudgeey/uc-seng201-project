@@ -91,18 +91,29 @@ public class SetupService {
     public void startGame() throws GameError {
         if(this.gameManager.getName() == null) {
             throw new GameError("A name is required.");
-        } else {
-            for(Tower tower : this.startingTowers) {
-                if(tower != null) {
-                    this.gameManager.getInventory().addActiveTower(tower);
-                }
-            }
-
-            this.gameManager.setMoney((int) (100 * this.gameManager.getDifficulty().multiplier));
-            this.gameManager.closeSetupScreen();
         }
+
+        for(Tower tower : this.startingTowers) {
+            if(tower != null) {
+                this.gameManager.getInventory().addActiveTower(tower);
+            }
+        }
+
+        if(this.gameManager.getInventory().getActiveTowers().isEmpty()) {
+            throw new GameError("At least one starting tower is required.");
+        }
+
+        this.gameManager.setMoney((int) (100 * this.gameManager.getDifficulty().multiplier));
+        this.gameManager.closeSetupScreen();
     }
 
+    /**
+     * Helper function to find next empty slot in array.
+     *
+     * @param array array to find next empty slot
+     *
+     * @return the index of the next empty slot
+     */
     private int findNextSlot(Tower[] array) {
         for(int i = 0; i < array.length; i++) {
             if(array[i] == null) {

@@ -11,7 +11,7 @@ public class GameService {
         this.gameManager = gameManager;
     }
 
-    public void updateStats(Label statsLabel, Label currentRoundLabel) {
+    public void updateStats(Label statsLabel, Label currentRoundLabel, Label cartCountLabel) {
         statsLabel.setTextAlignment(TextAlignment.CENTER);
         statsLabel.setText(String.format("Rounds Won: %s\nMoney: $%s", 0, this.gameManager.getMoney()));
 
