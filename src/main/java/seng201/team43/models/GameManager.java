@@ -1,5 +1,7 @@
 package seng201.team43.models;
 
+import javafx.application.Platform;
+
 import java.util.function.Consumer;
 /**
  * Controller for the game_screen.fxml window
@@ -96,5 +98,15 @@ public class GameManager {
     public void openShopScreen() {
         clearScreen.run();
         launchShopScreen();
+    }
+
+    public void closePauseScreen() {
+        clearScreen.run();
+        launchGameScreen();
+    }
+
+    public void quitGame() {
+        clearScreen.run();
+        Platform.exit();
     }
 }

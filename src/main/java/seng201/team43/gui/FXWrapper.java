@@ -31,7 +31,7 @@ public class FXWrapper {
     public void init(Stage stage) {
         this.stage = stage;
 
-        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::launchInventoryScreen, this::launchPauseScreen, this::launchShopScreen, this::clearPane);
+        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::launchInventoryScreen, this::launchShopScreen, this::launchPauseScreen, this::clearPane);
     }
 
     /**
