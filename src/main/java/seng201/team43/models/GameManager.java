@@ -14,6 +14,7 @@ public class GameManager {
     private Integer currentRound;
     private Difficulty difficulty;
     private final Inventory inventory;
+    private Integer money;
 
     private final Consumer<GameManager> setupScreenLauncher;
     private final Consumer<GameManager> gameScreenLauncher;
@@ -34,7 +35,6 @@ public class GameManager {
         this.pauseScreenLauncher = pauseScreenLauncher;
         this.shopScreenLauncher = shopScreenLauncher;
         this.clearScreen = clearScreen;
-
 
         launchSetupScreen();
     }
@@ -66,6 +66,26 @@ public class GameManager {
 
     public Inventory getInventory() {
         return this.inventory;
+    }
+
+    public void addMoney(Integer money) {
+        this.money += money;
+    }
+
+    public void removeMoney(Integer money) {
+        this.money -= money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    public Integer getMoney() {
+        return this.money;
+    }
+
+    public Integer getCurrentRound() {
+        return this.currentRound;
     }
 
     public void launchSetupScreen() {

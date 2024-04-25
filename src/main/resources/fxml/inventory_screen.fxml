@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.InventoryScreenController">
+<GridPane fx:id="mainGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.InventoryScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -60,81 +59,6 @@
             <Font size="35.0" />
          </font>
       </Text>
-      <GridPane GridPane.rowIndex="2">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label prefHeight="140.0" prefWidth="364.0" text="*First Tower*" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
-      <GridPane layoutX="10.0" layoutY="325.0" GridPane.rowIndex="3">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label prefHeight="140.0" prefWidth="364.0" text="*Second Tower*" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
-      <GridPane layoutX="10.0" layoutY="478.0" GridPane.rowIndex="4">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label prefHeight="140.0" prefWidth="364.0" text="*Third Tower*" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
-      <GridPane layoutX="10.0" layoutY="631.0" GridPane.rowIndex="5">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label prefHeight="140.0" prefWidth="364.0" text="*Fourth Tower*" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
-      <GridPane layoutX="10.0" layoutY="784.0" GridPane.rowIndex="6">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label prefHeight="140.0" prefWidth="364.0" text="*Fifth Tower*" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
       <Text layoutX="139.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reload Upgrades" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font size="35.0" />
@@ -150,85 +74,70 @@
             <Font size="35.0" />
          </font>
       </Text>
-      <Button mnemonicParsing="false" text="Move" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-      <Button layoutX="1284.0" layoutY="368.0" mnemonicParsing="false" text="Move" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-      <Button layoutX="1162.0" layoutY="521.0" mnemonicParsing="false" text="Move" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-      <Button layoutX="1162.0" layoutY="674.0" mnemonicParsing="false" text="Move" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-      <Button layoutX="10.0" layoutY="57.0" mnemonicParsing="false" text="Move" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
       <Text layoutX="787.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Stats" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <font>
             <Font size="35.0" />
          </font>
       </Text>
-      <Label text="Reload Speed:" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="1162.0" layoutY="387.0" text="Reload Speed:" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="1162.0" layoutY="540.0" text="Reload Speed:" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.valignment="TOP">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="1162.0" layoutY="540.0" text="Reload Speed:" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.valignment="TOP">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="1162.0" layoutY="540.0" text="Reload Speed:" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="1162.0" layoutY="325.0" text="Production Units:" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="1162.0" layoutY="387.0" text="Production Units:" GridPane.columnIndex="3" GridPane.rowIndex="6">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="76.0" text="Production Units:" GridPane.columnIndex="3" GridPane.rowIndex="5">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="76.0" text="Production Units:" GridPane.columnIndex="3" GridPane.rowIndex="4">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="10.0" layoutY="76.0" text="Production Units:" GridPane.columnIndex="3" GridPane.rowIndex="3">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
+      <GridPane fx:id="towerPaneOne" GridPane.columnSpan="5" GridPane.rowIndex="2">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="towerPaneTwo" GridPane.columnSpan="5" GridPane.rowIndex="3">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="towerPaneThree" GridPane.columnSpan="5" GridPane.rowIndex="4">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="towerPaneFour" GridPane.columnSpan="5" GridPane.rowIndex="5">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="towerPaneFive" GridPane.columnSpan="5" GridPane.rowIndex="6">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
   </children>
 </GridPane>

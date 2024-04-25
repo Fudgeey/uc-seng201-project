@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
+import seng201.team43.exceptions.GameError;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
@@ -24,7 +25,7 @@ public class SetupService {
         this.gameManager.setName(name);
     }
 
-    public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) {
+    public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
         Resource resource = switch (resourceText) {
             case "Water" -> Resource.WATER;
             case "Wood" -> Resource.WOOD;
@@ -35,14 +36,15 @@ public class SetupService {
         int slot = this.findNextSlot(this.startingTowers);
 
         if(slot == -1) {
-            System.out.println("You can only have three starting towers.");
-            return;
+            throw new GameError("You can only have three starting towers.");
         }
 
-        startingTowers[slot] = new Tower(resource);
+        Tower newTower = new Tower(resource);
+        startingTowers[slot] = newTower;
+
         GridPane currentPane = startingTowerPanes.get(slot);
 
-        Label towerNameLabel = new Label(String.format("%s Tower", resource.label));
+        Label towerNameLabel = new Label(newTower.getName());
         GridPane.setHalignment(towerNameLabel, HPos.CENTER);
 
         Button removeButton = new Button("X");
@@ -68,12 +70,19 @@ public class SetupService {
         this.startingTowers[slot] = null;
     }
 
-    public void startGame() {
-        for(Tower tower : this.startingTowers) {
-            this.gameManager.getInventory().addActiveTower(tower);
-        }
+    public void startGame() throws GameError {
+        if(this.gameManager.getName() == null) {
+            throw new GameError("A name is required.");
+        } else {
+            for(Tower tower : this.startingTowers) {
+                if(tower != null) {
+                    this.gameManager.getInventory().addActiveTower(tower);
+                }
+            }
 
-        this.gameManager.closeSetupScreen();
+            this.gameManager.setMoney((int) (100 * this.gameManager.getDifficulty().multiplier));
+            this.gameManager.closeSetupScreen();
+        }
     }
 
     private int findNextSlot(Tower[] array) {

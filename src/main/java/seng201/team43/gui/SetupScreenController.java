@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.Difficulty;
 import seng201.team43.models.GameManager;
@@ -70,7 +71,7 @@ public class SetupScreenController {
         List<Button> towerButtons = List.of(waterTowerButton, woodTowerButton, foodTowerButton);
         List<GridPane> startingTowerPanes = List.of(startingTowerOnePane, startingTowerTwoPane, startingTowerThreePane);
 
-        nameField.setOnAction(event -> {
+        nameField.setOnKeyTyped(event -> {
             this.setupService.setName(nameField.getText());
         });
 
@@ -106,12 +107,20 @@ public class SetupScreenController {
 
         towerButtons.forEach(button -> {
             button.setOnAction(event -> {
-                this.setupService.addStartingTower(button.getText(), startingTowerPanes);
+                try {
+                    this.setupService.addStartingTower(button.getText(), startingTowerPanes);
+                } catch (GameError e) {
+                    e.displayError();
+                }
             });
         });
 
         startButton.setOnAction(event -> {
-            this.setupService.startGame();
+            try {
+                this.setupService.startGame();
+            } catch (GameError e) {
+                e.displayError();
+            }
         });
     }
 }

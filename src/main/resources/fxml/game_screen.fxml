@@ -73,7 +73,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Round:" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="currentRoundLabel" text="Round:" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>
@@ -115,12 +115,7 @@
                   <Font size="35.0" />
                </font>
             </Text>
-            <Label text="Rounds Won:" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <Label layoutX="103.0" layoutY="280.0" text="Money:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label fx:id="statsLabel" layoutX="103.0" layoutY="280.0" text="Stats Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <font>
                   <Font size="30.0" />
                </font>
