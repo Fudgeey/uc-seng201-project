@@ -4,8 +4,10 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
+import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.Difficulty;
@@ -14,6 +16,7 @@ import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
 
 import java.util.List;
+import java.util.concurrent.Flow;
 
 public class SetupService {
     private final GameManager gameManager;
@@ -27,7 +30,11 @@ public class SetupService {
         this.gameManager.setName(name);
     }
 
-    public void setDifficulty(Button button, List<Button> difficultyButtons) {
+    public void setRoundCount(Integer roundCount) throws GameError {
+        this.gameManager.setRoundCount((int) roundCount);
+    }
+
+    public void setDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
         Difficulty difficulty = switch(button.getText()) {
             case "Easy" -> Difficulty.EASY;
             case "Medium" -> Difficulty.MEDIUM;
@@ -35,9 +42,11 @@ public class SetupService {
             default -> null;
         };
 
-        difficultyButtons.forEach(otherButton -> {
-            otherButton.setStyle("");
-        });
+        if(difficulty == null) {
+            throw new GameError("Invalid difficulty selected.");
+        }
+
+        difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
 
         this.gameManager.setDifficulty(difficulty);
         ButtonHelper.setBackground(button, difficulty.colour);
@@ -62,21 +71,24 @@ public class SetupService {
 
         GridPane currentPane = startingTowerPanes.get(slot);
 
-        Label towerNameLabel = new Label(newTower.getName());
-        GridPane.setHalignment(towerNameLabel, HPos.CENTER);
+        TowerCard towerCard = new TowerCard(newTower);
+        GridPane towerCardPane = towerCard.build();
 
-        Button removeButton = new Button("X");
-        GridPane.setValignment(removeButton, VPos.TOP);
-        GridPane.setHalignment(removeButton, HPos.RIGHT);
-        removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%");
-        removeButton.setTextFill(Paint.valueOf("white"));
+        currentPane.getChildren().add(towerCardPane);
 
-        currentPane.getChildren().add(towerNameLabel);
-        currentPane.getChildren().add(removeButton);
-
-        removeButton.setOnAction(event -> {
-            this.removeStartingTower(currentPane, slot);
-        });
+//        Label towerNameLabel = new Label(newTower.getName());
+//        GridPane.setHalignment(towerNameLabel, HPos.CENTER);
+//
+//        Button removeButton = new Button("X");
+//        GridPane.setValignment(removeButton, VPos.TOP);
+//        GridPane.setHalignment(removeButton, HPos.RIGHT);
+//        removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%");
+//        removeButton.setTextFill(Paint.valueOf("white"));
+//
+//        currentPane.getChildren().add(towerNameLabel);
+//        currentPane.getChildren().add(removeButton);
+//
+//        removeButton.setOnAction(event -> this.removeStartingTower(currentPane, slot));
 
         currentPane.setVisible(true);
     }

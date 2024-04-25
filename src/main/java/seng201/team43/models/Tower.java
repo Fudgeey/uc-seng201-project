@@ -1,10 +1,13 @@
 package seng201.team43.models;
 
+import java.util.ArrayList;
+
 public class Tower {
     private Resource resourceType;
     private String name;
     private Integer reloadSpeed;
     private Integer productionUnits;
+    private ArrayList<Upgrade> upgrades;
 
     public Tower(Resource resourceType) {
         this(resourceType, String.format("%s Tower", resourceType.label));
@@ -15,6 +18,7 @@ public class Tower {
         this.name = name;
         this.reloadSpeed = 2;
         this.productionUnits = 10;
+        this.upgrades = new ArrayList<>();
     }
 
     public Resource getResourceType() {

@@ -1,6 +1,7 @@
 package seng201.team43.models;
 
 import javafx.application.Platform;
+import seng201.team43.exceptions.GameError;
 
 import java.util.function.Consumer;
 /**
@@ -47,10 +48,9 @@ public class GameManager {
         return this.playerName;
     }
 
-    public void setRoundCount(Integer setRounds) {
+    public void setRoundCount(Integer setRounds) throws GameError {
         if(setRounds < 5 || setRounds > 15) {
-//            throw new GameError("Amount of rounds is not between 5 and 15.");
-            System.out.println("Amount of rounds is not between 5 and 15.");
+            throw new GameError("Amount of rounds is not between 5 and 15.");
         }
 
         this.roundCount = setRounds;

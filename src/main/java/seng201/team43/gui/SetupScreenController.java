@@ -22,7 +22,6 @@ import java.util.List;
  * @author Riley Jeffcote and Luke Hallet
  */
 public class SetupScreenController {
-    private final GameManager gameManager;
     private final SetupService setupService;
 
     @FXML
@@ -62,8 +61,7 @@ public class SetupScreenController {
     private Button startButton;
 
     public SetupScreenController(GameManager gameManager) {
-        this.gameManager = gameManager;
-        this.setupService = new SetupService(this.gameManager);
+        this.setupService = new SetupService(gameManager);
     }
 
     public void initialize() {
@@ -76,12 +74,20 @@ public class SetupScreenController {
         });
 
         roundCountSlider.setOnDragDone(event -> {
-            this.gameManager.setRoundCount((int) roundCountSlider.getValue());
+            try {
+                this.setupService.setRoundCount((int) roundCountSlider.getValue());
+            } catch (GameError e) {
+                e.displayError();
+            }
         });
 
         difficultyButtons.forEach(button -> {
             button.setOnAction(event -> {
-                this.setupService.setDifficulty(button, difficultyButtons);
+                try {
+                    this.setupService.setDifficulty(button, difficultyButtons);
+                } catch (GameError e) {
+                    e.displayError();
+                }
             });
         });
 
