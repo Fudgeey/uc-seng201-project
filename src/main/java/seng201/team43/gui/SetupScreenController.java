@@ -81,27 +81,7 @@ public class SetupScreenController {
 
         difficultyButtons.forEach(button -> {
             button.setOnAction(event -> {
-                difficultyButtons.forEach(otherButton -> {
-                    otherButton.setStyle("");
-                });
-
-                switch(button.getText()) {
-                    case "Easy":
-                        this.gameManager.setDifficulty(Difficulty.EASY);
-                        ButtonHelper.setBackground(button, "#22a359");
-
-                        break;
-                    case "Medium":
-                        this.gameManager.setDifficulty(Difficulty.MEDIUM);
-                        ButtonHelper.setBackground(button, "#ff9c1c");
-
-                        break;
-                    case "Hard":
-                        this.gameManager.setDifficulty(Difficulty.HARD);
-                        ButtonHelper.setBackground(button, "#ff3737");
-
-                        break;
-                }
+                this.setupService.setDifficulty(button, difficultyButtons);
             });
         });
 

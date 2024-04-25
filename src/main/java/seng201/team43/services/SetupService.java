@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import seng201.team43.exceptions.GameError;
+import seng201.team43.helpers.ButtonHelper;
+import seng201.team43.models.Difficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
@@ -23,6 +25,22 @@ public class SetupService {
 
     public void setName(String name) {
         this.gameManager.setName(name);
+    }
+
+    public void setDifficulty(Button button, List<Button> difficultyButtons) {
+        Difficulty difficulty = switch(button.getText()) {
+            case "Easy" -> Difficulty.EASY;
+            case "Medium" -> Difficulty.MEDIUM;
+            case "Hard" -> Difficulty.HARD;
+            default -> null;
+        };
+
+        difficultyButtons.forEach(otherButton -> {
+            otherButton.setStyle("");
+        });
+
+        this.gameManager.setDifficulty(difficulty);
+        ButtonHelper.setBackground(button, difficulty.colour);
     }
 
     public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
