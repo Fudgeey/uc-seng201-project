@@ -7,8 +7,7 @@ import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import seng201.team43.models.Tower;
 
@@ -23,17 +22,17 @@ public class TowerCard {
 
     public GridPane build() {
         GridPane outerGridPane = new GridPane();
-        FlowPane towerCard = new FlowPane();
+        FlowPane innerFlowPlane = new FlowPane();
 
-        outerGridPane.addColumn(1);
-        outerGridPane.addRow(1);
+        GridPane.setValignment(innerFlowPlane, VPos.CENTER);
+        GridPane.setHalignment(innerFlowPlane, HPos.CENTER);
+        GridPane.setConstraints(innerFlowPlane, 0, 0);
+        GridPane.setVgrow(innerFlowPlane, Priority.ALWAYS);
+        GridPane.setHgrow(innerFlowPlane, Priority.ALWAYS);
 
-        GridPane.setValignment(towerCard, VPos.CENTER);
-        GridPane.setHalignment(towerCard, HPos.CENTER);
-
-        towerCard.setOrientation(Orientation.VERTICAL);
-        towerCard.setAlignment(Pos.CENTER);
-        towerCard.setColumnHalignment(HPos.CENTER);
+        innerFlowPlane.setAlignment(Pos.CENTER);
+        innerFlowPlane.setOrientation(Orientation.VERTICAL);
+        innerFlowPlane.setColumnHalignment(HPos.CENTER);
 
         Label nameLabel = new Label(tower.getName());
         nameLabel.setFont(new Font(30));
@@ -45,11 +44,8 @@ public class TowerCard {
         resourceImage.setFitWidth(180);
         resourceImage.setPreserveRatio(true);
 
-        towerCard.getChildren().add(nameLabel);
-        towerCard.getChildren().add(resourceTypeLabel);
-        towerCard.getChildren().add(resourceImage);
-
-        outerGridPane.getChildren().add(towerCard);
+        innerFlowPlane.getChildren().addAll(nameLabel, resourceTypeLabel, resourceImage);
+        outerGridPane.getChildren().add(innerFlowPlane);
 
         return outerGridPane;
     }
