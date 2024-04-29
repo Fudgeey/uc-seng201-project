@@ -5,30 +5,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.GameScreenController">
+<GridPane fx:id="mainGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.GameScreenController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="811.0" minWidth="10.0" prefWidth="314.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1325.0" minWidth="10.0" prefWidth="1285.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="357.0" minWidth="10.0" prefWidth="319.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="162.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="384.0" minHeight="0.0" prefHeight="180.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="904.0" minHeight="10.0" prefHeight="900.0" vgrow="SOMETIMES" />
+      <RowConstraints />
   </rowConstraints>
   <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="5" GridPane.hgrow="ALWAYS" GridPane.rowSpan="4">
+         <image>
+            <Image url="@../images/backgrounds/game_screen.png" />
+         </image>
+      </ImageView>
     <Pane opacity="0.49" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Grey;" GridPane.columnSpan="5" />
-    <Button fx:id="pauseButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Pause" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+    <Button fx:id="pauseButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Pause" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
       <GridPane.margin>
         <Insets />
       </GridPane.margin>
@@ -44,7 +50,7 @@
         <Font size="35.0" />
       </font>
     </Button>
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
       <font>
         <Font name="System Bold" size="80.0" />
       </font>
@@ -52,75 +58,69 @@
         <Insets />
       </GridPane.margin>
     </Text>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <ImageView fitHeight="765.0" fitWidth="1452.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.valignment="CENTER">
-         <image>
-            <Image url="@/images/railway.jpg" />
-         </image>
-      </ImageView>
-      <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Start Round" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-      <GridPane prefHeight="877.0" prefWidth="444.0" GridPane.rowIndex="1" GridPane.rowSpan="3">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
          <children>
-            <Label fx:id="currentRoundLabel" text="Round:" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="currentRoundLabel" text="Round:" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="130.0" layoutY="142.0" text="Wood:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Carts">
                <font>
-                  <Font size="30.0" />
+                  <Font name="System Bold" size="35.0" />
                </font>
-            </Label>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carts" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font size="35.0" />
-               </font>
+               <FlowPane.margin>
+                  <Insets top="50.0" />
+               </FlowPane.margin>
             </Text>
-            <Label layoutX="154.0" layoutY="309.0" text="Food:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label text="Wood:" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="154.0" layoutY="309.0" text="Water:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Label text="Food:" textFill="WHITE">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="Water:" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
          </children>
-      </GridPane>
-      <GridPane GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.rowSpan="3">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      </FlowPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stats" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Pane fx:id="towerPaneFour" layoutX="659.0" layoutY="313.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" />
+            <Pane fx:id="towerPaneFive" layoutX="842.0" layoutY="313.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" />
+            <Pane fx:id="towerPaneTwo" layoutX="299.0" layoutY="553.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" />
+            <Pane fx:id="towerPaneThree" layoutX="466.0" layoutY="553.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" />
+            <Pane fx:id="towerPaneOne" layoutX="362.0" layoutY="256.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" />
+            <AnchorPane layoutX="686.0" layoutY="598.0" prefHeight="199.0" prefWidth="252.0" />
+         </children>
+      </AnchorPane>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Stats">
                <font>
                   <Font size="35.0" />
                </font>
             </Text>
-            <Label fx:id="statsLabel" layoutX="103.0" layoutY="280.0" text="Stats Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label fx:id="statsLabel" text="Stats Label" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Start Round">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <FlowPane.margin>
+                  <Insets top="50.0" />
+               </FlowPane.margin>
+            </Button>
          </children>
-      </GridPane>
+      </FlowPane>
   </children>
 </GridPane>

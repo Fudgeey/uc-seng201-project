@@ -72,7 +72,7 @@ public class SetupService {
         GridPane currentPane = startingTowerPanes.get(slot);
 
         TowerCard towerCard = new TowerCard(newTower);
-        GridPane towerCardPane = towerCard.build();
+        FlowPane towerCardPane = towerCard.build();
 
         currentPane.getChildren().add(towerCardPane);
 

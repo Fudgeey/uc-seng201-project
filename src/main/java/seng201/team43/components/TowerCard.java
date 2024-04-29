@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import seng201.team43.models.Tower;
 
@@ -20,19 +21,12 @@ public class TowerCard {
         this.tower = tower;
     }
 
-    public GridPane build() {
-        GridPane outerGridPane = new GridPane();
-        FlowPane innerFlowPlane = new FlowPane();
+    public FlowPane build() {
+        FlowPane flowPane = new FlowPane();
 
-        GridPane.setValignment(innerFlowPlane, VPos.CENTER);
-        GridPane.setHalignment(innerFlowPlane, HPos.CENTER);
-        GridPane.setConstraints(innerFlowPlane, 0, 0);
-        GridPane.setVgrow(innerFlowPlane, Priority.ALWAYS);
-        GridPane.setHgrow(innerFlowPlane, Priority.ALWAYS);
-
-        innerFlowPlane.setAlignment(Pos.CENTER);
-        innerFlowPlane.setOrientation(Orientation.VERTICAL);
-        innerFlowPlane.setColumnHalignment(HPos.CENTER);
+        flowPane.setAlignment(Pos.CENTER);
+        flowPane.setOrientation(Orientation.VERTICAL);
+        flowPane.setColumnHalignment(HPos.CENTER);
 
         Label nameLabel = new Label(tower.getName());
         nameLabel.setFont(new Font(30));
@@ -40,13 +34,33 @@ public class TowerCard {
         Label resourceTypeLabel = new Label(tower.getResourceType().label);
         resourceTypeLabel.setFont(new Font(25));
 
-        ImageView resourceImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(String.format("/images/towers/%s.jpg", tower.getResourceType().label.toLowerCase())))));
+        ImageView resourceImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(String.format("/images/towers/%s.png", tower.getResourceType().label.toLowerCase())))));
         resourceImage.setFitWidth(180);
         resourceImage.setPreserveRatio(true);
 
-        innerFlowPlane.getChildren().addAll(nameLabel, resourceTypeLabel, resourceImage);
-        outerGridPane.getChildren().add(innerFlowPlane);
+        flowPane.getChildren().addAll(nameLabel, resourceTypeLabel, resourceImage);
 
-        return outerGridPane;
+        return flowPane;
+    }
+
+    public FlowPane buildGame() {
+        FlowPane flowPane = new FlowPane();
+
+        flowPane.setAlignment(Pos.CENTER);
+        flowPane.setOrientation(Orientation.VERTICAL);
+        flowPane.setColumnHalignment(HPos.CENTER);
+        flowPane.setPrefSize(150.0, 150.0);
+        flowPane.setBackground(Background.fill(Paint.valueOf("#ffffff")));
+
+        Label nameLabel = new Label(tower.getName());
+        nameLabel.setFont(new Font(15));
+
+        ImageView resourceImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(String.format("/images/towers/%s.png", tower.getResourceType().label.toLowerCase())))));
+        resourceImage.setFitWidth(100);
+        resourceImage.setPreserveRatio(true);
+
+        flowPane.getChildren().addAll(nameLabel, resourceImage);
+
+        return flowPane;
     }
 }
