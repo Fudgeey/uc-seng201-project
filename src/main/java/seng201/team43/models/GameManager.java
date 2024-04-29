@@ -129,4 +129,9 @@ public class GameManager {
         clearScreen.run();
         Platform.exit();
     }
+
+    public void closeShopScreen() {
+        clearScreen.run();
+        launchInventoryScreen();
+    }
 }
