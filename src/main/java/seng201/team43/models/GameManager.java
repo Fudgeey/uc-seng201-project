@@ -40,6 +40,7 @@ public class GameManager {
         this.carts = new ArrayList<>();
 
         this.setGameDifficulty(GameDifficulty.EASY);
+        this.setRoundDifficulty(RoundDifficulty.EASY);
 
         this.setupScreenLauncher = setupScreenLauncher;
         this.gameScreenLauncher = gameScreenLauncher;

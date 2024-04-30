@@ -71,14 +71,14 @@ public class GameScreenController {
         List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
 
         this.gameService.displayTowers(towerPanes);
-        this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
+        this.updateStats();
 
         inventoryButton.setOnAction(event -> gameManager.openInventoryScreen());
         pauseButton.setOnAction(event -> gameManager.openPauseScreen());
 
         startButton.setOnAction(event -> {
             gameManager.startRound();
-            this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
+            this.updateStats();
         });
 
         difficultyButtons.forEach(button -> {
@@ -88,7 +88,13 @@ public class GameScreenController {
                 } catch (GameError e) {
                     e.displayError();
                 }
+
+                this.updateStats();
             });
         });
+    }
+
+    private void updateStats() {
+        this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
     }
 }

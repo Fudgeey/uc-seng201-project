@@ -74,6 +74,8 @@ public class GameService {
 
         this.gameManager.setRoundDifficulty(roundDifficulty);
 
+
+
         difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
 
         ButtonHelper.setBackground(button, roundDifficulty.colour);
