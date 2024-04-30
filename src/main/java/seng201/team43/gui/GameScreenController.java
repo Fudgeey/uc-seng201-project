@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import seng201.team43.exceptions.GameError;
+import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.services.GameService;
 
@@ -52,6 +54,12 @@ public class GameScreenController {
 
     @FXML
     private Pane towerPaneFive;
+    @FXML
+    private Button easyDifficultyButton;
+    @FXML
+    private Button mediumDifficultyButton;
+    @FXML
+    private Button hardDifficultyButton;
 
     public GameScreenController(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -60,6 +68,7 @@ public class GameScreenController {
 
     public void initialize() {
         List<Pane> towerPanes = List.of(towerPaneOne, towerPaneTwo, towerPaneThree, towerPaneFour, towerPaneFive);
+        List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
 
         Image image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/backgrounds/game_screen.png")));
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -75,5 +84,19 @@ public class GameScreenController {
 
         this.gameService.displayTowers(towerPanes);
         this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
+
+        difficultyButtons.forEach(button -> {
+            button.setOnAction(event -> {
+                try {
+                    this.gameService.setDifficulty(button, difficultyButtons);
+                } catch (GameError e) {
+                    e.displayError();
+                }
+            });
+        });
+
     }
+
+
+
 }

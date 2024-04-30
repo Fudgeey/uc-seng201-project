@@ -1,11 +1,15 @@
 package seng201.team43.services;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import seng201.team43.components.TowerCard;
+import seng201.team43.exceptions.GameError;
+import seng201.team43.helpers.ButtonHelper;
+import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Inventory;
 import seng201.team43.models.Tower;
@@ -41,6 +45,23 @@ public class GameService {
         statsLabel.setText(String.format("Rounds Won: %s\nRounds Remaining: %s\nMoney: $%s\nTrack Distance: %sm", 0, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
 
         currentRoundLabel.setText(String.format("Round: %s", this.gameManager.getCurrentRound()));
+    }
+
+    public void setDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
+        RoundDifficulty roundDifficulty = switch(button.getText()) {
+            case "Easy" -> RoundDifficulty.EASY;
+            case "Medium" -> RoundDifficulty.MEDIUM;
+            case "Hard" -> RoundDifficulty.HARD;
+            default -> null;
+        };
+
+        if(roundDifficulty == null) {
+            throw new GameError("Invalid difficulty selected.");
+        }
+
+        difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
+
+        ButtonHelper.setBackground(button, roundDifficulty.colour);
     }
 
     /**
