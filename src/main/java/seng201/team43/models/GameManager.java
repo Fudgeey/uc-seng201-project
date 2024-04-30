@@ -60,9 +60,7 @@ public class GameManager {
         this.difficulty = difficulty;
     }
 
-    public Difficulty getDifficulty() {
-        return this.difficulty;
-    }
+    public Difficulty getDifficulty() {return this.difficulty; }
 
     public Inventory getInventory() {
         return this.inventory;
@@ -133,5 +131,12 @@ public class GameManager {
     public void closeShopScreen() {
         clearScreen.run();
         launchInventoryScreen();
+    }
+
+    /**
+     * startRound() will start and run the current round
+     */
+    public void startRound() {
+
     }
 }

@@ -4,7 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import seng201.team43.models.GameManager;
 import seng201.team43.services.SetupService;
-
+/**
+ * Controller for the pause_screen.fxml window
+ *
+ * @author Riley Jeffcote
+ */
 public class PauseScreenController {
     public PauseScreenController(GameManager gameManager)  {
         this.gameManager = gameManager;

@@ -13,7 +13,7 @@ import seng201.team43.models.Tower;
 /**
  * Inventory service to deal with logic for inventory
  *
- * @author Luke Hallett
+ * @author Luke Hallett and Riley Jeffcote
  */
 public class InventoryService {
     private final GameManager gameManager;
