@@ -1,7 +1,6 @@
 package seng201.team43.services;
 
 import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
@@ -28,7 +27,7 @@ public class SetupService {
     }
 
     public void setRoundCount(Integer roundCount) throws GameError {
-        this.gameManager.setRoundCount((int) roundCount);
+        this.gameManager.setRoundCount(roundCount);
     }
 
     public void setDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
@@ -69,23 +68,9 @@ public class SetupService {
         GridPane currentPane = startingTowerPanes.get(slot);
 
         TowerCard towerCard = new TowerCard(newTower);
-        FlowPane towerCardPane = towerCard.build();
+        GridPane towerCardPane = towerCard.buildSetup(this, slot);
 
         currentPane.getChildren().add(towerCardPane);
-
-//        Label towerNameLabel = new Label(newTower.getName());
-//        GridPane.setHalignment(towerNameLabel, HPos.CENTER);
-//
-//        Button removeButton = new Button("X");
-//        GridPane.setValignment(removeButton, VPos.TOP);
-//        GridPane.setHalignment(removeButton, HPos.RIGHT);
-//        removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%");
-//        removeButton.setTextFill(Paint.valueOf("white"));
-//
-//        currentPane.getChildren().add(towerNameLabel);
-//        currentPane.getChildren().add(removeButton);
-//
-//        removeButton.setOnAction(event -> this.removeStartingTower(currentPane, slot));
 
         currentPane.setVisible(true);
     }
