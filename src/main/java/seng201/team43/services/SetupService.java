@@ -108,6 +108,9 @@ public class SetupService {
         if(specialCharacterMatcher.find()) {
             throw new GameError("Your name contains special characters");
         }
+        if (gameManager.getName().length() > 15 || gameManager.getName().length() < 3) {
+            throw new GameError("Your name must be between 3-15 characters");
+        }
 
         for(Tower tower : this.startingTowers) {
             if(tower != null) {

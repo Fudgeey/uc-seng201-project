@@ -75,8 +75,15 @@ public class GameManager {
         this.money = gameDifficulty.startingMoney;
     }
 
-    public GameDifficulty getGameDifficulty() {return this.gameDifficulty; }
-
+    /**
+     * Gets the game difficulty
+     * @return game difficulty
+     */
+    public GameDifficulty getGameDifficulty() {return this.gameDifficulty;}
+    /**
+     * Gets the inventory
+     * @return inventory
+     */
     public Inventory getInventory() {
         return this.inventory;
     }
