@@ -3,6 +3,8 @@ package seng201.team43.models;
 import javafx.application.Platform;
 import seng201.team43.exceptions.GameError;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.function.Consumer;
 /**
  * Controller for the game_screen.fxml window
@@ -17,6 +19,9 @@ public class GameManager {
     private final Inventory inventory;
     private Double money;
     private Double trackDistance;
+    private Double moneyGained;
+    private Double expGained;
+    private ArrayList<Cart> carts;
 
     private final Consumer<GameManager> setupScreenLauncher;
     private final Consumer<GameManager> gameScreenLauncher;
@@ -29,6 +34,9 @@ public class GameManager {
         this.roundCount = 5;
         this.currentRound = 1;
         this.inventory = new Inventory();
+        this.money = 0.0;
+        this.moneyGained = 0.0;
+        this.carts = new ArrayList<>();
 
         this.setGameDifficulty(GameDifficulty.EASY);
 
@@ -73,6 +81,7 @@ public class GameManager {
     public void setGameDifficulty(GameDifficulty gameDifficulty) {
         this.gameDifficulty = gameDifficulty;
         this.money = gameDifficulty.startingMoney;
+        this.moneyGained = gameDifficulty.startingMoney;
     }
 
     /**
@@ -88,8 +97,9 @@ public class GameManager {
         return this.inventory;
     }
 
-    public void addMoney(Integer money) {
+    public void addMoney(Double money) {
         this.money += money;
+        this.moneyGained += money;
     }
 
     public void removeMoney(Integer money) {
@@ -110,6 +120,53 @@ public class GameManager {
      */
     public Double getTrackDistance() {
         return this.trackDistance;
+    }
+
+    /**
+     * Adds a cart
+     * @param cart cart object to add
+     */
+    public void addCart(Cart cart) {
+        this.carts.add(cart);
+    }
+
+    /**
+     * Gets current carts
+     * @return list of carts
+     */
+    public ArrayList<Cart> getCats() {
+        return this.carts;
+    }
+
+    /**
+     * Starts the current round.
+     */
+    public void startRound() {
+        // Adds a cart to the game on odd rounds.
+        if(this.getCurrentRound() % 2 != 0) {
+            // Gets random resource type
+            Random random = new Random();
+            Resource[] resources = Resource.values();
+            int resourceIndex = random.nextInt(resources.length);
+
+            // Gets size of cart e.g. round 3: 130 (100 * 1.3)
+            Double sizeMultiplier = (this.getRoundCount() / 10) + 1.0;
+            Integer size = (int) (100 * sizeMultiplier);
+
+            // Gets speed of cart
+            Integer speed = 5 * this.getCurrentRound();
+
+            Cart cart = new Cart(size, speed, resources[resourceIndex]);
+
+            this.addCart(cart);
+        }
+    }
+
+    /**
+     * Ends the current round.
+     */
+    public void endRound() {
+        this.currentRound += 1;
     }
 
     public void launchSetupScreen() {

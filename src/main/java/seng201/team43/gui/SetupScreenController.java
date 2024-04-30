@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Controller for the setup_screen.fxml window
- * @author Riley Jeffcote and Luke Hallet
+ * @author Riley Jeffcote, Luke Hallett
  */
 public class SetupScreenController {
     private final SetupService setupService;

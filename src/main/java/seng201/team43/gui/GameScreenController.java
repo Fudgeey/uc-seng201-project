@@ -23,13 +23,13 @@ public class GameScreenController {
     private final GameService gameService;
 
     @FXML
-    private GridPane mainGridPane;
-
-    @FXML
     private Button inventoryButton;
 
     @FXML
     private Button pauseButton;
+
+    @FXML
+    private Button startButton;
 
     @FXML
     private Label statsLabel;
@@ -70,20 +70,16 @@ public class GameScreenController {
         List<Pane> towerPanes = List.of(towerPaneOne, towerPaneTwo, towerPaneThree, towerPaneFour, towerPaneFive);
         List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
 
-        Image image = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/backgrounds/game_screen.png")));
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        mainGridPane.setBackground(new Background(backgroundImage));
-
-        inventoryButton.setOnAction(event -> {
-            gameManager.openInventoryScreen();
-        });
-
-        pauseButton.setOnAction(event -> {
-            gameManager.openPauseScreen();
-        });
-
         this.gameService.displayTowers(towerPanes);
         this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
+
+        inventoryButton.setOnAction(event -> gameManager.openInventoryScreen());
+        pauseButton.setOnAction(event -> gameManager.openPauseScreen());
+
+        startButton.setOnAction(event -> {
+            gameManager.startRound();
+            this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
+        });
 
         difficultyButtons.forEach(button -> {
             button.setOnAction(event -> {
@@ -94,9 +90,5 @@ public class GameScreenController {
                 }
             });
         });
-
     }
-
-
-
 }

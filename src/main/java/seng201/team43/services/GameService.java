@@ -10,9 +10,7 @@ import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.GameDifficulty;
-import seng201.team43.models.GameManager;
-import seng201.team43.models.Inventory;
-import seng201.team43.models.Tower;
+import seng201.team43.models.*;
 
 import java.util.List;
 
@@ -45,6 +43,21 @@ public class GameService {
         statsLabel.setText(String.format("Rounds Won: %s\nRounds Remaining: %s\nMoney: $%s\nTrack Distance: %sm", 0, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
 
         currentRoundLabel.setText(String.format("Round: %s", this.gameManager.getCurrentRound()));
+
+        int woodCartCount = 0;
+        int foodCartCount = 0;
+        int waterCartCount = 0;
+
+        for(Cart cart : this.gameManager.getCats()) {
+            switch (cart.getType().label) {
+                case "Water" -> waterCartCount += 1;
+                case "Wood" -> woodCartCount += 1;
+                case "Food" -> foodCartCount += 1;
+                default -> {}
+            };
+        }
+
+        cartCountLabel.setText(String.format("Wood: %s\nFood: %s\nWater: %s", woodCartCount, foodCartCount, waterCartCount));
     }
 
     public void setDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
