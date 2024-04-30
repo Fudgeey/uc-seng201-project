@@ -72,6 +72,8 @@ public class GameService {
             throw new GameError("Invalid difficulty selected.");
         }
 
+        this.gameManager.setRoundDifficulty(roundDifficulty);
+
         difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
 
         ButtonHelper.setBackground(button, roundDifficulty.colour);

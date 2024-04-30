@@ -29,6 +29,7 @@ public class GameManager {
     private final Consumer<GameManager> pauseScreenLauncher;
     private final Consumer<GameManager> shopScreenLauncher;
     private final Runnable clearScreen;
+    private RoundDifficulty roundDifficulty;
 
     public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Runnable clearScreen) {
         this.roundCount = 5;
@@ -89,6 +90,10 @@ public class GameManager {
      * @return game difficulty
      */
     public GameDifficulty getGameDifficulty() {return this.gameDifficulty;}
+    public void setRoundDifficulty(RoundDifficulty roundDifficulty) {
+        this.roundDifficulty = roundDifficulty;
+        this.trackDistance = roundDifficulty.trackDistance;
+    }
     /**
      * Gets the inventory
      * @return inventory
