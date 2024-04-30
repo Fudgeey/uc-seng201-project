@@ -21,7 +21,7 @@ public class GameManager {
     private Double trackDistance;
     private Double moneyGained;
     private Double expGained;
-    private ArrayList<Cart> carts;
+    private final ArrayList<Cart> carts;
     private RoundDifficulty roundDifficulty;
 
     private final Consumer<GameManager> setupScreenLauncher;
@@ -168,7 +168,7 @@ public class GameManager {
             int resourceIndex = random.nextInt(resources.length);
 
             // Gets size of cart e.g. round 3: 130 (100 * 1.3)
-            Double sizeMultiplier = (this.getRoundCount() / 10) + 1.0;
+            double sizeMultiplier = ((double) this.getRoundCount() / 10) + 1.0;
             Integer size = (int) (100 * sizeMultiplier);
 
             // Gets speed of cart
