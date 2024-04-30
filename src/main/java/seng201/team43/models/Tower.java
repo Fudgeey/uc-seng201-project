@@ -25,10 +25,18 @@ public class Tower {
         return this.resourceType;
     }
 
+    /**
+     * Sets the resource type of the Tower.
+     * @param resourceType the resource type of the tower
+     */
     public void setResourceType(Resource resourceType) {
         this.resourceType = resourceType;
     }
 
+    /**
+     * Gets the name of the tower.
+     * @return the name of the tower
+     */
     public String getName() {
         return this.name;
     }
