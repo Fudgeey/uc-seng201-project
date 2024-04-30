@@ -157,9 +157,9 @@ public class GameManager {
     }
 
     /**
-     * Starts the current round.
+     * Prepares the current round.
      */
-    public void startRound() {
+    public void prepareRound() {
         // Adds a cart to the game on odd rounds.
         if(this.getCurrentRound() % 2 != 0) {
             // Gets random resource type
@@ -178,6 +178,13 @@ public class GameManager {
 
             this.addCart(cart);
         }
+    }
+
+    /**
+     * Starts the current round.
+     */
+    public void startRound() {
+
     }
 
     /**

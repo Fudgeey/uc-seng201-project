@@ -107,7 +107,9 @@ public class SetupService {
             throw new GameError("At least one starting tower is required.");
         }
 
+        this.gameManager.prepareRound();
         this.gameManager.closeSetupScreen();
+
     }
 
     /**

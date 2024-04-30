@@ -76,10 +76,10 @@ public class GameScreenController {
         inventoryButton.setOnAction(event -> gameManager.openInventoryScreen());
         pauseButton.setOnAction(event -> gameManager.openPauseScreen());
 
-        startButton.setOnAction(event -> {
-            gameManager.startRound();
-            this.updateStats();
-        });
+//        startButton.setOnAction(event -> {
+//            gameManager.startRound();
+//            this.updateStats();
+//        });
 
         difficultyButtons.forEach(button -> {
             button.setOnAction(event -> {

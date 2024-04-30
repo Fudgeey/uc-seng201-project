@@ -1,14 +1,20 @@
 package seng201.team43.services;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import seng201.team43.gui.factories.TowerCellFactory;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Tower;
+import seng201.team43.models.Upgrade;
+
+import java.util.List;
 
 /**
  * Inventory service to deal with logic for inventory
@@ -52,5 +58,13 @@ public class InventoryService {
             mainGridPane.getChildren().add(reloadSpeedLabel);
             mainGridPane.getChildren().add(reserveButton);
         }
+    }
+
+    public void updateViews(ListView<Tower> activeTowersListView, ListView<Tower> reserveTowersListView, ListView<Upgrade> upgradesListView) {
+        activeTowersListView.setCellFactory(new TowerCellFactory());
+        activeTowersListView.setItems(FXCollections.observableArrayList(gameManager.getInventory().getActiveTowers()));
+
+//        reserveTowersListView.setCellFactory(new TowerCellFactory());
+//        reserveTowersListView.setItems(FXCollections.observableArrayList(gameManager.getInventory().getActiveTowers()));
     }
 }
