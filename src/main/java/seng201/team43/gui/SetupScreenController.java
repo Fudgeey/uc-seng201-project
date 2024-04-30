@@ -73,9 +73,9 @@ public class SetupScreenController {
             this.setupService.setName(nameField.getText());
         });
 
-        roundCountSlider.setOnDragDone(event -> {
+        roundCountSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                this.setupService.setRoundCount((int) roundCountSlider.getValue());
+                this.setupService.setRoundCount(newValue.intValue());
             } catch (GameError e) {
                 e.displayError();
             }
