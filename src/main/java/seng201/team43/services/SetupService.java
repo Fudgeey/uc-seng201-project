@@ -12,6 +12,8 @@ import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SetupService {
     private final GameManager gameManager;
@@ -98,6 +100,13 @@ public class SetupService {
     public void startGame() throws GameError {
         if(this.gameManager.getName() == null) {
             throw new GameError("A name is required.");
+        }
+
+        Pattern specialCharacterPattern = Pattern.compile("[^a-zA-Z ]");
+        Matcher specialCharacterMatcher = specialCharacterPattern.matcher(this.gameManager.getName());
+
+        if(specialCharacterMatcher.find()) {
+            throw new GameError("Your name contains special characters");
         }
 
         for(Tower tower : this.startingTowers) {
