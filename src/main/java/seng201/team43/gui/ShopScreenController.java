@@ -5,7 +5,11 @@ import javafx.scene.control.Button;
 import seng201.team43.models.GameManager;
 import seng201.team43.services.InventoryService;
 import seng201.team43.services.ShopService;
-
+/**
+ * Controller for the shop_screen.fxml window
+ *
+ * @author Riley Jeffcote
+ */
 public class ShopScreenController {
     private final GameManager gameManager;
     private final ShopService shopService;
