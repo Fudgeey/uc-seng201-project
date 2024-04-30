@@ -2,6 +2,7 @@
 'https://plantuml.com/use-case-diagram
 
 actor "Player" as A1
+actor "Time" as A2
 
 rectangle "Tower Dynasty" {
     usecase "Setup game" as UC1
@@ -14,4 +15,6 @@ A1 --> UC1
 A1 --> UC2
 A1 --> UC3
 A1 --> UC4
+
+A2 --> UC2
 @enduml
