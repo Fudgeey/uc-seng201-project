@@ -127,6 +127,7 @@ public class GameManager {
         clearScreen.run();
         launchGameScreen();
     }
+
     public void closeInventoryScreen() {
         clearScreen.run();
         launchGameScreen();

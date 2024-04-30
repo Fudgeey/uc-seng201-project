@@ -7,7 +7,12 @@ package seng201.team43.models;
 public class Cart {
     private Integer size;
     private Integer speed;
-    private String type;
+    private Resource type;
+    public Cart(Integer size, Integer speed, Resource type) {
+        this.size = size;
+        this.speed = speed;
+        this.type = type;
+    }
 
     /**
      * Gets size of cart
@@ -25,5 +30,5 @@ public class Cart {
      * Gets the type of the cart
      * @return cart type
      */
-    public String getType() {return this.type; }
+    public Resource getType() {return this.type; }
 }
