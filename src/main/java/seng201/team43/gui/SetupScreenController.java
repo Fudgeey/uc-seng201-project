@@ -2,17 +2,11 @@ package seng201.team43.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import seng201.team43.exceptions.GameError;
-import seng201.team43.helpers.ButtonHelper;
-import seng201.team43.models.Difficulty;
 import seng201.team43.models.GameManager;
-import seng201.team43.models.Resource;
-import seng201.team43.models.Tower;
 import seng201.team43.services.SetupService;
 
 import java.util.List;

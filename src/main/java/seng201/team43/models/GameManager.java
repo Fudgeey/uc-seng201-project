@@ -7,15 +7,16 @@ import java.util.function.Consumer;
 /**
  * Controller for the game_screen.fxml window
  *
- * @author Luke Hallet and Riley Jeffcote
+ * @author Luke Hallett, Riley Jeffcote
  */
 public class GameManager {
     private String playerName;
     private Integer roundCount;
     private Integer currentRound;
-    private Difficulty difficulty;
+    private GameDifficulty gameDifficulty;
     private final Inventory inventory;
-    private Integer money;
+    private Double money;
+    private Double trackDistance;
 
     private final Consumer<GameManager> setupScreenLauncher;
     private final Consumer<GameManager> gameScreenLauncher;
@@ -27,8 +28,9 @@ public class GameManager {
     public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Runnable clearScreen) {
         this.roundCount = 5;
         this.currentRound = 1;
-        this.difficulty = Difficulty.EASY;
         this.inventory = new Inventory();
+
+        this.setGameDifficulty(GameDifficulty.EASY);
 
         this.setupScreenLauncher = setupScreenLauncher;
         this.gameScreenLauncher = gameScreenLauncher;
@@ -56,11 +58,24 @@ public class GameManager {
         this.roundCount = setRounds;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
+    /**
+     * Gets the total amount of rounds.
+     * @return total amount of rounds
+     */
+    public Integer getRoundCount() {
+        return this.roundCount;
     }
 
-    public Difficulty getDifficulty() {return this.difficulty; }
+    /**
+     * Sets the game difficulty.
+     * @param gameDifficulty game difficulty
+     */
+    public void setGameDifficulty(GameDifficulty gameDifficulty) {
+        this.gameDifficulty = gameDifficulty;
+        this.money = gameDifficulty.startingMoney;
+    }
+
+    public GameDifficulty getGameDifficulty() {return this.gameDifficulty; }
 
     public Inventory getInventory() {
         return this.inventory;
@@ -74,16 +89,20 @@ public class GameManager {
         this.money -= money;
     }
 
-    public void setMoney(Integer money) {
-        this.money = money;
-    }
-
-    public Integer getMoney() {
+    public Double getMoney() {
         return this.money;
     }
 
     public Integer getCurrentRound() {
         return this.currentRound;
+    }
+
+    /**
+     * Returns the current track distance.
+     * @return track distance
+     */
+    public Double getTrackDistance() {
+        return this.trackDistance;
     }
 
     public void launchSetupScreen() {
@@ -131,12 +150,5 @@ public class GameManager {
     public void closeShopScreen() {
         clearScreen.run();
         launchInventoryScreen();
-    }
-
-    /**
-     * startRound() will start and run the current round
-     */
-    public void startRound() {
-
     }
 }

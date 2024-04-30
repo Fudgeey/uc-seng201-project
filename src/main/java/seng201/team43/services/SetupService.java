@@ -1,22 +1,17 @@
 package seng201.team43.services;
 
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
 import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.ButtonHelper;
-import seng201.team43.models.Difficulty;
+import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
 
 import java.util.List;
-import java.util.concurrent.Flow;
 
 public class SetupService {
     private final GameManager gameManager;
@@ -35,21 +30,21 @@ public class SetupService {
     }
 
     public void setDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
-        Difficulty difficulty = switch(button.getText()) {
-            case "Easy" -> Difficulty.EASY;
-            case "Medium" -> Difficulty.MEDIUM;
-            case "Hard" -> Difficulty.HARD;
+        GameDifficulty gameDifficulty = switch(button.getText()) {
+            case "Easy" -> GameDifficulty.EASY;
+            case "Medium" -> GameDifficulty.MEDIUM;
+            case "Hard" -> GameDifficulty.HARD;
             default -> null;
         };
 
-        if(difficulty == null) {
+        if(gameDifficulty == null) {
             throw new GameError("Invalid difficulty selected.");
         }
 
         difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
 
-        this.gameManager.setDifficulty(difficulty);
-        ButtonHelper.setBackground(button, difficulty.colour);
+        this.gameManager.setGameDifficulty(gameDifficulty);
+        ButtonHelper.setBackground(button, gameDifficulty.colour);
     }
 
     public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
@@ -115,7 +110,6 @@ public class SetupService {
             throw new GameError("At least one starting tower is required.");
         }
 
-        this.gameManager.setMoney((int) (100 * this.gameManager.getDifficulty().multiplier));
         this.gameManager.closeSetupScreen();
     }
 

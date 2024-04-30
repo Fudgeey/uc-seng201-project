@@ -16,8 +16,8 @@ public class Tower {
     public Tower(Resource resourceType, String name) {
         this.resourceType = resourceType;
         this.name = name;
-        this.reloadSpeed = 2;
-        this.productionUnits = 10;
+        this.reloadSpeed = 5;
+        this.productionUnits = 50;
         this.upgrades = new ArrayList<>();
     }
 

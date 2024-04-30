@@ -3,6 +3,7 @@ package seng201.team43.services;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import seng201.team43.components.TowerCard;
 import seng201.team43.models.GameManager;
@@ -33,9 +34,21 @@ public class GameService {
     }
 
     public void updateStats(Label statsLabel, Label currentRoundLabel, Label cartCountLabel) {
+        Integer remainingRounds = this.gameManager.getRoundCount() - this.gameManager.getCurrentRound() + 1;
+
         statsLabel.setTextAlignment(TextAlignment.CENTER);
-        statsLabel.setText(String.format("Rounds Won: %s\nMoney: $%s", 0, this.gameManager.getMoney()));
+        statsLabel.setFont(new Font(20));
+        statsLabel.setText(String.format("Rounds Won: %s\nRounds Remaining: %s\nMoney: $%s\nTrack Distance: %sm", 0, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
 
         currentRoundLabel.setText(String.format("Round: %s", this.gameManager.getCurrentRound()));
+    }
+
+    /**
+     * Will start and run the current round.
+     * @author Riley Jeffcote, Luke Hallett
+     */
+    public void startRound() {
+        // Add between 1 and 3 carts per round - each of a random type
+        //
     }
 }
