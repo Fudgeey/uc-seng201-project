@@ -24,7 +24,7 @@ public class FXWrapper {
      * Initialise the window with the given stage,
      * and create the GameManger instance.
      *
-     * @param stage
+     * @param stage stage
      *
      * @author seng201 teaching team, Luke Hallett
      */
@@ -38,7 +38,7 @@ public class FXWrapper {
      * Launches the setup screen and defines basic properties,
      * e.g. title, fullscreen
      *
-     * @param gameManager
+     * @param gameManager current game manager instance
      *
      * @author seng201 teaching team, Luke Hallett
      */

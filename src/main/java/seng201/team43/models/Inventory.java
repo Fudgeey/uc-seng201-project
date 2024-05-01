@@ -4,22 +4,52 @@ import java.util.ArrayList;
 
 public class Inventory {
     private final ArrayList<Tower> activeTowers;
-    private ArrayList<Tower> reservedTowers;
-    private ArrayList<Upgrade> upgrades;
+    private final ArrayList<Tower> reserveTowers;
+    private final ArrayList<Upgrade> upgrades;
 
     public Inventory() {
-        activeTowers = new ArrayList<>();
+        this.activeTowers = new ArrayList<>();
+        this.reserveTowers = new ArrayList<>();
+        this.upgrades = new ArrayList<>();
     }
 
     public ArrayList<Tower> getActiveTowers() {
-        return activeTowers;
+        return this.activeTowers;
     }
 
     public void addActiveTower(Tower tower) {
-        activeTowers.add(tower);
+        this.activeTowers.add(tower);
+    }
+
+    public void removeActiveTower(Tower tower) {
+        this.activeTowers.remove(tower);
     }
 
     public Integer getActiveTowerCount() {
-        return activeTowers.size();
+        return this.activeTowers.size();
+    }
+
+    public ArrayList<Tower> getReserveTowers() {
+        return this.reserveTowers;
+    }
+
+    public void addReserveTower(Tower tower) {
+        this.reserveTowers.add(tower);
+    }
+
+    public Integer getReserveTowerCount() {
+        return this.reserveTowers.size();
+    }
+
+    public void removeReserveTower(Tower tower) {
+        this.reserveTowers.remove(tower);
+    }
+
+    /**
+     * Returns all unused upgrades the player has
+     * @return all upgrades
+     */
+    public ArrayList<Upgrade> getUpgrades() {
+        return this.upgrades;
     }
 }

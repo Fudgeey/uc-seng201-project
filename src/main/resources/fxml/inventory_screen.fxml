@@ -10,17 +10,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21.0.1" fx:controller="seng201.team43.gui.InventoryScreenController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #3e3e3e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.InventoryScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="526.0" minHeight="10.0" prefHeight="198.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="180.0" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="882.0" minHeight="10.0" prefHeight="882.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Pane opacity="0.49" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Grey;" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.halignment="CENTER">
+      <Pane opacity="0.5" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Grey;" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.halignment="CENTER">
          <font>
             <Font name="System Bold" size="80.0" />
          </font>
@@ -53,24 +53,24 @@
             <RowConstraints maxHeight="805.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Active Towers" GridPane.halignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Active Towers" GridPane.halignment="CENTER">
                <font>
                   <Font size="35.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reserve Towers" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserve Towers" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <font>
                   <Font size="35.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Upgrades" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Upgrades" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <font>
                   <Font size="35.0" />
                </font>
             </Text>
-            <ListView fx:id="activeTowersListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <ListView fx:id="reserveTowersListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ListView fx:id="upgradesListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ListView fx:id="activeTowersListView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3e3e3e;" GridPane.rowIndex="1" />
+            <ListView fx:id="reserveTowersListView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3e3e3e;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ListView fx:id="upgradesListView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3e3e3e;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button fx:id="moveTowerButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="242.0" text=" Move Tower" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="25.0" />

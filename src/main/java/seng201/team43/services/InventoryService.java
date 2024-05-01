@@ -1,70 +1,63 @@
 package seng201.team43.services;
 
 import javafx.collections.FXCollections;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
+import javafx.collections.ListChangeListener;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import seng201.team43.gui.factories.TowerCellFactory;
+import seng201.team43.gui.factories.UpgradeCellFactory;
 import seng201.team43.models.GameManager;
+import seng201.team43.models.Inventory;
 import seng201.team43.models.Tower;
 import seng201.team43.models.Upgrade;
 
-import java.util.List;
-
 /**
- * Inventory service to deal with logic for inventory
+ * Inventory service to deal with logic for inventory.
  *
- * @author Luke Hallett and Riley Jeffcote
+ * @author Luke Hallett, Riley Jeffcote
  */
 public class InventoryService {
     private final GameManager gameManager;
+    private Tower selectedTower;
+    private final Button moveTowerButton;
 
-    public InventoryService(GameManager gameManager) {
+    public InventoryService(GameManager gameManager, Button moveTowerButton) {
         this.gameManager = gameManager;
-    }
-
-    public void updateTowers(GridPane mainGridPane) {
-        for(int i = 0; i < this.gameManager.getInventory().getActiveTowers().size(); i++) {
-            Tower currentTower = this.gameManager.getInventory().getActiveTowers().get(i);
-            Integer currentRow = i + 2;
-
-//            mainGridPane.setStyle("-fx-border-style: solid none none none; -fx-border-width: 2; -fx-border-color: black;");
-
-            Label towerNameLabel = new Label(String.format("Name: %s\nType: %s", currentTower.getName(), currentTower.getResourceType().label));
-            towerNameLabel.setFont(Font.font(25));
-            towerNameLabel.setTextAlignment(TextAlignment.CENTER);
-            GridPane.setColumnIndex(towerNameLabel, 0);
-            GridPane.setRowIndex(towerNameLabel, currentRow);
-            GridPane.setHalignment(towerNameLabel, HPos.CENTER);
-
-            Label reloadSpeedLabel = new Label(String.format("Reload Speed: %s seconds\nProduction Units: %s units", currentTower.getReloadSpeed(), currentTower.getProductionUnits()));
-            GridPane.setColumnIndex(reloadSpeedLabel, 3);
-            GridPane.setRowIndex(reloadSpeedLabel, currentRow);
-            GridPane.setHalignment(reloadSpeedLabel, HPos.CENTER);
-
-            Button reserveButton = new Button("Move");
-            reserveButton.setFont(Font.font(20));
-            GridPane.setColumnIndex(reserveButton, 4);
-            GridPane.setRowIndex(reserveButton, currentRow);
-            GridPane.setHalignment(reserveButton, HPos.CENTER);
-            GridPane.setValignment(reserveButton, VPos.CENTER);
-
-            mainGridPane.getChildren().add(towerNameLabel);
-            mainGridPane.getChildren().add(reloadSpeedLabel);
-            mainGridPane.getChildren().add(reserveButton);
-        }
+        this.moveTowerButton = moveTowerButton;
     }
 
     public void updateViews(ListView<Tower> activeTowersListView, ListView<Tower> reserveTowersListView, ListView<Upgrade> upgradesListView) {
         activeTowersListView.setCellFactory(new TowerCellFactory());
-        activeTowersListView.setItems(FXCollections.observableArrayList(gameManager.getInventory().getActiveTowers()));
+        activeTowersListView.setItems(FXCollections.observableArrayList(this.gameManager.getInventory().getActiveTowers()));
 
-//        reserveTowersListView.setCellFactory(new TowerCellFactory());
-//        reserveTowersListView.setItems(FXCollections.observableArrayList(gameManager.getInventory().getActiveTowers()));
+        reserveTowersListView.setCellFactory(new TowerCellFactory());
+        reserveTowersListView.setItems(FXCollections.observableArrayList(this.gameManager.getInventory().getReserveTowers()));
+
+        upgradesListView.setCellFactory(new UpgradeCellFactory());
+        upgradesListView.setItems(FXCollections.observableArrayList(this.gameManager.getInventory().getUpgrades()));
+
+        activeTowersListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
+            this.moveTowerButton.setVisible(true);
+            this.selectedTower = activeTowersListView.getSelectionModel().getSelectedItem();
+        });
+
+        reserveTowersListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
+            this.moveTowerButton.setVisible(true);
+            this.selectedTower = reserveTowersListView.getSelectionModel().getSelectedItem();
+        });
+    }
+
+    public void moveTower() {
+        Inventory inventory = this.gameManager.getInventory();
+
+        if(inventory.getActiveTowers().contains(this.selectedTower)) {
+            inventory.removeActiveTower(this.selectedTower);
+            inventory.addReserveTower(this.selectedTower);
+        } else {
+            inventory.removeReserveTower(this.selectedTower);
+            inventory.addActiveTower(this.selectedTower);
+        }
+
+        this.moveTowerButton.setVisible(false);
     }
 }
