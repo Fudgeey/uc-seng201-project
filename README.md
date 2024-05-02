@@ -12,6 +12,8 @@ This can be done by renaming any instance of `team43` with `team<x>` (where x is
 IntelliJ can help with this using `ctrl+shift+f` to find all instances of a string, and `ctrl+shift+r` to replace them, though make sure to change the package names as well.
 
 ## Authors
+- Luke Hallett
+- Riley JeffCote
 - SENG201 Teaching team
 
 ## Prerequisites
@@ -56,3 +58,6 @@ IntelliJ has built-in support for Gradle. To import your project:
 2. Test results should be printed to the command line
 
 **Note:** *This Jar is **NOT** cross-platform, so you **must** build the jar you submit on Linux.* 
+
+## Copyright
+- All game assets used under CC0 license.

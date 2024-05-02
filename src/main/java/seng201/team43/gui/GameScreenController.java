@@ -5,9 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
+import seng201.team43.models.Inventory;
+import seng201.team43.models.Tower;
 import seng201.team43.services.GameService;
 
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.Objects;
 /**
  * Controller for the game_screen.fxml window
  *
- * @author Luke Hallett and Riley Jeffcote
+ * @author Luke Hallett, Riley Jeffcote
  */
 public class GameScreenController {
     private final GameManager gameManager;
@@ -54,10 +57,13 @@ public class GameScreenController {
 
     @FXML
     private Pane towerPaneFive;
+
     @FXML
     private Button easyDifficultyButton;
+
     @FXML
     private Button mediumDifficultyButton;
+
     @FXML
     private Button hardDifficultyButton;
 
@@ -67,10 +73,9 @@ public class GameScreenController {
     }
 
     public void initialize() {
-        List<Pane> towerPanes = List.of(towerPaneOne, towerPaneTwo, towerPaneThree, towerPaneFour, towerPaneFive);
         List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
 
-        this.gameService.displayTowers(towerPanes);
+        this.displayTowers();
         this.updateStats();
 
         inventoryButton.setOnAction(event -> gameManager.openInventoryScreen());
@@ -96,5 +101,20 @@ public class GameScreenController {
 
     private void updateStats() {
         this.gameService.updateStats(statsLabel, currentRoundLabel, cartCountLabel);
+    }
+
+    private void displayTowers() {
+        List<Pane> towerPanes = List.of(towerPaneOne, towerPaneTwo, towerPaneThree, towerPaneFour, towerPaneFive);
+        Inventory inventory = gameManager.getInventory();
+
+        for(int i = 0; i < inventory.getActiveTowers().size(); i++) {
+            Tower tower = inventory.getActiveTowers().get(i);
+            Pane towerPane = towerPanes.get(i);
+
+            TowerCard towerCard = new TowerCard(tower);
+            FlowPane towerFlowPane = towerCard.buildGame();
+
+            towerPane.getChildren().add(towerFlowPane);
+        }
     }
 }

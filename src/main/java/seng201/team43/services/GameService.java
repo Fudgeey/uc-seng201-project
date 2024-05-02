@@ -9,7 +9,6 @@ import javafx.scene.text.TextAlignment;
 import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.ButtonHelper;
-import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.*;
 
 import java.util.List;
@@ -19,20 +18,6 @@ public class GameService {
 
     public GameService(GameManager gameManager) {
         this.gameManager = gameManager;
-    }
-
-    public void displayTowers(List<Pane> towerPanes) {
-        Inventory inventory = gameManager.getInventory();
-
-        for(int i = 0; i < inventory.getActiveTowers().size(); i++) {
-            Tower tower = inventory.getActiveTowers().get(i);
-            Pane towerPane = towerPanes.get(i);
-
-            TowerCard towerCard = new TowerCard(tower);
-            FlowPane towerFlowPane = towerCard.buildGame();
-
-            towerPane.getChildren().add(towerFlowPane);
-        }
     }
 
     public void updateStats(Label statsLabel, Label currentRoundLabel, Label cartCountLabel) {
