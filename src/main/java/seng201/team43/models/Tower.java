@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *
  * @author Riley Jeffcote, Luke Hallett
  */
-public class Tower {
+public class Tower implements Purchasable {
     private Resource resourceType;
     private String name;
     private Integer reloadSpeed;
@@ -76,5 +76,18 @@ public class Tower {
      */
     public void increaseProductionUnits(Integer productionUnits) {
         this.productionUnits += productionUnits;
+    }
+
+    public void decreaseReloadSpeed(Integer reloadSpeed) {
+        this.reloadSpeed -= reloadSpeed;
+    }
+
+    public void changeResourceType(Resource resource) {
+        this.resourceType = resource;
+    }
+
+    @Override
+    public int getCost() {
+        return 100;
     }
 }

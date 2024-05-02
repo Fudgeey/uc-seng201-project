@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #3e3e3e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.InventoryScreenController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #3e3e3e;" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.InventoryScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -68,7 +68,7 @@
                   <Font size="35.0" />
                </font>
             </Text>
-            <ListView fx:id="activeTowersListView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3e3e3e;" GridPane.rowIndex="1" />
+            <ListView fx:id="activeTowersListView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.rowIndex="1" />
             <ListView fx:id="reserveTowersListView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3e3e3e;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ListView fx:id="upgradesListView" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3e3e3e;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button fx:id="moveTowerButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="242.0" text=" Move Tower" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2">

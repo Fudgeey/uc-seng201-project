@@ -53,14 +53,14 @@ public class UpgradeCellFactory implements Callback<ListView<Upgrade>, ListCell<
                     flowPane.setOrientation(Orientation.VERTICAL);
                     flowPane.setColumnHalignment(HPos.CENTER);
 
-                    Label nameLabel = new Label("Upgrade Name");
+                    Label nameLabel = new Label(upgrade.getName());
                     nameLabel.setFont(new Font(30));
 
 //                    ImageView resourceImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(String.format("/images/towers/%s.png", tower.getResourceType().label.toLowerCase())))));
 //                    resourceImage.setFitWidth(140);
 //                    resourceImage.setPreserveRatio(true);
 
-                    Label statsLabel = new Label("Upgrade Description");
+                    Label statsLabel = new Label(upgrade.getDescription());
                     statsLabel.setFont(new Font(15));
 
                     GridPane.setConstraints(statsLabel, 1, 0);
