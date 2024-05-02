@@ -22,10 +22,10 @@ public class ShopScreenController {
         this.gameManager = gameManager;
         this.shopService = new ShopService(this.gameManager);
     }
+
     public void initialize() {
         backButton.setOnAction(event -> {
             gameManager.closeShopScreen();
         });
-
     }
 }

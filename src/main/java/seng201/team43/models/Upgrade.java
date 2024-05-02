@@ -11,6 +11,8 @@ public abstract class Upgrade {
         this.cost = cost;
     }
 
+    public abstract void apply(Tower tower);
+
     public int getCost() {
         return this.cost;
     }

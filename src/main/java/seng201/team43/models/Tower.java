@@ -55,10 +55,26 @@ public class Tower {
     }
 
     /**
-     * Calculates tower level from towerEp
+     * Calculates tower level from towerExp
      * @return tower level
      */
     public Integer getTowerLevel() {
         return ((this.towerExp - this.towerExp%10)/10);
+    }
+
+    /**
+     * Apply an upgrade to the tower.
+     * @param upgrade upgrade to apply
+     */
+    public void applyUpgrade(Upgrade upgrade) {
+        upgrade.apply(this);
+    }
+
+    /**
+     * Increases tower's production units
+     * @param productionUnits number of production units
+     */
+    public void increaseProductionUnits(Integer productionUnits) {
+        this.productionUnits += productionUnits;
     }
 }
