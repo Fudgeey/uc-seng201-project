@@ -52,4 +52,12 @@ public class Inventory {
     public ArrayList<Upgrade> getUpgrades() {
         return this.upgrades;
     }
+
+    /**
+     * Adds an upgrade to the player's inventory
+     * @param upgrade upgrade to add
+     */
+    public void addUpgrade(Upgrade upgrade) {
+        this.upgrades.add(upgrade);
+    }
 }

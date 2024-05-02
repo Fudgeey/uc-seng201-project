@@ -3,6 +3,7 @@ package seng201.team43.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seng201.team43.models.GameManager;
@@ -12,7 +13,7 @@ import java.io.IOException;
 /**
  * Class that manages the different JavaFX scenes
  *
- * @author seng201 teaching team, Luke Hallett
+ * @author seng201 teaching team, Luke Hallett, Riley Jeffcote
  */
 public class FXWrapper {
     @FXML
@@ -25,8 +26,6 @@ public class FXWrapper {
      * and create the GameManger instance.
      *
      * @param stage stage
-     *
-     * @author seng201 teaching team, Luke Hallett
      */
     public void init(Stage stage) {
         this.stage = stage;
@@ -39,8 +38,6 @@ public class FXWrapper {
      * e.g. title, fullscreen
      *
      * @param gameManager current game manager instance
-     *
-     * @author seng201 teaching team, Luke Hallett
      */
     public void launchSetupScreen(GameManager gameManager) {
         try {
@@ -50,9 +47,10 @@ public class FXWrapper {
             pane.getChildren().add(setupParent);
             stage.setTitle("Tower Dynasty");
 
-            /* Sets game to be fullscreen and disables the hint */
+            /* Sets game to be fullscreen, disables the hint, disables hot key to exit */
             stage.setFullScreenExitHint("");
             stage.setFullScreen(true);
+//            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,8 +100,6 @@ public class FXWrapper {
 
     /**
      * Clears the current screen.
-     *
-     * @author Luke Hallett
      */
     public void clearPane() {
         pane.getChildren().removeAll(pane.getChildren());

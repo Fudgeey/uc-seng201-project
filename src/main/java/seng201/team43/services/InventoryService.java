@@ -50,6 +50,7 @@ public class InventoryService {
     public void moveTower() {
         Inventory inventory = this.gameManager.getInventory();
 
+        // Check if tower is in active or reserve towers.
         if(inventory.getActiveTowers().contains(this.selectedTower)) {
             inventory.removeActiveTower(this.selectedTower);
             inventory.addReserveTower(this.selectedTower);
