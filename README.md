@@ -60,4 +60,5 @@ IntelliJ has built-in support for Gradle. To import your project:
 **Note:** *This Jar is **NOT** cross-platform, so you **must** build the jar you submit on Linux.* 
 
 ## Copyright
-- All game assets used under CC0 license.
+- Tower icons used under license. [Link to assets](https://admurin.itch.io/mega-admurins-freebies).
+- Game background used under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) license. [Link to assets](https://kenney.nl/assets/tiny-dungeon).
