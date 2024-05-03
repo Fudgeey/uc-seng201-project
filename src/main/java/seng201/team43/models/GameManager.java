@@ -120,7 +120,11 @@ public class GameManager {
         this.moneyGained += money;
     }
 
-    public void removeMoney(Integer money) {
+    public void removeMoney(Integer money) throws GameError {
+        if(this.getMoney() - money < 0) {
+            throw new GameError("You do not have enough money to buy this.");
+        }
+
         this.money -= money;
     }
 

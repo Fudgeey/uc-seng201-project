@@ -1,5 +1,7 @@
 package seng201.team43.models;
 
+import seng201.team43.exceptions.GameError;
+
 import java.util.ArrayList;
 
 public class Inventory {
@@ -17,11 +19,19 @@ public class Inventory {
         return this.activeTowers;
     }
 
-    public void addActiveTower(Tower tower) {
+    public void addActiveTower(Tower tower) throws GameError {
+        if(this.getActiveTowerCount() == 5) {
+            throw new GameError("You cannot have more than five active towers.");
+        }
+
         this.activeTowers.add(tower);
     }
 
-    public void removeActiveTower(Tower tower) {
+    public void removeActiveTower(Tower tower) throws GameError {
+        if(this.getActiveTowerCount() == 1) {
+            throw new GameError("You cannot have less than one active tower.");
+        }
+
         this.activeTowers.remove(tower);
     }
 
@@ -33,7 +43,11 @@ public class Inventory {
         return this.reserveTowers;
     }
 
-    public void addReserveTower(Tower tower) {
+    public void addReserveTower(Tower tower) throws GameError {
+        if(this.getReserveTowerCount() == 5) {
+            throw new GameError("You cannot have more than five reserve towers.");
+        }
+
         this.reserveTowers.add(tower);
     }
 
@@ -45,19 +59,41 @@ public class Inventory {
         this.reserveTowers.remove(tower);
     }
 
-    /**
-     * Returns all unused upgrades the player has
-     * @return all upgrades
-     */
     public ArrayList<Upgrade> getUpgrades() {
         return this.upgrades;
     }
 
-    /**
-     * Adds an upgrade to the player's inventory
-     * @param upgrade upgrade to add
-     */
     public void addUpgrade(Upgrade upgrade) {
         this.upgrades.add(upgrade);
+    }
+
+    public void addItem(Purchasable item) {
+        try {
+            if(item.getClass() == Tower.class) {
+                this.addActiveTower((Tower) item);
+            } else {
+                this.addUpgrade((Upgrade) item);
+            }
+        } catch(GameError e) {
+            e.displayError();
+        }
+    }
+
+    /**
+     * Moves a tower between active and reserve lists.
+     * @param tower tower to move
+     */
+    public void moveTower(Tower tower) {
+        try {
+            if(this.getActiveTowers().contains(tower)) {
+                this.removeActiveTower(tower);
+                this.addReserveTower(tower);
+            } else {
+                this.removeReserveTower(tower);
+                this.addActiveTower(tower);
+            }
+        } catch(GameError e) {
+            e.displayError();
+        }
     }
 }
