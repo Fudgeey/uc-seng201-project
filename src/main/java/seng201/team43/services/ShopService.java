@@ -20,12 +20,12 @@ public class ShopService {
      * Removes money from player and adds item to inventory.
      * @param item tower or upgrade to add
      */
-    public void buyItem(Purchasable item) {
-        try {
-            this.gameManager.removeMoney(item.getCost());
-            this.gameManager.getInventory().addItem(item);
-        } catch(GameError e) {
-            e.displayError();
+    public void buyItem(Purchasable item) throws GameError {
+        if(item == null) {
+            throw new GameError("Invalid item was purchased.");
         }
+
+        this.gameManager.removeMoney(item.getCost());
+        this.gameManager.getInventory().addItem(item);
     }
 }

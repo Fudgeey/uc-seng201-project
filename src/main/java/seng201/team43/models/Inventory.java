@@ -1,11 +1,13 @@
 package seng201.team43.models;
 
+import javafx.scene.control.Button;
 import seng201.team43.exceptions.GameError;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
-    private final ArrayList<Tower> activeTowers;
+    private ArrayList<Tower> activeTowers;
     private final ArrayList<Tower> reserveTowers;
     private final ArrayList<Upgrade> upgrades;
 
@@ -17,6 +19,11 @@ public class Inventory {
 
     public ArrayList<Tower> getActiveTowers() {
         return this.activeTowers;
+    }
+
+    public void setActiveTowers(List<Tower> towers) {
+        this.activeTowers.clear();
+        this.activeTowers = new ArrayList<>(towers);
     }
 
     public void addActiveTower(Tower tower) throws GameError {
@@ -75,7 +82,7 @@ public class Inventory {
                 this.addUpgrade((Upgrade) item);
             }
         } catch(GameError e) {
-            e.displayError();
+            e.displayError(new Button());
         }
     }
 
@@ -83,17 +90,25 @@ public class Inventory {
      * Moves a tower between active and reserve lists.
      * @param tower tower to move
      */
-    public void moveTower(Tower tower) {
-        try {
-            if(this.getActiveTowers().contains(tower)) {
-                this.removeActiveTower(tower);
-                this.addReserveTower(tower);
-            } else {
-                this.removeReserveTower(tower);
-                this.addActiveTower(tower);
-            }
-        } catch(GameError e) {
-            e.displayError();
+    public void moveTower(Tower tower) throws GameError {
+        if(this.getActiveTowers().contains(tower)) {
+            this.removeActiveTower(tower);
+            this.addReserveTower(tower);
+        } else {
+            this.removeReserveTower(tower);
+            this.addActiveTower(tower);
         }
+
+//        try {
+//            if(this.getActiveTowers().contains(tower)) {
+//                this.removeActiveTower(tower);
+//                this.addReserveTower(tower);
+//            } else {
+//                this.removeReserveTower(tower);
+//                this.addActiveTower(tower);
+//            }
+//        } catch(GameError e) {
+//            e.displayError();
+//        }
     }
 }

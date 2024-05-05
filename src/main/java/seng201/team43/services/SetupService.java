@@ -1,16 +1,16 @@
 package seng201.team43.services;
 
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
-import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,22 +30,20 @@ public class SetupService {
         this.gameManager.setRoundCount(roundCount);
     }
 
-    public void setDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
-        GameDifficulty gameDifficulty = switch(button.getText()) {
+    public GameDifficulty setGameDifficulty(String difficultyText) throws GameError {
+        GameDifficulty gameDifficulty = switch(difficultyText) {
             case "Easy" -> GameDifficulty.EASY;
             case "Medium" -> GameDifficulty.MEDIUM;
             case "Hard" -> GameDifficulty.HARD;
             default -> null;
         };
 
-        if(gameDifficulty == null) {
+        if (gameDifficulty == null) {
             throw new GameError("Invalid difficulty selected.");
         }
 
-        difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
-
         this.gameManager.setGameDifficulty(gameDifficulty);
-        ButtonHelper.setBackground(button, gameDifficulty.colour);
+        return gameDifficulty;
     }
 
     public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
@@ -91,10 +89,11 @@ public class SetupService {
         Matcher specialCharacterMatcher = specialCharacterPattern.matcher(this.gameManager.getName());
 
         if(specialCharacterMatcher.find()) {
-            throw new GameError("Your name contains special characters");
+            throw new GameError("Your name must not contains special characters.");
         }
+
         if (gameManager.getName().length() > 15 || gameManager.getName().length() < 3) {
-            throw new GameError("Your name must be between 3-15 characters");
+            throw new GameError("Your name must be between 3-15 characters.");
         }
 
         for(Tower tower : this.startingTowers) {
@@ -103,13 +102,14 @@ public class SetupService {
             }
         }
 
+        this.gameManager.getInventory().setActiveTowers(Arrays.stream(startingTowers).filter((Objects::nonNull)).toList());
+
         if(this.gameManager.getInventory().getActiveTowers().isEmpty()) {
             throw new GameError("At least one starting tower is required.");
         }
 
         this.gameManager.prepareRound();
         this.gameManager.closeSetupScreen();
-
     }
 
     /**

@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import seng201.team43.exceptions.GameError;
+import seng201.team43.helpers.ButtonHelper;
+import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.services.SetupService;
 
@@ -71,16 +73,19 @@ public class SetupScreenController {
             try {
                 this.setupService.setRoundCount(newValue.intValue());
             } catch (GameError e) {
-                e.displayError();
+                e.displayError(roundCountSlider);
             }
         });
 
         difficultyButtons.forEach(button -> {
             button.setOnAction(event -> {
                 try {
-                    this.setupService.setDifficulty(button, difficultyButtons);
+                    GameDifficulty gameDifficulty = this.setupService.setGameDifficulty(button.getText());
+
+                    difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
+                    ButtonHelper.setBackground(button, gameDifficulty.colour);
                 } catch (GameError e) {
-                    e.displayError();
+                    e.displayError(button);
                 }
             });
         });
@@ -90,7 +95,7 @@ public class SetupScreenController {
                 try {
                     this.setupService.addStartingTower(button.getText(), startingTowerPanes);
                 } catch (GameError e) {
-                    e.displayError();
+                    e.displayError(button);
                 }
             });
         });
@@ -99,7 +104,7 @@ public class SetupScreenController {
             try {
                 this.setupService.startGame();
             } catch (GameError e) {
-                e.displayError();
+                e.displayError(startButton);
             }
         });
     }

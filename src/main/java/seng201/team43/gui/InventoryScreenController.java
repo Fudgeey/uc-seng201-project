@@ -5,6 +5,7 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import seng201.team43.exceptions.GameError;
 import seng201.team43.gui.factories.TowerCellFactory;
 import seng201.team43.gui.factories.UpgradeCellFactory;
 import seng201.team43.models.GameManager;
@@ -39,6 +40,12 @@ public class InventoryScreenController {
     @FXML
     private Button moveTowerButton;
 
+    @FXML
+    private Button sellButton;
+
+    @FXML
+    private Button assignUpgradeButton;
+
     public InventoryScreenController(GameManager gameManager) {
         this.gameManager = gameManager;
         this.inventoryService = new InventoryService(this.gameManager);
@@ -56,28 +63,36 @@ public class InventoryScreenController {
 
         activeTowersListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
             this.moveTowerButton.setVisible(true);
+            this.sellButton.setVisible(true);
+
             this.inventoryService.setSelectedTower(activeTowersListView.getSelectionModel().getSelectedItem());
         });
 
         reserveTowersListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
             this.moveTowerButton.setVisible(true);
+            this.sellButton.setVisible(true);
+
             this.inventoryService.setSelectedTower(reserveTowersListView.getSelectionModel().getSelectedItem());
         });
 
         moveTowerButton.setOnAction(event -> {
-            this.inventoryService.moveTower();
-            this.updateListViewItems();
+            try {
+                this.inventoryService.moveTower();
+                this.updateListViewItems();
 
-            activeTowersListView.getSelectionModel().clearSelection();
-            reserveTowersListView.getSelectionModel().clearSelection();
+                activeTowersListView.getSelectionModel().clearSelection();
+                reserveTowersListView.getSelectionModel().clearSelection();
 
-            moveTowerButton.setVisible(false);
+                moveTowerButton.setVisible(false);
+            } catch (GameError e) {
+                e.displayError(moveTowerButton);
+            }
         });
     }
 
     private void updateListViewItems() {
-        activeTowersListView.setItems(FXCollections.observableArrayList(this.gameManager.getInventory().getActiveTowers()));
-        reserveTowersListView.setItems(FXCollections.observableArrayList(this.gameManager.getInventory().getReserveTowers()));
-        upgradesListView.setItems(FXCollections.observableArrayList(this.gameManager.getInventory().getUpgrades()));
+        activeTowersListView.setItems(FXCollections.observableArrayList(this.inventoryService.getActiveTowers()));
+        reserveTowersListView.setItems(FXCollections.observableArrayList(this.inventoryService.getReserveTowers()));
+        upgradesListView.setItems(FXCollections.observableArrayList(this.inventoryService.getUpgrades()));
     }
 }
