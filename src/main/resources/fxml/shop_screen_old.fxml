@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane fx:id="mainGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.ShopScreenController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="162.0" vgrow="NEVER" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  <children>
+    <Pane opacity="0.49" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Grey;" GridPane.columnSpan="5" />
+    <Button fx:id="backButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Back" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <GridPane.margin>
+        <Insets />
+      </GridPane.margin>
+      <font>
+        <Font size="35.0" />
+      </font>
+    </Button>
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <font>
+        <Font name="System Bold" size="80.0" />
+      </font>
+      <GridPane.margin>
+        <Insets />
+      </GridPane.margin>
+    </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Text layoutX="100.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Increases a tower's production by 10 units." textAlignment="CENTER" wrappingWidth="246.1605224609375" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <Text layoutX="79.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Decreases a tower's reload speed by 1 second." textAlignment="CENTER" wrappingWidth="246.1605224609375" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <Text layoutX="847.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changes the tower's resource type." textAlignment="CENTER" wrappingWidth="246.1605224609375" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <Button fx:id="productionUpgradeButton" layoutX="52.0" layoutY="41.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Production +10" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="reloadUpgradeButton" layoutX="10.0" layoutY="811.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Reload -1s" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="changeTypeUpgradeButton" layoutX="778.0" layoutY="811.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Change Type" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="waterTowerButton" layoutX="52.0" layoutY="352.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Water Tower" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="foodTowerButton" layoutX="52.0" layoutY="811.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Food Tower" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="woodTowerButton" layoutX="778.0" layoutY="811.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Wood Tower" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Label fx:id="waterPriceLabel" text="Price: $100" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="foodPriceLabel" text="Price: $100" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="woodPriceLabel" text="Price: $100" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="productionUpgradePriceLabel" text="Price: $100" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="reloadUpgradePriceLabel" text="Price: $100" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="changeTypeUpgradePriceLabel" text="Price: $100" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+  </children>
+</GridPane>
