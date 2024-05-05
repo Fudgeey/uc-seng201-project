@@ -46,6 +46,7 @@ public class SetupService {
         return gameDifficulty;
     }
 
+    // move ui stuff to controller
     public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
         Resource resource = switch (resourceText) {
             case "Water" -> Resource.WATER;
@@ -94,12 +95,6 @@ public class SetupService {
 
         if (gameManager.getName().length() > 15 || gameManager.getName().length() < 3) {
             throw new GameError("Your name must be between 3-15 characters.");
-        }
-
-        for(Tower tower : this.startingTowers) {
-            if(tower != null) {
-                this.gameManager.getInventory().addActiveTower(tower);
-            }
         }
 
         this.gameManager.getInventory().setActiveTowers(Arrays.stream(startingTowers).filter((Objects::nonNull)).toList());

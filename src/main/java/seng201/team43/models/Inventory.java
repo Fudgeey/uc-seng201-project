@@ -98,17 +98,5 @@ public class Inventory {
             this.removeReserveTower(tower);
             this.addActiveTower(tower);
         }
-
-//        try {
-//            if(this.getActiveTowers().contains(tower)) {
-//                this.removeActiveTower(tower);
-//                this.addReserveTower(tower);
-//            } else {
-//                this.removeReserveTower(tower);
-//                this.addActiveTower(tower);
-//            }
-//        } catch(GameError e) {
-//            e.displayError();
-//        }
     }
 }
