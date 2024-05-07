@@ -65,6 +65,10 @@ public class InventoryScreenController {
             this.moveTowerButton.setVisible(true);
             this.sellButton.setVisible(true);
 
+            if(this.inventoryService.getSelectedUpgrade() != null) {
+                this.assignUpgradeButton.setVisible(true);
+            }
+
             this.inventoryService.setSelectedTower(activeTowersListView.getSelectionModel().getSelectedItem());
         });
 
@@ -72,7 +76,19 @@ public class InventoryScreenController {
             this.moveTowerButton.setVisible(true);
             this.sellButton.setVisible(true);
 
+            if(this.inventoryService.getSelectedUpgrade() != null) {
+                this.assignUpgradeButton.setVisible(true);
+            }
+
             this.inventoryService.setSelectedTower(reserveTowersListView.getSelectionModel().getSelectedItem());
+        });
+
+        upgradesListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Upgrade>) u -> {
+            if(this.inventoryService.getSelectedTower() != null) {
+                this.assignUpgradeButton.setVisible(true);
+            }
+
+            this.inventoryService.setSelectedUpgrade(upgradesListView.getSelectionModel().getSelectedItem());
         });
 
         moveTowerButton.setOnAction(event -> {
@@ -87,6 +103,19 @@ public class InventoryScreenController {
             } catch (GameError e) {
                 e.displayError(moveTowerButton);
             }
+        });
+
+        assignUpgradeButton.setOnAction(event -> {
+            this.inventoryService.applyUpgrade();
+            this.updateListViewItems();
+
+            activeTowersListView.getSelectionModel().clearSelection();
+            reserveTowersListView.getSelectionModel().clearSelection();
+            upgradesListView.getSelectionModel().clearSelection();
+
+            moveTowerButton.setVisible(false);
+            sellButton.setVisible(false);
+            assignUpgradeButton.setVisible(false);
         });
     }
 

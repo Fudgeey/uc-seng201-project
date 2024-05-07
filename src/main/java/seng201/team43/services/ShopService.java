@@ -47,6 +47,8 @@ public class ShopService {
             throw new GameError("Invalid item was purchased.");
         }
 
+        item.setPurchased();
+
         this.gameManager.removeMoney(item.getCost());
         this.gameManager.getInventory().addItem(item);
     }

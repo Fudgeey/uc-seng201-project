@@ -67,7 +67,7 @@ public class TowerCellFactory implements Callback<ListView<Tower>, ListCell<Towe
                     resourceImage.setFitWidth(140);
                     resourceImage.setPreserveRatio(true);
 
-                    Label statsLabel = new Label(String.format("Production Speed: %s units\nReload Speed: %s seconds\nSell Price: $", tower.getProductionUnits(), tower.getReloadSpeed()));
+                    Label statsLabel = new Label(String.format("Production Speed: %s units\nReload Speed: %s seconds\nSell Price: $%s", tower.getProductionUnits(), tower.getReloadSpeed(), tower.getSellPrice()));
                     statsLabel.setFont(new Font(15));
 
                     GridPane.setConstraints(statsLabel, 1, 0);

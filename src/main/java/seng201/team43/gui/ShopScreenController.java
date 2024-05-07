@@ -48,6 +48,21 @@ public class ShopScreenController {
             FlowPane itemPane = getItemPane(item);
             outerGrid.add(itemPane, i, 1);
 
+            Button buyButton = (Button) itemPane.getChildren().get(1);
+
+            if(item.getPurchased()) {
+                buyButton.setDisable(true);
+            }
+
+            buyButton.setOnAction(event -> {
+                try {
+                    this.shopService.buyItem(item);
+                    buyButton.setDisable(true);
+                } catch (GameError e) {
+                    e.displayError(buyButton);
+                }
+            });
+
             i++;
         }
     }

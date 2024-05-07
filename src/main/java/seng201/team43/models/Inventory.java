@@ -74,6 +74,10 @@ public class Inventory {
         this.upgrades.add(upgrade);
     }
 
+    public void removeUpgrade(Upgrade upgrade) {
+        this.upgrades.remove(upgrade);
+    }
+
     public void addItem(Purchasable item) {
         try {
             if(item.getClass() == Tower.class) {

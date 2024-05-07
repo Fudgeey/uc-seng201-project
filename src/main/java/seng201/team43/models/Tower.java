@@ -12,7 +12,9 @@ public class Tower implements Purchasable {
     private Integer reloadSpeed;
     private Integer productionUnits;
     private ArrayList<Upgrade> upgrades;
-    public Integer towerExp;
+    private Integer towerExp;
+    private Integer cost;
+    private Boolean purchased;
 
     public Tower(Resource resourceType) {
         this(resourceType, String.format("%s Tower", resourceType.label));
@@ -24,6 +26,8 @@ public class Tower implements Purchasable {
         this.reloadSpeed = 5;
         this.productionUnits = 50;
         this.upgrades = new ArrayList<>();
+        this.cost = 100;
+        this.purchased = false;
     }
 
     public Resource getResourceType() {
@@ -68,6 +72,7 @@ public class Tower implements Purchasable {
      */
     public void applyUpgrade(Upgrade upgrade) {
         upgrade.apply(this);
+        this.cost += upgrade.getCost();
     }
 
     /**
@@ -88,11 +93,25 @@ public class Tower implements Purchasable {
 
     @Override
     public int getCost() {
-        return 100;
+        return this.cost;
+    }
+
+    public int getSellPrice() {
+        return (int) Math.round((getCost() * 0.8));
     }
 
     @Override
     public String getDescription() {
         return String.format("A tower that generates %s.", resourceType.label);
+    }
+
+    @Override
+    public void setPurchased() {
+        this.purchased = true;
+    }
+
+    @Override
+    public Boolean getPurchased() {
+        return this.purchased;
     }
 }
