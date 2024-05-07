@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import seng201.team43.exceptions.GameError;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 /**
@@ -23,6 +25,7 @@ public class GameManager {
     private Double expGained;
     private final ArrayList<Cart> carts;
     private RoundDifficulty roundDifficulty;
+    private List<Purchasable> shopItems;
 
     private final Consumer<GameManager> setupScreenLauncher;
     private final Consumer<GameManager> gameScreenLauncher;
@@ -164,24 +167,29 @@ public class GameManager {
      * Prepares the current round.
      */
     public void prepareRound() {
-        // Adds a cart to the game on odd rounds.
         if(this.getCurrentRound() % 2 != 0) {
-            // Gets random resource type
             Random random = new Random();
             Resource[] resources = Resource.values();
             int resourceIndex = random.nextInt(resources.length);
 
-            // Gets size of cart e.g. round 3: 130 (100 * 1.3)
             double sizeMultiplier = ((double) this.getRoundCount() / 10) + 1.0;
             Integer size = (int) (100 * sizeMultiplier);
 
-            // Gets speed of cart
             Integer speed = 5 * this.getCurrentRound();
 
             Cart cart = new Cart(size, speed, resources[resourceIndex]);
 
             this.addCart(cart);
         }
+
+        List<Purchasable> shopItems = new ArrayList<>(List.of(new ProductionUpgrade(10), new ReloadUpgrade(), new ResourceTypeUpgrade()));
+
+        for(Resource resource : Resource.values()) {
+            shopItems.add(new Tower(resource));
+        }
+
+        Collections.shuffle(shopItems);
+        this.shopItems = shopItems.stream().limit(5).toList();
     }
 
     /**
@@ -196,6 +204,10 @@ public class GameManager {
      */
     public void endRound() {
         this.currentRound += 1;
+    }
+
+    public List<Purchasable> getShopItems() {
+        return this.shopItems;
     }
 
     public void launchSetupScreen() {
@@ -236,13 +248,13 @@ public class GameManager {
         launchGameScreen();
     }
 
-    public void quitGame() {
-        clearScreen.run();
-        Platform.exit();
-    }
-
     public void closeShopScreen() {
         clearScreen.run();
         launchInventoryScreen();
+    }
+
+    public void quitGame() {
+        clearScreen.run();
+        Platform.exit();
     }
 }

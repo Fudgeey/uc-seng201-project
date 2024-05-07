@@ -90,4 +90,9 @@ public class Tower implements Purchasable {
     public int getCost() {
         return 100;
     }
+
+    @Override
+    public String getDescription() {
+        return String.format("A tower that generates %s.", resourceType.label);
+    }
 }

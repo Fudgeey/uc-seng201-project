@@ -1,7 +1,14 @@
 package seng201.team43.gui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.models.*;
 import seng201.team43.services.ShopService;
@@ -15,58 +22,53 @@ import java.util.List;
  */
 
 public class ShopScreenController {
-    private final GameManager gameManager;
     private final ShopService shopService;
 
     @FXML
     private Button backButton;
 
     @FXML
-    private Button productionUpgradeButton;
+    private Button pauseButton;
 
     @FXML
-    private Button reloadUpgradeButton;
-
-    @FXML
-    private Button changeTypeUpgradeButton;
-
-    @FXML
-    private Button waterTowerButton;
-
-    @FXML
-    private Button woodTowerButton;
-
-    @FXML
-    private Button foodTowerButton;
+    private GridPane outerGrid;
 
     public ShopScreenController(GameManager gameManager) {
-        this.gameManager = gameManager;
-        this.shopService = new ShopService(this.gameManager);
+        this.shopService = new ShopService(gameManager);
     }
 
     public void initialize() {
-        List<Button> itemButtons = List.of(productionUpgradeButton, reloadUpgradeButton, changeTypeUpgradeButton, waterTowerButton, woodTowerButton, foodTowerButton);
+        backButton.setOnAction(event -> shopService.close());
+        pauseButton.setOnAction(event -> shopService.pause());
 
-        for(Button button : itemButtons) {
-            button.setOnAction(event -> {
-                Purchasable item = switch (button.getText()) {
-                    case "Production +10" -> new ProductionUpgrade(10);
-                    case "Reload -1s" -> new ReloadUpgrade();
-                    case "Change Type" -> new ResourceTypeUpgrade();
-                    case "Water Tower" -> new Tower(Resource.WATER);
-                    case "Wood Tower" -> new Tower(Resource.WOOD);
-                    case "Food Tower" -> new Tower(Resource.FOOD);
-                    default -> null;
-                };
+        List<Purchasable> items = this.shopService.getShopItems();
 
-                try {
-                    this.shopService.buyItem(item);
-                } catch (GameError e) {
-                    e.displayError(button);
-                }
-            });
+        int i = 0;
+        for(Purchasable item : items) {
+            FlowPane itemPane = getItemPane(item);
+            outerGrid.add(itemPane, i, 1);
+
+            i++;
         }
+    }
 
-        backButton.setOnAction(event -> gameManager.closeShopScreen());
+    private FlowPane getItemPane(Purchasable item) {
+        FlowPane towerPane = new FlowPane();
+        Label descriptionLabel = new Label(item.getDescription());
+        Button buyButton = new Button(item.getName());
+        Label priceLabel = new Label(String.format("Price: $%s", item.getCost()));
+
+        towerPane.setOrientation(Orientation.VERTICAL);
+        towerPane.setAlignment(Pos.CENTER);
+        towerPane.setColumnHalignment(HPos.CENTER);
+
+        descriptionLabel.setFont(new Font(20));
+
+        buyButton.setFont(new Font(25));
+
+        priceLabel.setFont(new Font(20));
+
+        towerPane.getChildren().addAll(descriptionLabel, buyButton, priceLabel);
+        return towerPane;
     }
 }
