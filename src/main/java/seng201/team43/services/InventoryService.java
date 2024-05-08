@@ -15,9 +15,12 @@ import java.util.ArrayList;
 public class InventoryService {
     private final GameManager gameManager;
     private Tower selectedTower;
+    private Upgrade selectedUpgrade;
 
     public InventoryService(GameManager gameManager) {
         this.gameManager = gameManager;
+        this.selectedTower = null;
+        this.selectedUpgrade = null;
     }
 
     public void setSelectedTower(Tower tower) {
@@ -43,5 +46,21 @@ public class InventoryService {
 
     public ArrayList<Upgrade> getUpgrades() {
         return this.gameManager.getInventory().getUpgrades();
+    }
+
+    public Upgrade getSelectedUpgrade() {
+        return this.selectedUpgrade;
+    }
+
+    public void setSelectedUpgrade(Upgrade upgrade) {
+        this.selectedUpgrade = upgrade;
+    }
+
+    public void applyUpgrade() {
+        this.selectedTower.applyUpgrade(this.selectedUpgrade);
+        this.gameManager.getInventory().removeUpgrade(this.selectedUpgrade);
+
+        this.setSelectedUpgrade(null);
+        this.setSelectedTower(null);
     }
 }

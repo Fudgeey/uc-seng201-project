@@ -60,13 +60,13 @@ public class UpgradeCellFactory implements Callback<ListView<Upgrade>, ListCell<
 //                    resourceImage.setFitWidth(140);
 //                    resourceImage.setPreserveRatio(true);
 
-                    Label statsLabel = new Label(upgrade.getDescription());
-                    statsLabel.setFont(new Font(15));
+                    Label descriptionLabel = new Label(upgrade.getDescription());
+                    descriptionLabel.setFont(new Font(15));
 
-                    GridPane.setConstraints(statsLabel, 1, 0);
+                    GridPane.setConstraints(descriptionLabel, 1, 0);
 
-                    flowPane.getChildren().addAll(nameLabel);
-                    gridPane.getChildren().addAll(flowPane, statsLabel);
+                    flowPane.getChildren().addAll(nameLabel, descriptionLabel);
+                    gridPane.getChildren().addAll(flowPane);
 
                     setGraphic(gridPane);
                 }

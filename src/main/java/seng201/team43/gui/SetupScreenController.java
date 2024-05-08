@@ -65,7 +65,7 @@ public class SetupScreenController {
         List<Button> towerButtons = List.of(waterTowerButton, woodTowerButton, foodTowerButton);
         List<GridPane> startingTowerPanes = List.of(startingTowerOnePane, startingTowerTwoPane, startingTowerThreePane);
 
-        nameField.setOnKeyTyped(event -> {
+        nameField.setOnKeyReleased(event -> {
             this.setupService.setName(nameField.getText());
         });
 
