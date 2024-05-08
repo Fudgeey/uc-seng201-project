@@ -119,10 +119,10 @@ public class GameScreenController {
         int waterCartCount = 0;
 
         for(Cart cart : this.gameManager.getCats()) {
-            switch (cart.getType().label) {
-                case "Water" -> waterCartCount += 1;
-                case "Wood" -> woodCartCount += 1;
-                case "Food" -> foodCartCount += 1;
+            switch (cart.getType()) {
+                case WATER -> waterCartCount += 1;
+                case WOOD -> woodCartCount += 1;
+                case FOOD -> foodCartCount += 1;
                 default -> {}
             };
         }
