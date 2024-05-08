@@ -86,6 +86,12 @@ public class GameScreenController {
 //            this.updateStats();
 //        });
 
+        try {
+            this.updateRoundDifficultyButtons();
+        } catch (GameError e) {
+            e.displayError(easyDifficultyButton);
+        }
+
         difficultyButtons.forEach(button -> {
             button.setOnAction(event -> {
                 try {
@@ -140,6 +146,22 @@ public class GameScreenController {
 
         difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
         ButtonHelper.setBackground(button, roundDifficulty.colour);
+    }
+
+    private void updateRoundDifficultyButtons() throws GameError {
+        RoundDifficulty roundDifficulty = this.gameService.getRoundDifficulty();
+
+        Button difficultyButton = switch(roundDifficulty) {
+            case EASY -> easyDifficultyButton;
+            case MEDIUM -> mediumDifficultyButton;
+            case HARD -> hardDifficultyButton;
+        };
+
+        if(difficultyButton == null) {
+            throw new GameError("Invalid round difficulty selected.");
+        }
+
+        ButtonHelper.setBackground(difficultyButton, roundDifficulty.colour);
     }
 
     private void displayTowers() {

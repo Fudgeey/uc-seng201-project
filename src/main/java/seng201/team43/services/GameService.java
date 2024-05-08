@@ -22,4 +22,8 @@ public class GameService {
     public ArrayList<Tower> getActiveTowers() {
         return this.gameManager.getInventory().getActiveTowers();
     }
+
+    public RoundDifficulty getRoundDifficulty() {
+        return this.gameManager.getRoundDifficulty();
+    }
 }
