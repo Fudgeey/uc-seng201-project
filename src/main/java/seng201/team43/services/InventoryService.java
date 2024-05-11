@@ -17,11 +17,13 @@ public class InventoryService {
     private final GameManager gameManager;
     private Tower selectedTower;
     private Upgrade selectedUpgrade;
+    private Purchasable lastSelectedItem;
 
     public InventoryService(GameManager gameManager) {
         this.gameManager = gameManager;
         this.selectedTower = null;
         this.selectedUpgrade = null;
+        this.lastSelectedItem = null;
     }
 
     public void setSelectedTower(Tower tower) {
@@ -65,10 +67,12 @@ public class InventoryService {
         this.setSelectedTower(null);
     }
 
-    public void sellItem(Purchasable item) throws GameError {
+    public void sellItem() throws GameError {
+        Purchasable item = this.getLastSelectedItem();
         this.gameManager.addMoney((double) item.getSellPrice());
-        if (item.getClass() == Tower.class) {
-            if (this.gameManager.getInventory().getActiveTowers().contains(item)) {
+
+        if(item.getClass() == Tower.class) {
+            if(this.gameManager.getInventory().getActiveTowers().contains(item)) {
                 this.gameManager.getInventory().removeActiveTower((Tower) item);
             } else {
                 this.gameManager.getInventory().removeReserveTower((Tower) item);
@@ -76,5 +80,13 @@ public class InventoryService {
         } else {
             this.gameManager.getInventory().removeUpgrade((Upgrade) item);
         }
+    }
+
+    public void setLastSelectedItem(Purchasable item) {
+        this.lastSelectedItem = item;
+    }
+
+    public Purchasable getLastSelectedItem() {
+        return this.lastSelectedItem;
     }
 }
