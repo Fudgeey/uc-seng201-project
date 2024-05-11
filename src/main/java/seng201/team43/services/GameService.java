@@ -12,7 +12,7 @@ public class GameService {
     }
 
     public void startRound() {
-        // Add between 1 and 3 carts per round - each of a random type
+
     }
 
     public void setRoundDifficulty(RoundDifficulty roundDifficulty) {

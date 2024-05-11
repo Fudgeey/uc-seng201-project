@@ -81,10 +81,10 @@ public class GameScreenController {
         inventoryButton.setOnAction(event -> gameManager.openInventoryScreen());
         pauseButton.setOnAction(event -> gameManager.openPauseScreen());
 
-//        startButton.setOnAction(event -> {
-//            gameManager.startRound();
-//            this.updateStats();
-//        });
+        startButton.setOnAction(event -> {
+            this.gameService.startRound();
+            this.updateStats();
+        });
 
         try {
             this.updateRoundDifficultyButtons();

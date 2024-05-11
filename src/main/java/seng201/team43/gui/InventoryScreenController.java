@@ -61,27 +61,8 @@ public class InventoryScreenController {
 
         this.updateListViewItems();
 
-        activeTowersListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
-            this.moveTowerButton.setVisible(true);
-            this.sellButton.setVisible(true);
-
-            if(this.inventoryService.getSelectedUpgrade() != null) {
-                this.assignUpgradeButton.setVisible(true);
-            }
-
-            this.inventoryService.setSelectedTower(activeTowersListView.getSelectionModel().getSelectedItem());
-        });
-
-        reserveTowersListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
-            this.moveTowerButton.setVisible(true);
-            this.sellButton.setVisible(true);
-
-            if(this.inventoryService.getSelectedUpgrade() != null) {
-                this.assignUpgradeButton.setVisible(true);
-            }
-
-            this.inventoryService.setSelectedTower(reserveTowersListView.getSelectionModel().getSelectedItem());
-        });
+        this.setupTowerListViewListener(activeTowersListView);
+        this.setupTowerListViewListener(reserveTowersListView);
 
         upgradesListView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Upgrade>) u -> {
             if(this.inventoryService.getSelectedTower() != null) {
@@ -123,5 +104,18 @@ public class InventoryScreenController {
         activeTowersListView.setItems(FXCollections.observableArrayList(this.inventoryService.getActiveTowers()));
         reserveTowersListView.setItems(FXCollections.observableArrayList(this.inventoryService.getReserveTowers()));
         upgradesListView.setItems(FXCollections.observableArrayList(this.inventoryService.getUpgrades()));
+    }
+
+    private void setupTowerListViewListener(ListView<Tower> listView) {
+        listView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
+            this.moveTowerButton.setVisible(true);
+            this.sellButton.setVisible(true);
+
+            if(this.inventoryService.getSelectedUpgrade() != null) {
+                this.assignUpgradeButton.setVisible(true);
+            }
+
+            this.inventoryService.setSelectedTower(listView.getSelectionModel().getSelectedItem());
+        });
     }
 }
