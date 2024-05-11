@@ -98,6 +98,22 @@ public class InventoryScreenController {
             sellButton.setVisible(false);
             assignUpgradeButton.setVisible(false);
         });
+        sellButton.setOnAction(event -> {
+            try {
+                this.inventoryService.sellItem(this.inventoryService.getSelectedTower());
+            } catch (GameError e) {
+                e.displayError(sellButton);
+            }
+            this.updateListViewItems();
+
+            activeTowersListView.getSelectionModel().clearSelection();
+            reserveTowersListView.getSelectionModel().clearSelection();
+            upgradesListView.getSelectionModel().clearSelection();
+
+            moveTowerButton.setVisible(false);
+            sellButton.setVisible(false);
+            assignUpgradeButton.setVisible(false);
+        });
     }
 
     private void updateListViewItems() {
