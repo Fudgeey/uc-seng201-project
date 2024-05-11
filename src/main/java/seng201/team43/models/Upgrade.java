@@ -34,4 +34,8 @@ public abstract class Upgrade implements Purchasable {
     public Boolean getPurchased() {
         return this.purchased;
     }
+
+    public int getSellPrice() {
+        return (int) Math.round((this.getCost() * 0.8));
+    }
 }

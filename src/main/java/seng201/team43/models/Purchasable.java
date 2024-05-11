@@ -8,4 +8,5 @@ public interface Purchasable {
     String getDescription();
     void setPurchased();
     Boolean getPurchased();
+    int getSellPrice();
 }
