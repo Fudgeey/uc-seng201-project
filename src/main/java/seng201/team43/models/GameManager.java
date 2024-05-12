@@ -32,9 +32,10 @@ public class GameManager {
     private final Consumer<GameManager> inventoryScreenLauncher;
     private final Consumer<GameManager> pauseScreenLauncher;
     private final Consumer<GameManager> shopScreenLauncher;
+    private final Consumer<GameManager> endScreenLauncher;
     private final Runnable clearScreen;
 
-    public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Runnable clearScreen) {
+    public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Consumer<GameManager> endScreenLauncher, Runnable clearScreen) {
         this.roundCount = 5;
         this.currentRound = 0;
         this.inventory = new Inventory();
@@ -50,6 +51,7 @@ public class GameManager {
         this.inventoryScreenLauncher = inventoryScreenLauncher;
         this.pauseScreenLauncher = pauseScreenLauncher;
         this.shopScreenLauncher = shopScreenLauncher;
+        this.endScreenLauncher = endScreenLauncher;
         this.clearScreen = clearScreen;
 
         launchSetupScreen();
@@ -234,9 +236,22 @@ public class GameManager {
     public void launchGameScreen() {
         gameScreenLauncher.accept(this);
     }
-    public void launchInventoryScreen() {inventoryScreenLauncher.accept(this); }
-    public void launchPauseScreen() {pauseScreenLauncher.accept(this); }
-    public void launchShopScreen() {shopScreenLauncher.accept(this); }
+
+    public void launchInventoryScreen() {
+        inventoryScreenLauncher.accept(this);
+    }
+
+    public void launchPauseScreen() {
+        pauseScreenLauncher.accept(this);
+    }
+
+    public void launchShopScreen() {
+        shopScreenLauncher.accept(this);
+    }
+
+    public void launchEndScreen() {
+        endScreenLauncher.accept(this);
+    }
 
     public void closeSetupScreen() {
         clearScreen.run();
@@ -247,17 +262,25 @@ public class GameManager {
         clearScreen.run();
         launchGameScreen();
     }
+
     public void openInventoryScreen() {
         clearScreen.run();
         launchInventoryScreen();
     }
+
     public void openPauseScreen() {
         clearScreen.run();
         launchPauseScreen();
     }
+
     public void openShopScreen() {
         clearScreen.run();
         launchShopScreen();
+    }
+
+    public void openEndScreen() {
+        clearScreen.run();
+        launchEndScreen();
     }
 
     public void closePauseScreen() {

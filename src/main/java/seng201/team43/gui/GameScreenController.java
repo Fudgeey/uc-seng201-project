@@ -85,7 +85,7 @@ public class GameScreenController {
 
             if(roundWon) {
                 if(this.gameService.gameEnded()) {
-                    System.out.println("Game won");
+                    this.gameManager.launchEndScreen();
                 } else {
                     PopupHelper.display(startButton, "You Won!");
 
@@ -93,7 +93,7 @@ public class GameScreenController {
                     this.updateStats();
                 }
             } else {
-                // move to ending screen
+                this.gameManager.launchEndScreen();
             }
         });
 

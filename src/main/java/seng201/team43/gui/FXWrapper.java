@@ -30,7 +30,7 @@ public class FXWrapper {
     public void init(Stage stage) {
         this.stage = stage;
 
-        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::launchInventoryScreen, this::launchShopScreen, this::launchPauseScreen, this::clearPane);
+        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::launchInventoryScreen, this::launchShopScreen, this::launchPauseScreen, this::launchEndScreen, this::clearPane);
     }
 
     /**
@@ -46,8 +46,6 @@ public class FXWrapper {
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
             stage.setTitle("Tower Dynasty");
-
-            /* Sets game to be fullscreen, disables the hint, disables hot key to exit */
             stage.setFullScreenExitHint("");
             stage.setFullScreen(true);
 //            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
@@ -66,6 +64,7 @@ public class FXWrapper {
             e.printStackTrace();
         }
     }
+
     public void launchInventoryScreen(GameManager gameManager) {
         try {
             FXMLLoader inventoryScreenLoader = new FXMLLoader(getClass().getResource("/fxml/inventory_screen.fxml"));
@@ -76,6 +75,7 @@ public class FXWrapper {
             e.printStackTrace();
         }
     }
+
     public void launchShopScreen(GameManager gameManager) {
         try {
             FXMLLoader shopScreenLoader = new FXMLLoader(getClass().getResource("/fxml/shop_screen.fxml"));
@@ -86,6 +86,7 @@ public class FXWrapper {
             e.printStackTrace();
         }
     }
+
     public void launchPauseScreen(GameManager gameManager) {
         try {
             FXMLLoader pauseScreenLoader = new FXMLLoader(getClass().getResource("/fxml/pause_screen.fxml"));
@@ -97,6 +98,16 @@ public class FXWrapper {
         }
     }
 
+    public void launchEndScreen(GameManager gameManager) {
+        try {
+            FXMLLoader endScreenLoader = new FXMLLoader(getClass().getResource("/fxml/end_screen.fxml"));
+            endScreenLoader.setControllerFactory(param -> new EndScreenController(gameManager));
+            Parent setupParent  = endScreenLoader.load();
+            pane.getChildren().add(setupParent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Clears the current screen.
