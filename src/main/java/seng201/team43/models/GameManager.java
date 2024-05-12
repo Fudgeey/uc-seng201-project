@@ -196,7 +196,7 @@ public class GameManager {
      * Starts the current round.
      */
     public void startRound() {
-
+        if (carts.contains())
     }
 
     /**
