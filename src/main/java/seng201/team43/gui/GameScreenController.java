@@ -3,18 +3,17 @@ package seng201.team43.gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.ButtonHelper;
+import seng201.team43.helpers.PopupHelper;
 import seng201.team43.models.*;
 import seng201.team43.services.GameService;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Controller for the game_screen.fxml window
@@ -82,8 +81,20 @@ public class GameScreenController {
         pauseButton.setOnAction(event -> gameManager.openPauseScreen());
 
         startButton.setOnAction(event -> {
-            this.gameService.startRound();
-            this.updateStats();
+            boolean roundWon = this.gameService.startRound();
+
+            if(roundWon) {
+                if(this.gameService.gameEnded()) {
+                    System.out.println("Game won");
+                } else {
+                    PopupHelper.display(startButton, "You Won!");
+
+                    this.gameService.prepareRound();
+                    this.updateStats();
+                }
+            } else {
+                // move to ending screen
+            }
         });
 
         try {
@@ -110,7 +121,7 @@ public class GameScreenController {
 
         statsLabel.setTextAlignment(TextAlignment.CENTER);
         statsLabel.setFont(new Font(20));
-        statsLabel.setText(String.format("Rounds Won: %s\nRounds Remaining: %s\nMoney: $%s\nTrack Distance: %sm", 0, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
+        statsLabel.setText(String.format("Rounds Won: %s\nRounds Remaining: %s\nMoney: $%s\nTrack Distance: %sm", this.gameManager.getCurrentRound() - 1, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
 
         currentRoundLabel.setText(String.format("Round: %s", this.gameManager.getCurrentRound()));
 
@@ -118,7 +129,7 @@ public class GameScreenController {
         int foodCartCount = 0;
         int waterCartCount = 0;
 
-        for(Cart cart : this.gameManager.getCats()) {
+        for(Cart cart : this.gameManager.getCarts()) {
             switch (cart.getType()) {
                 case WATER -> waterCartCount += 1;
                 case WOOD -> woodCartCount += 1;

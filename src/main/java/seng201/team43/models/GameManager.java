@@ -36,7 +36,7 @@ public class GameManager {
 
     public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Runnable clearScreen) {
         this.roundCount = 5;
-        this.currentRound = 1;
+        this.currentRound = 0;
         this.inventory = new Inventory();
         this.money = 0.0;
         this.moneyGained = 0.0;
@@ -159,7 +159,7 @@ public class GameManager {
      * Gets current carts
      * @return list of carts
      */
-    public ArrayList<Cart> getCats() {
+    public ArrayList<Cart> getCarts() {
         return this.carts;
     }
 
@@ -167,6 +167,8 @@ public class GameManager {
      * Prepares the current round.
      */
     public void prepareRound() {
+        this.currentRound += 1;
+
         if(this.getCurrentRound() % 2 != 0) {
             Random random = new Random();
             Resource[] resources = Resource.values();
@@ -195,15 +197,30 @@ public class GameManager {
     /**
      * Starts the current round.
      */
-    public void startRound() {
+    public boolean startRound() {
+        for(Tower tower : this.getInventory().getActiveTowers()) {
+            for(Cart cart : this.getCarts()) {
+                if(tower.getResourceType() == cart.getType()) {
+                    double cartTimeOnTrack = this.getTrackDistance() / cart.getSpeed();
+                    int towerAction = Math.floorDiv((int) cartTimeOnTrack, tower.getReloadSpeed()) + 1;
+                    int unitsToAdd = towerAction * tower.getProductionUnits();
 
-    }
+                    cart.addCurrentFilled(unitsToAdd);
+                }
+            }
+        }
 
-    /**
-     * Ends the current round.
-     */
-    public void endRound() {
-        this.currentRound += 1;
+        int cartsNotFilled = 0;
+        boolean roundWon = true;
+
+        for(Cart cart : this.getCarts()) {
+            if(cart.getCurrentFilled() < cart.getSize()) {
+                cartsNotFilled += 1;
+                roundWon = false;
+            }
+        }
+
+        return roundWon;
     }
 
     public List<Purchasable> getShopItems() {

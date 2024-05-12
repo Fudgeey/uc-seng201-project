@@ -11,8 +11,12 @@ public class GameService {
         this.gameManager = gameManager;
     }
 
-    public void startRound() {
+    public boolean startRound() {
+        return this.gameManager.startRound();
+    }
 
+    public void prepareRound() {
+        this.gameManager.prepareRound();
     }
 
     public void setRoundDifficulty(RoundDifficulty roundDifficulty) {
@@ -25,5 +29,9 @@ public class GameService {
 
     public RoundDifficulty getRoundDifficulty() {
         return this.gameManager.getRoundDifficulty();
+    }
+
+    public boolean gameEnded() {
+        return this.gameManager.getCurrentRound() + 1 > this.gameManager.getRoundCount();
     }
 }

@@ -5,30 +5,35 @@ package seng201.team43.models;
  * @author Riley Jeffcote, Luke Hallett
  */
 public class Cart {
-    private Integer size;
-    private Integer speed;
+    private int size;
+    private int speed;
     private Resource type;
-    public Cart(Integer size, Integer speed, Resource type) {
+    private int currentFilled;
+
+    public Cart(int size, int speed, Resource type) {
         this.size = size;
         this.speed = speed;
         this.type = type;
+        this.currentFilled = 0;
     }
 
-    /**
-     * Gets size of cart
-     * @return cart size
-     */
-    public Integer getSize() {return this.size; }
+    public int getSize() {
+        return this.size;
+    }
 
-    /**
-     * Gets speed of cart
-     * @return cart speed
-     */
-    public Integer getSpeed() {return this.speed; }
+    public int getSpeed() {
+        return this.speed;
+    }
 
-    /**
-     * Gets the type of the cart
-     * @return cart type
-     */
-    public Resource getType() {return this.type; }
+    public Resource getType() {
+        return this.type;
+    }
+
+    public int getCurrentFilled() {
+        return this.currentFilled;
+    }
+
+    public void addCurrentFilled(int amount) {
+        this.currentFilled += amount;
+    }
 }
