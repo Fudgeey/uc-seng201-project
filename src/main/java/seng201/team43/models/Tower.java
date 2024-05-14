@@ -65,6 +65,11 @@ public class Tower implements Purchasable {
         this.productionUnits += 50;
     }
 
+    public void levelDown() {
+        this.experience -= 10;
+        this.productionUnits -= 50;
+    }
+
     /**
      * Apply an upgrade to the tower.
      * @param upgrade upgrade to apply
