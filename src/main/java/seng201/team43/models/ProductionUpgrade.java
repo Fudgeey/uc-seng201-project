@@ -14,6 +14,6 @@ public class ProductionUpgrade extends Upgrade {
     }
 
     public String getDescription() {
-        return "Increases a tower's production by 10 units.";
+        return String.format("Increases a tower's production by %s units.", this.units);
     }
 }

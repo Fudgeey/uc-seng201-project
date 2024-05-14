@@ -37,4 +37,8 @@ public class EndService {
     public int getLevel() {
         return this.gameManager.getLevel();
     }
+
+    public void closeGame() {
+        this.gameManager.quitGame();
+    }
 }

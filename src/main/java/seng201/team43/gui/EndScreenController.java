@@ -1,6 +1,7 @@
 package seng201.team43.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Font;
@@ -13,6 +14,9 @@ public class EndScreenController {
 
     @FXML
     private FlowPane innerPane;
+
+    @FXML
+    private Button closeButton;
 
     public EndScreenController(GameManager gameManager) {
         this.endService = new EndService(gameManager);
@@ -39,8 +43,12 @@ public class EndScreenController {
 
         Label statsLabel = new Label(statsString);
         statsLabel.setFont(Font.font(20.0));
-        statsLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+        statsLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-text-alignment: center;");
 
         innerPane.getChildren().addAll(titleLabel, statsLabel);
+
+        closeButton.setOnAction(event -> {
+            this.endService.closeGame();
+        });
     }
 }
