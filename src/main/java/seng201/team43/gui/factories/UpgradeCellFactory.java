@@ -33,15 +33,7 @@ public class UpgradeCellFactory implements Callback<ListView<Upgrade>, ListCell<
                     GridPane gridPane = new GridPane();
                     FlowPane flowPane = new FlowPane();
 
-                    gridPane.setMaxHeight(240);
-
-                    ColumnConstraints columnConstraintOne = new ColumnConstraints();
-                    ColumnConstraints columnConstraintTwo = new ColumnConstraints();
-
-                    columnConstraintOne.setPercentWidth(50);
-                    columnConstraintTwo.setPercentWidth(50);
-
-                    gridPane.getColumnConstraints().addAll(columnConstraintOne, columnConstraintTwo);
+                    gridPane.setMaxHeight(150);
 
                     GridPane.setValignment(flowPane, VPos.CENTER);
                     GridPane.setHalignment(flowPane, HPos.CENTER);
@@ -49,16 +41,12 @@ public class UpgradeCellFactory implements Callback<ListView<Upgrade>, ListCell<
                     GridPane.setVgrow(flowPane, Priority.ALWAYS);
                     GridPane.setHgrow(flowPane, Priority.ALWAYS);
 
-                    flowPane.setAlignment(Pos.CENTER_RIGHT);
+                    flowPane.setAlignment(Pos.CENTER);
                     flowPane.setOrientation(Orientation.VERTICAL);
                     flowPane.setColumnHalignment(HPos.CENTER);
 
                     Label nameLabel = new Label(upgrade.getName());
                     nameLabel.setFont(new Font(30));
-
-//                    ImageView resourceImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(String.format("/images/towers/%s.png", tower.getResourceType().label.toLowerCase())))));
-//                    resourceImage.setFitWidth(140);
-//                    resourceImage.setPreserveRatio(true);
 
                     Label descriptionLabel = new Label(upgrade.getDescription());
                     descriptionLabel.setFont(new Font(15));

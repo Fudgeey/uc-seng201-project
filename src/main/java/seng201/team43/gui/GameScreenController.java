@@ -90,7 +90,7 @@ public class GameScreenController {
                     if(!roundInformation.levelledUpTowers.isEmpty()) {
                         for(Purchasable item : roundInformation.levelledUpTowers) {
                             Tower tower = (Tower) item;
-                            PopupHelper.display(startButton, String.format("One of your %s towers upgraded and production increased by 50!!", tower.getResourceType().label));
+                            PopupHelper.display(startButton, String.format("One of your %s towers upgraded and its production increased by 50!", tower.getResourceType().label.toLowerCase()));
                         }
                     }
 
