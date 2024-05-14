@@ -262,10 +262,6 @@ public class GameManager {
         this.previousRoundInformation = roundInformation;
     }
 
-    public RoundInformation getPreviousRoundInformation() {
-        return this.previousRoundInformation;
-    }
-
     public void setGameWon() {
         this.gameWon = true;
     }

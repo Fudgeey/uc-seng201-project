@@ -1,6 +1,5 @@
 package seng201.team43.services;
 
-import seng201.team43.helpers.RoundInformation;
 import seng201.team43.models.GameManager;
 
 public class EndService {
@@ -11,11 +10,7 @@ public class EndService {
     }
 
     public double getMoneyGained() {
-        return this.gameManager.getMoney();
-    }
-
-    public RoundInformation getPreviousRoundInformation() {
-        return this.gameManager.getPreviousRoundInformation();
+        return this.gameManager.getMoneyGained();
     }
 
     public String getName() {
