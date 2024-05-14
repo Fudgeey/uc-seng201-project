@@ -46,18 +46,18 @@ public class GameService {
                 int choice = random.nextInt(0, 4);
 
                 if(choice == 0) {
-                    messages.add(String.format("A %s tower was broken.", tower.getResourceType().label));
+                    messages.add(String.format("A %s tower was broken.", tower.getResourceType().label.toLowerCase()));
                     tower.setBroken(true);
                 } else if(choice == 1) {
-                    messages.add(String.format("A %s tower was destroyed and removed from your inventory.", tower.getResourceType().label));
+                    messages.add(String.format("A %s tower was destroyed and removed from your inventory.", tower.getResourceType().label.toLowerCase()));
                     towers.remove(tower);
                 } else if(choice == 2) {
                     if(tower.getLevel() > 1) {
                         tower.levelDown();
-                        messages.add(String.format("A %s tower has had its level decreased.", tower.getResourceType().label));
+                        messages.add(String.format("A %s tower has had its level decreased.", tower.getResourceType().label.toLowerCase()));
                     }
                 } else {
-                    messages.add(String.format("A %s tower has had its level increased.", tower.getResourceType().label));
+                    messages.add(String.format("A %s tower has had its level increased.", tower.getResourceType().label.toLowerCase()));
                     tower.levelUp();
                 }
             }

@@ -78,10 +78,12 @@ public class ShopScreenController {
         towerPane.setAlignment(Pos.CENTER);
         towerPane.setColumnHalignment(HPos.CENTER);
 
-        descriptionLabel.setFont(new Font(20));
+        descriptionLabel.setStyle("-fx-font-size: 20; -fx-text-alignment: center;");
+        descriptionLabel.setWrapText(true);
+        descriptionLabel.setPrefWidth(380);
+        descriptionLabel.setAlignment(Pos.CENTER);
 
         buyButton.setFont(new Font(25));
-
         priceLabel.setFont(new Font(20));
 
         towerPane.getChildren().addAll(descriptionLabel, buyButton, priceLabel);
