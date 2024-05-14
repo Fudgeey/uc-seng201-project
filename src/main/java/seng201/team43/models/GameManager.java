@@ -209,8 +209,11 @@ public class GameManager {
 
                     cart.addCurrentFilled(unitsToAdd);
                     this.addMoney(moneyToAdd);
-
+                    int previousLevel = tower.getLevel();
                     tower.addExperience((int) (unitsToAdd * 0.1));
+                    if (previousLevel < tower.getLevel()) {
+                        tower.levelUp();
+                    }
 
                     roundInformation.moneyEarned += moneyToAdd;
                 }

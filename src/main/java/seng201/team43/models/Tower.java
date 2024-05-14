@@ -61,6 +61,9 @@ public class Tower implements Purchasable {
     public void addExperience(int experience) {
         this.experience += experience;
     }
+    public void levelUp() {
+        this.productionUnits += 50;
+    }
 
     /**
      * Apply an upgrade to the tower.
