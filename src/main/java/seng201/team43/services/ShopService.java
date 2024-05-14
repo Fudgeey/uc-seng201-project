@@ -52,6 +52,10 @@ public class ShopService {
             }
         }
 
+        if(this.getMoney() - item.getCost() <= 0) {
+            throw new GameError("You do not have enough money to buy this.");
+        }
+
         item.setPurchased();
 
         this.gameManager.removeMoney(item.getCost());
