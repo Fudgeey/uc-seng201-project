@@ -53,7 +53,7 @@ public class TowerCard {
         removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%");
         removeButton.setTextFill(Paint.valueOf("white"));
 
-        removeButton.setOnAction(event -> setupService.removeStartingTower(gridPane, slot));
+        removeButton.setOnAction(event -> setupService.removeStartingTower((GridPane) gridPane.getParent(), slot));
 
         flowPane.getChildren().addAll(nameLabel, resourceTypeLabel, resourceImage);
         gridPane.getChildren().addAll(flowPane, removeButton);

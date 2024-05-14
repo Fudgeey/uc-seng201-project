@@ -27,11 +27,8 @@ public class ShopService {
         this.gameManager.closeShopScreen();
     }
 
-    /**
-     * Goes to the pause screen.
-     */
-    public void pause() {
-        this.gameManager.launchPauseScreen();
+    public double getMoney() {
+        return this.gameManager.getMoney();
     }
 
     public List<Purchasable> getShopItems() {

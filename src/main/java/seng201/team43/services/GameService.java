@@ -29,18 +29,17 @@ public class GameService {
         List<Tower> activeTowers = this.gameManager.getInventory().getActiveTowers().stream().filter(not(Tower::isBroken)).toList();
         List<Tower> reserveTowers = this.gameManager.getInventory().getReserveTowers().stream().filter(not(Tower::isBroken)).toList();
 
-        ArrayList<String> activeTowersMessages = this.runTowersRandomEvent(activeTowers, 5);
-        ArrayList<String> reserveTowersMessages = this.runTowersRandomEvent(reserveTowers, 7);
+        ArrayList<String> activeTowersMessages = this.runTowersRandomEvent(activeTowers, this.gameManager.getInventory().getActiveTowers(), 5);
+        ArrayList<String> reserveTowersMessages = this.runTowersRandomEvent(reserveTowers, this.gameManager.getInventory().getReserveTowers(),7);
 
         return Stream.concat(activeTowersMessages.stream(), reserveTowersMessages.stream()).toList();
     }
 
-    private ArrayList<String> runTowersRandomEvent(List<Tower> towers, int probability) {
+    private ArrayList<String> runTowersRandomEvent(List<Tower> towersToCheck, ArrayList<Tower> towers, int probability) {
         Random random = new Random();
         ArrayList<String> messages = new ArrayList<>();
-        ArrayList<Tower> towersCopy = new ArrayList<>(towers);
 
-        for(Tower tower : towersCopy) {
+        for(Tower tower : towersToCheck) {
             int chance = random.nextInt(0, probability);
 
             if(chance == 0) {

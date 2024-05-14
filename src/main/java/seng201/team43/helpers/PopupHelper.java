@@ -12,6 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.stage.Window;
 
+/**
+ * Helper class to build and display custom popups
+ * @author Luke Hallett
+ */
 public class PopupHelper {
     public static void display(Control control, String message) {
         Popup popup = new Popup();
@@ -19,23 +23,24 @@ public class PopupHelper {
         ImageView popupBackground = new ImageView(new Image(String.valueOf(PopupHelper.class.getResource("/images/popup.png"))));
 
         Label messageLabel = new Label(message);
-        messageLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20;");
+        messageLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20; -fx-text-alignment: center");
+        messageLabel.setWrapText(true);
 
+        popupContent.setPrefWidth(500);
         GridPane.setConstraints(popupBackground, 0, 0);
         GridPane.setConstraints(messageLabel, 0, 0);
         GridPane.setHalignment(popupBackground, HPos.CENTER);
         GridPane.setHalignment(messageLabel, HPos.CENTER);
+        GridPane.setMargin(messageLabel, new Insets(0, 50, 0, 50));
 
         Button removeButton = new Button("X");
         GridPane.setValignment(removeButton, VPos.TOP);
         GridPane.setHalignment(removeButton, HPos.RIGHT);
         GridPane.setMargin(removeButton, new Insets(75, 50, 10, 10));
         removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%; -fx-text-fill: white;");
-
         removeButton.setOnAction(event -> popup.hide());
 
         popupContent.getChildren().addAll(popupBackground, messageLabel, removeButton);
-
         popup.getContent().add(popupContent);
         Window stage = control.getScene().getWindow();
 

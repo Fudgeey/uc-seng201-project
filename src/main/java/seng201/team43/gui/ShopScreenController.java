@@ -28,7 +28,7 @@ public class ShopScreenController {
     private Button backButton;
 
     @FXML
-    private Button pauseButton;
+    private Label moneyLabel;
 
     @FXML
     private GridPane outerGrid;
@@ -39,7 +39,7 @@ public class ShopScreenController {
 
     public void initialize() {
         backButton.setOnAction(event -> shopService.close());
-        pauseButton.setOnAction(event -> shopService.pause());
+        this.updateMoney();
 
         List<Purchasable> items = this.shopService.getShopItems();
 
@@ -58,6 +58,7 @@ public class ShopScreenController {
                 try {
                     this.shopService.buyItem(item);
                     buyButton.setDisable(true);
+                    this.updateMoney();
                 } catch (GameError e) {
                     e.displayError(buyButton);
                 }
@@ -85,5 +86,9 @@ public class ShopScreenController {
 
         towerPane.getChildren().addAll(descriptionLabel, buyButton, priceLabel);
         return towerPane;
+    }
+
+    private void updateMoney() {
+        moneyLabel.setText(String.format("Money: $%.2f", this.shopService.getMoney()));
     }
 }
