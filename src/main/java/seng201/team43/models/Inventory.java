@@ -81,7 +81,11 @@ public class Inventory {
     public void addItem(Purchasable item) {
         try {
             if(item.getClass() == Tower.class) {
-                this.addActiveTower((Tower) item);
+                if(this.getActiveTowers().size() == 5) {
+                    this.addReserveTower((Tower) item);
+                } else {
+                    this.addActiveTower((Tower) item);
+                }
             } else {
                 this.addUpgrade((Upgrade) item);
             }

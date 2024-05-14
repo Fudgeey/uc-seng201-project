@@ -81,7 +81,7 @@
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="sellButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="242.0" text="Sell Tower" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="sellButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="242.0" text="Sell" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font size="25.0" />
                </font>

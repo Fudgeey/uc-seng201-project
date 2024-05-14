@@ -47,6 +47,14 @@ public class ShopService {
             throw new GameError("Invalid item was purchased.");
         }
 
+        if(item.getClass() == Tower.class) {
+            if(this.gameManager.getInventory().getActiveTowers().size() == 5) {
+                if(this.gameManager.getInventory().getReserveTowers().size() == 5) {
+                    throw new GameError("You cannot buy any more towers.");
+                }
+            }
+        }
+
         item.setPurchased();
 
         this.gameManager.removeMoney(item.getCost());

@@ -2,6 +2,7 @@ package seng201.team43.models;
 
 import javafx.application.Platform;
 import seng201.team43.exceptions.GameError;
+import seng201.team43.helpers.RoundInformation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,17 +16,23 @@ import java.util.function.Consumer;
  */
 public class GameManager {
     private String playerName;
+    private Double money;
+    private int experience;
+    private final Inventory inventory;
+
     private Integer roundCount;
     private Integer currentRound;
     private GameDifficulty gameDifficulty;
-    private final Inventory inventory;
-    private Double money;
+
+
     private Double trackDistance;
     private Double moneyGained;
     private Double expGained;
     private final ArrayList<Cart> carts;
     private RoundDifficulty roundDifficulty;
     private List<Purchasable> shopItems;
+    private RoundInformation previousRoundInformation;
+    private boolean gameWon;
 
     private final Consumer<GameManager> setupScreenLauncher;
     private final Consumer<GameManager> gameScreenLauncher;
@@ -42,6 +49,8 @@ public class GameManager {
         this.money = 0.0;
         this.moneyGained = 0.0;
         this.carts = new ArrayList<>();
+        this.previousRoundInformation = null;
+        this.gameWon = false;
 
         this.setGameDifficulty(GameDifficulty.EASY);
         this.setRoundDifficulty(RoundDifficulty.EASY);
@@ -73,28 +82,16 @@ public class GameManager {
         this.roundCount = setRounds;
     }
 
-    /**
-     * Gets the total amount of rounds.
-     * @return total amount of rounds
-     */
     public Integer getRoundCount() {
         return this.roundCount;
     }
 
-    /**
-     * Sets the game difficulty.
-     * @param gameDifficulty game difficulty
-     */
     public void setGameDifficulty(GameDifficulty gameDifficulty) {
         this.gameDifficulty = gameDifficulty;
         this.money = gameDifficulty.startingMoney;
         this.moneyGained = gameDifficulty.startingMoney;
     }
 
-    /**
-     * Gets the game difficulty
-     * @return game difficulty
-     */
     public GameDifficulty getGameDifficulty() {
         return this.gameDifficulty;
     }
@@ -104,18 +101,10 @@ public class GameManager {
         this.trackDistance = roundDifficulty.trackDistance;
     }
 
-    /**
-     * Gets the current round's difficulty
-     * @return the round difficulty
-     */
     public RoundDifficulty getRoundDifficulty() {
         return this.roundDifficulty;
     }
 
-    /**
-     * Gets the inventory
-     * @return inventory
-     */
     public Inventory getInventory() {
         return this.inventory;
     }
@@ -135,6 +124,14 @@ public class GameManager {
 
     public Double getMoney() {
         return this.money;
+    }
+
+    public void addExperience(int experience) {
+        this.experience += experience;
+    }
+
+    public int getLevel() {
+        return ((this.experience - this.experience % 10) / 10);
     }
 
     public Integer getCurrentRound() {
@@ -176,17 +173,17 @@ public class GameManager {
             Resource[] resources = Resource.values();
             int resourceIndex = random.nextInt(resources.length);
 
-            double sizeMultiplier = ((double) this.getRoundCount() / 10) + 1.0;
-            Integer size = (int) (100 * sizeMultiplier);
+            double sizeMultiplier = ((double) this.getCurrentRound() / 10) + 1.0;
+            int size = (int) (100 * sizeMultiplier);
 
-            Integer speed = 5 * this.getCurrentRound();
+            int speed = 5 + this.getCurrentRound();
 
             Cart cart = new Cart(size, speed, resources[resourceIndex]);
 
             this.addCart(cart);
         }
 
-        List<Purchasable> shopItems = new ArrayList<>(List.of(new ProductionUpgrade(10), new ReloadUpgrade(), new ResourceTypeUpgrade()));
+        List<Purchasable> shopItems = new ArrayList<>(List.of(new ProductionUpgrade(25), new ReloadUpgrade(), new ResourceTypeUpgrade(), new RepairTowerUpgrade()));
 
         for(Resource resource : Resource.values()) {
             shopItems.add(new Tower(resource));
@@ -199,34 +196,71 @@ public class GameManager {
     /**
      * Starts the current round.
      */
-    public boolean startRound() {
+    public RoundInformation startRound() {
+        RoundInformation roundInformation = new RoundInformation();
+
         for(Tower tower : this.getInventory().getActiveTowers()) {
             for(Cart cart : this.getCarts()) {
-                if(tower.getResourceType() == cart.getType()) {
+                if(tower.getResourceType() == cart.getType() && !tower.isBroken()) {
                     double cartTimeOnTrack = this.getTrackDistance() / cart.getSpeed();
                     int towerAction = Math.floorDiv((int) cartTimeOnTrack, tower.getReloadSpeed()) + 1;
                     int unitsToAdd = towerAction * tower.getProductionUnits();
+                    double moneyToAdd = towerAction * 10;
 
                     cart.addCurrentFilled(unitsToAdd);
+                    this.addMoney(moneyToAdd);
+
+                    tower.addExperience((int) (unitsToAdd * 0.1));
+
+                    roundInformation.moneyEarned += moneyToAdd;
                 }
             }
         }
 
         int cartsNotFilled = 0;
-        boolean roundWon = true;
 
         for(Cart cart : this.getCarts()) {
             if(cart.getCurrentFilled() < cart.getSize()) {
                 cartsNotFilled += 1;
-                roundWon = false;
+                roundInformation.setWon(false);
+                roundInformation.setMessage(String.format("Carts Not Filled: %s", cartsNotFilled));
+            } else {
+                this.addExperience(2);
+                this.addMoney(25.0);
+                roundInformation.moneyEarned += 25;
             }
         }
 
-        return roundWon;
+        if(roundInformation.getWon()) {
+            this.addMoney(50.0);
+            roundInformation.moneyEarned += 50;
+        }
+
+        return roundInformation;
     }
 
     public List<Purchasable> getShopItems() {
         return this.shopItems;
+    }
+
+    public Double getMoneyGained() {
+        return this.moneyGained;
+    }
+
+    public void setPreviousRoundInformation(RoundInformation roundInformation) {
+        this.previousRoundInformation = roundInformation;
+    }
+
+    public RoundInformation getPreviousRoundInformation() {
+        return this.previousRoundInformation;
+    }
+
+    public void setGameWon() {
+        this.gameWon = true;
+    }
+
+    public boolean isGameWon() {
+        return this.gameWon;
     }
 
     public void launchSetupScreen() {

@@ -6,7 +6,7 @@ public class ResourceTypeUpgrade extends Upgrade {
     }
 
     public void apply(Tower tower) {
-        tower.changeResourceType(Resource.WOOD);
+        tower.setResourceType(Resource.WOOD);
     }
 
     public String getDescription() {

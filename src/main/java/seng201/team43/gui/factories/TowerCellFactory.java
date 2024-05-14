@@ -60,6 +60,10 @@ public class TowerCellFactory implements Callback<ListView<Tower>, ListCell<Towe
                     Label nameLabel = new Label(tower.getName());
                     nameLabel.setFont(new Font(30));
 
+                    if(tower.isBroken()) {
+                        nameLabel.setStyle("-fx-text-fill: red;");
+                    }
+
                     Label resourceTypeLabel = new Label(tower.getResourceType().label);
                     resourceTypeLabel.setFont(new Font(25));
 
@@ -67,7 +71,7 @@ public class TowerCellFactory implements Callback<ListView<Tower>, ListCell<Towe
                     resourceImage.setFitWidth(140);
                     resourceImage.setPreserveRatio(true);
 
-                    Label statsLabel = new Label(String.format("Production Speed: %s units\nReload Speed: %s seconds\nSell Price: $%s", tower.getProductionUnits(), tower.getReloadSpeed(), tower.getSellPrice()));
+                    Label statsLabel = new Label(String.format("Tower Level: %s\nProduction Speed: %s units\nReload Speed: %s seconds\nSell Price: $%s", tower.getLevel(), tower.getProductionUnits(), tower.getReloadSpeed(), tower.getSellPrice()));
                     statsLabel.setFont(new Font(15));
 
                     GridPane.setConstraints(statsLabel, 1, 0);

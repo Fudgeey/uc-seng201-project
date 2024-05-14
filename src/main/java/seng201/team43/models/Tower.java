@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Tower implements Purchasable {
     private Resource resourceType;
     private String name;
-    private Integer reloadSpeed;
-    private Integer productionUnits;
-    private ArrayList<Upgrade> upgrades;
-    private Integer towerExp;
-    private Integer cost;
-    private Boolean purchased;
+    private int reloadSpeed;
+    private int productionUnits;
+    private int experience;
+    private int cost;
+    private boolean purchased;
+    private boolean broken;
 
     public Tower(Resource resourceType) {
         this(resourceType, String.format("%s Tower", resourceType.label));
@@ -25,7 +25,7 @@ public class Tower implements Purchasable {
         this.name = name;
         this.reloadSpeed = 5;
         this.productionUnits = 50;
-        this.upgrades = new ArrayList<>();
+        this.experience = 0;
         this.cost = 100;
         this.purchased = false;
     }
@@ -34,36 +34,32 @@ public class Tower implements Purchasable {
         return this.resourceType;
     }
 
-    /**
-     * Sets the resource type of the Tower.
-     * @param resourceType the resource type of the tower
-     */
     public void setResourceType(Resource resourceType) {
         this.resourceType = resourceType;
     }
 
-    /**
-     * Gets the name of the tower.
-     * @return the name of the tower
-     */
     public String getName() {
         return this.name;
     }
 
-    public Integer getReloadSpeed() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getReloadSpeed() {
         return this.reloadSpeed;
     }
 
-    public Integer getProductionUnits() {
+    public int getProductionUnits() {
         return this.productionUnits;
     }
 
-    /**
-     * Calculates tower level from towerExp
-     * @return tower level
-     */
-    public Integer getTowerLevel() {
-        return ((this.towerExp - this.towerExp%10)/10);
+    public int getLevel() {
+        return ((this.experience - this.experience % 10) / 10);
+    }
+
+    public void addExperience(int experience) {
+        this.experience += experience;
     }
 
     /**
@@ -87,8 +83,12 @@ public class Tower implements Purchasable {
         this.reloadSpeed -= reloadSpeed;
     }
 
-    public void changeResourceType(Resource resource) {
-        this.resourceType = resource;
+    public void setBroken(boolean broken) {
+        this.broken = broken;
+    }
+
+    public boolean isBroken() {
+        return this.broken;
     }
 
     @Override

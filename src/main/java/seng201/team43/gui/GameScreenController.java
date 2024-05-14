@@ -1,18 +1,23 @@
 package seng201.team43.gui;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
+import seng201.team43.gui.factories.CartCellFactory;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.helpers.PopupHelper;
+import seng201.team43.helpers.RoundInformation;
 import seng201.team43.models.*;
 import seng201.team43.services.GameService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,12 +40,6 @@ public class GameScreenController {
 
     @FXML
     private Label statsLabel;
-
-    @FXML
-    private Label currentRoundLabel;
-
-    @FXML
-    private Label cartCountLabel;
 
     @FXML
     private Pane towerPaneOne;
@@ -66,13 +65,18 @@ public class GameScreenController {
     @FXML
     private Button hardDifficultyButton;
 
+    @FXML
+    private ListView<Cart> cartsListView;
+
     public GameScreenController(GameManager gameManager) {
         this.gameManager = gameManager;
-        this.gameService = new GameService(this.gameManager);
+        this.gameService = new GameService(gameManager);
     }
 
     public void initialize() {
         List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
+
+        cartsListView.setCellFactory(new CartCellFactory());
 
         this.displayTowers();
         this.updateStats();
@@ -81,13 +85,14 @@ public class GameScreenController {
         pauseButton.setOnAction(event -> gameManager.openPauseScreen());
 
         startButton.setOnAction(event -> {
-            boolean roundWon = this.gameService.startRound();
+            RoundInformation roundInformation = this.gameService.startRound();
 
-            if(roundWon) {
+            if(roundInformation.getWon()) {
                 if(this.gameService.gameEnded()) {
+                    this.gameService.setGameWon();
                     this.gameManager.launchEndScreen();
                 } else {
-                    PopupHelper.display(startButton, "You Won!");
+                    PopupHelper.display(startButton, String.format("You Won!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
 
                     this.gameService.prepareRound();
                     this.updateStats();
@@ -95,6 +100,18 @@ public class GameScreenController {
             } else {
                 this.gameManager.launchEndScreen();
             }
+
+            this.gameService.setPreviousRoundInformation(roundInformation);
+
+            ArrayList<String> randomEventsMessage = this.gameService.runRandomEvents();
+
+            if(!randomEventsMessage.isEmpty()) {
+                for(String eventMessage : randomEventsMessage) {
+                    PopupHelper.display(startButton, eventMessage);
+                }
+            }
+
+            this.displayTowers();
         });
 
         try {
@@ -121,24 +138,9 @@ public class GameScreenController {
 
         statsLabel.setTextAlignment(TextAlignment.CENTER);
         statsLabel.setFont(new Font(20));
-        statsLabel.setText(String.format("Rounds Won: %s\nRounds Remaining: %s\nMoney: $%s\nTrack Distance: %sm", this.gameManager.getCurrentRound() - 1, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
+        statsLabel.setText(String.format("Current Round: %s\nRounds Won: %s\nRounds Remaining: %s\nMoney: $%.2f\nTrack Distance: %sm", this.gameManager.getCurrentRound(), this.gameManager.getCurrentRound() - 1, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
 
-        currentRoundLabel.setText(String.format("Round: %s", this.gameManager.getCurrentRound()));
-
-        int woodCartCount = 0;
-        int foodCartCount = 0;
-        int waterCartCount = 0;
-
-        for(Cart cart : this.gameManager.getCarts()) {
-            switch (cart.getType()) {
-                case WATER -> waterCartCount += 1;
-                case WOOD -> woodCartCount += 1;
-                case FOOD -> foodCartCount += 1;
-                default -> {}
-            };
-        }
-
-        cartCountLabel.setText(String.format("Wood: %s\nFood: %s\nWater: %s", woodCartCount, foodCartCount, waterCartCount));
+        cartsListView.setItems(FXCollections.observableArrayList(this.gameService.getCarts()));
     }
 
     private void setRoundDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
@@ -177,6 +179,10 @@ public class GameScreenController {
 
     private void displayTowers() {
         List<Pane> towerPanes = List.of(towerPaneOne, towerPaneTwo, towerPaneThree, towerPaneFour, towerPaneFive);
+
+        for(Pane pane : towerPanes) {
+            pane.getChildren().removeAll();
+        }
 
         for(int i = 0; i < this.gameService.getActiveTowers().size(); i++) {
             Tower tower = this.gameService.getActiveTowers().get(i);
