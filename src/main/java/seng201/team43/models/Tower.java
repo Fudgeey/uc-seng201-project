@@ -54,7 +54,7 @@ public class Tower implements Purchasable {
     }
 
     public int getLevel() {
-        return (Math.floorDiv(this.experience, 100) + 1);
+        return (Math.floorDiv(this.experience, 10) + 1);
     }
 
     public void addExperience(int experience) {
@@ -62,7 +62,7 @@ public class Tower implements Purchasable {
     }
 
     public void levelUp() {
-        this.productionUnits += 50;
+        this.productionUnits += 25;
     }
 
     public void levelDown() {
