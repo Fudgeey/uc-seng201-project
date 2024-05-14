@@ -207,23 +207,23 @@ public class GameManager {
         for(Tower tower : this.getInventory().getActiveTowers()) {
             for(Cart cart : this.getCarts()) {
                 if(tower.getResourceType() == cart.getType() && !tower.isBroken()) {
-                    double cartTimeOnTrack = this.getTrackDistance() / cart.getSpeed();
-                    int towerAction = Math.floorDiv((int) cartTimeOnTrack, tower.getReloadSpeed()) + 1;
-                    int unitsToAdd = towerAction * tower.getProductionUnits();
-                    double moneyToAdd = towerAction * 10;
+                    if (cart.getSize() > cart.getCurrentFilled()) {
+                        double cartTimeOnTrack = this.getTrackDistance() / cart.getSpeed();
+                        int towerAction = Math.floorDiv((int) cartTimeOnTrack, tower.getReloadSpeed()) + 1;
+                        int unitsToAdd = towerAction * tower.getProductionUnits();
+                        double moneyToAdd = towerAction * 10;
+                        cart.addCurrentFilled(unitsToAdd);
+                        this.addMoney(moneyToAdd);
 
-                    cart.addCurrentFilled(unitsToAdd);
-                    this.addMoney(moneyToAdd);
+                        int previousLevel = tower.getLevel();
+                        tower.addExperience((int) (unitsToAdd * 0.1));
+                        if (previousLevel < tower.getLevel()) {
+                            tower.levelUp();
 
-                    int previousLevel = tower.getLevel();
-                    tower.addExperience((int) (unitsToAdd * 0.1));
-                    if (previousLevel < tower.getLevel()) {
-                        tower.levelUp();
-
-                        roundInformation.levelledUpTowers.add(tower);
+                            roundInformation.levelledUpTowers.add(tower);
+                        }
+                        roundInformation.moneyEarned += moneyToAdd;
                     }
-
-                    roundInformation.moneyEarned += moneyToAdd;
                 }
             }
         }
