@@ -20,13 +20,13 @@ public class PopupHelper {
         GridPane popupContent = new GridPane();
         ImageView popupBackground = new ImageView(new Image(String.valueOf(PopupHelper.class.getResource("/images/popup.png"))));
 
-        Label testLabel = new Label(message);
-        testLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20;");
+        Label messageLabel = new Label(message);
+        messageLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20;");
 
         GridPane.setConstraints(popupBackground, 0, 0);
-        GridPane.setConstraints(testLabel, 0, 0);
+        GridPane.setConstraints(messageLabel, 0, 0);
         GridPane.setHalignment(popupBackground, HPos.CENTER);
-        GridPane.setHalignment(testLabel, HPos.CENTER);
+        GridPane.setHalignment(messageLabel, HPos.CENTER);
 
         Button removeButton = new Button("X");
         GridPane.setValignment(removeButton, VPos.TOP);
@@ -36,7 +36,7 @@ public class PopupHelper {
 
         removeButton.setOnAction(event -> popup.hide());
 
-        popupContent.getChildren().addAll(popupBackground, testLabel, removeButton);
+        popupContent.getChildren().addAll(popupBackground, messageLabel, removeButton);
 
         popup.getContent().add(popupContent);
         Window stage = control.getScene().getWindow();
