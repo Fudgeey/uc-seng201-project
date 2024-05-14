@@ -86,11 +86,19 @@ public class GameScreenController {
         startButton.setOnAction(event -> {
             RoundInformation roundInformation = this.gameService.startRound();
 
+
+
             if(roundInformation.getWon()) {
                 if(this.gameService.gameEnded()) {
                     this.gameService.setGameWon();
                     this.gameManager.launchEndScreen();
                 } else {
+                    if(!roundInformation.levelledUpTowers.isEmpty()) {
+                        for(Purchasable item : roundInformation.levelledUpTowers) {
+                            Tower tower = (Tower) item;
+                            PopupHelper.display(startButton, String.format("One of your %s towers upgraded and production increased by 50!!", tower.getResourceType().label));
+                        }
+                    }
                     PopupHelper.display(startButton, String.format("You Won!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
 
                     this.gameService.prepareRound();
@@ -192,5 +200,9 @@ public class GameScreenController {
 
             towerPane.getChildren().add(towerFlowPane);
         }
+    }
+
+    public void leveUpPopupScreen(Tower tower) {
+        PopupHelper.display(startButton, String.format("A %s tower levelled up and production is increased by +50!!", tower.getResourceType()));
     }
 }

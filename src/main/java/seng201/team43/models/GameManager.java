@@ -2,6 +2,8 @@ package seng201.team43.models;
 
 import javafx.application.Platform;
 import seng201.team43.exceptions.GameError;
+import seng201.team43.gui.GameScreenController;
+import seng201.team43.helpers.PopupHelper;
 import seng201.team43.helpers.RoundInformation;
 
 import java.util.ArrayList;
@@ -209,10 +211,14 @@ public class GameManager {
 
                     cart.addCurrentFilled(unitsToAdd);
                     this.addMoney(moneyToAdd);
+
                     int previousLevel = tower.getLevel();
                     tower.addExperience((int) (unitsToAdd * 0.1));
                     if (previousLevel < tower.getLevel()) {
                         tower.levelUp();
+
+                        roundInformation.levelledUpTowers.add(tower);
+                        // have a popup that tells the person the tower was levelled up and production increased by 50.
                     }
 
                     roundInformation.moneyEarned += moneyToAdd;

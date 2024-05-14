@@ -55,7 +55,7 @@ public class Tower implements Purchasable {
     }
 
     public int getLevel() {
-        return ((this.experience - this.experience % 10) / 10);
+        return (Math.floorDiv(this.experience, 100));
     }
 
     public void addExperience(int experience) {

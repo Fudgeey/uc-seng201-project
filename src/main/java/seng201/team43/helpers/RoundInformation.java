@@ -1,9 +1,15 @@
 package seng201.team43.helpers;
 
+import seng201.team43.models.Purchasable;
+
+import java.util.ArrayList;
+
 public class RoundInformation {
     private boolean won;
     public double moneyEarned;
     public double experienceEarned;
+
+    public ArrayList<Purchasable> levelledUpTowers;
 
     private String title;
     private String message;
@@ -15,6 +21,8 @@ public class RoundInformation {
 
         this.title = null;
         this.message = null;
+
+        this.levelledUpTowers = new ArrayList<>();
     }
 
     public void setWon(boolean won) {
