@@ -17,7 +17,6 @@ import seng201.team43.helpers.RoundInformation;
 import seng201.team43.models.*;
 import seng201.team43.services.GameService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,7 +102,7 @@ public class GameScreenController {
 
             this.gameService.setPreviousRoundInformation(roundInformation);
 
-            ArrayList<String> randomEventsMessage = this.gameService.runRandomEvents();
+            List<String> randomEventsMessage = this.gameService.runRandomEvents();
 
             if(!randomEventsMessage.isEmpty()) {
                 for(String eventMessage : randomEventsMessage) {
@@ -181,7 +180,7 @@ public class GameScreenController {
         List<Pane> towerPanes = List.of(towerPaneOne, towerPaneTwo, towerPaneThree, towerPaneFour, towerPaneFive);
 
         for(Pane pane : towerPanes) {
-            pane.getChildren().removeAll();
+            pane.getChildren().clear();
         }
 
         for(int i = 0; i < this.gameService.getActiveTowers().size(); i++) {

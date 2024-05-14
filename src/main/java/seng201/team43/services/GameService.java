@@ -1,12 +1,12 @@
 package seng201.team43.services;
 
-import seng201.team43.helpers.PopupHelper;
 import seng201.team43.helpers.RoundInformation;
 import seng201.team43.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 import static java.util.function.Predicate.not;
 
@@ -25,29 +25,21 @@ public class GameService {
         this.gameManager.prepareRound();
     }
 
-    public ArrayList<String> runRandomEvents() {
-        ArrayList<String> messages = new ArrayList<>();
-        Random random = new Random();
+    public List<String> runRandomEvents() {
         List<Tower> activeTowers = this.gameManager.getInventory().getActiveTowers().stream().filter(not(Tower::isBroken)).toList();
         List<Tower> reserveTowers = this.gameManager.getInventory().getReserveTowers().stream().filter(not(Tower::isBroken)).toList();
 
-        for(Tower tower : activeTowers) {
-            int chance = random.nextInt(0, 6);
+        ArrayList<String> activeTowersMessages = this.runTowersRandomEvent(activeTowers);
+        ArrayList<String> reserveTowersMessages = this.runTowersRandomEvent(reserveTowers);
 
-            if(chance == 0) {
-                int choice = random.nextInt(0, 2);
+        return Stream.concat(activeTowersMessages.stream(), reserveTowersMessages.stream()).toList();
+    }
 
-                if(choice == 0) {
-                    messages.add(String.format("A %s tower was broken.", tower.getResourceType().label));
-                    tower.setBroken(true);
-                } else {
-                    messages.add(String.format("A %s tower was destroyed and removed from your inventory.", tower.getResourceType().label));
-                    this.gameManager.getInventory().getActiveTowers().remove(tower);
-                }
-            }
-        }
+    private ArrayList<String> runTowersRandomEvent(List<Tower> towers) {
+        Random random = new Random();
+        ArrayList<String> messages = new ArrayList<>();
 
-        for(Tower tower : reserveTowers) {
+        for(Tower tower : towers) {
             int chance = random.nextInt(0, 8);
 
             if(chance == 0) {
@@ -58,11 +50,11 @@ public class GameService {
                     tower.setBroken(true);
                 } else {
                     messages.add(String.format("A %s tower was destroyed and removed from your inventory.", tower.getResourceType().label));
-                    this.gameManager.getInventory().getReserveTowers().remove(tower);
+                    towers.remove(tower);
                 }
             }
         }
-        
+
         return messages;
     }
 
@@ -88,10 +80,6 @@ public class GameService {
 
     public void setGameWon() {
         this.gameManager.setGameWon();
-    }
-
-    public boolean isGameWon() {
-        return this.gameManager.isGameWon();
     }
 
     public List<Tower> getActiveTowers() {
