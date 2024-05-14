@@ -98,12 +98,16 @@ public class GameScreenController {
                         }
                     }
 
-                    List<String> randomEventsMessage = this.gameService.runRandomEvents();
+                    try {
+                        List<String> randomEventsMessage = this.gameService.runRandomEvents();
 
-                    if(!randomEventsMessage.isEmpty()) {
-                        for(String eventMessage : randomEventsMessage) {
-                            PopupHelper.display(startButton, eventMessage);
+                        if(!randomEventsMessage.isEmpty()) {
+                            for(String eventMessage : randomEventsMessage) {
+                                PopupHelper.display(startButton, eventMessage);
+                            }
                         }
+                    } catch(GameError e) {
+                        e.displayError(startButton);
                     }
 
                     PopupHelper.display(startButton, String.format("You Won!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
