@@ -38,6 +38,10 @@ public class EndService {
         return this.gameManager.getLevel();
     }
 
+    public int getExperienceGained() {
+        return this.gameManager.getExperienceGained();
+    }
+
     public void closeGame() {
         this.gameManager.quitGame();
     }

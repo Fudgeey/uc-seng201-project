@@ -1,8 +1,5 @@
 package seng201.team43.models;
 
-import seng201.team43.exceptions.GameError;
-
-import java.util.ArrayList;
 /**
  * Class for Towers
  *
@@ -63,16 +60,15 @@ public class Tower implements Purchasable {
     public void addExperience(int experience) {
         this.experience += experience;
     }
+
     public void levelUp() {
         this.productionUnits += 50;
     }
 
-    public void levelDown() throws GameError {
+    public void levelDown() {
         if(this.getLevel() > 1) {
             this.experience -= 10;
             this.productionUnits -= 50;
-        } else {
-            throw new GameError("Cannot decrease level below 1");
         }
     }
 

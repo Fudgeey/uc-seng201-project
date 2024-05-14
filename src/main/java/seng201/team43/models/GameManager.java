@@ -24,11 +24,10 @@ public class GameManager {
     private Integer roundCount;
     private Integer currentRound;
     private GameDifficulty gameDifficulty;
-
-
     private Double trackDistance;
+
     private Double moneyGained;
-    private Double expGained;
+    private int experienceGained;
     private final ArrayList<Cart> carts;
     private RoundDifficulty roundDifficulty;
     private List<Purchasable> shopItems;
@@ -129,6 +128,11 @@ public class GameManager {
 
     public void addExperience(int experience) {
         this.experience += experience;
+        this.experienceGained += experience;
+    }
+
+    public int getExperienceGained() {
+        return this.experienceGained;
     }
 
     public int getLevel() {
@@ -217,7 +221,6 @@ public class GameManager {
                         tower.levelUp();
 
                         roundInformation.levelledUpTowers.add(tower);
-                        // have a popup that tells the person the tower was levelled up and production increased by 50.
                     }
 
                     roundInformation.moneyEarned += moneyToAdd;

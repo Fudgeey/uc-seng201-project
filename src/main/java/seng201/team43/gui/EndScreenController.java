@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import seng201.team43.models.GameManager;
 import seng201.team43.services.EndService;
 
@@ -35,15 +33,13 @@ public class EndScreenController {
 
         String statsString = String.format("Overall Money Gained: $%.2f\n", this.endService.getMoneyGained()) +
                 String.format("Rounds Survived: %s of %s\n", roundsWon, this.endService.getRoundCount()) +
-                String.format("Level: %s", this.endService.getLevel());
+                String.format("Level: %s (%s experience gained)", this.endService.getLevel(), this.endService.getExperienceGained());
 
         Label titleLabel = new Label(titleString);
-        titleLabel.setFont(Font.font("System", FontWeight.BOLD, 40.0));
-        titleLabel.setStyle("-fx-text-fill: white;");
+        titleLabel.setStyle("-fx-text-fill: white; -fx-font-size: 40; -fx-font-weight: bold;");
 
         Label statsLabel = new Label(statsString);
-        statsLabel.setFont(Font.font(20.0));
-        statsLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-text-alignment: center;");
+        statsLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-text-alignment: center; -fx-font-size: 20;");
 
         innerPane.getChildren().addAll(titleLabel, statsLabel);
 

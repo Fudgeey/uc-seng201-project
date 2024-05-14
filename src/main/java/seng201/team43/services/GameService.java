@@ -1,6 +1,5 @@
 package seng201.team43.services;
 
-import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.RoundInformation;
 import seng201.team43.models.*;
 
@@ -26,7 +25,7 @@ public class GameService {
         this.gameManager.prepareRound();
     }
 
-    public List<String> runRandomEvents() throws GameError {
+    public List<String> runRandomEvents() {
         List<Tower> activeTowers = this.gameManager.getInventory().getActiveTowers().stream().filter(not(Tower::isBroken)).toList();
         List<Tower> reserveTowers = this.gameManager.getInventory().getReserveTowers().stream().filter(not(Tower::isBroken)).toList();
 
@@ -36,11 +35,12 @@ public class GameService {
         return Stream.concat(activeTowersMessages.stream(), reserveTowersMessages.stream()).toList();
     }
 
-    private ArrayList<String> runTowersRandomEvent(List<Tower> towers, int probability) throws GameError {
+    private ArrayList<String> runTowersRandomEvent(List<Tower> towers, int probability) {
         Random random = new Random();
         ArrayList<String> messages = new ArrayList<>();
+        ArrayList<Tower> towersCopy = new ArrayList<>(towers);
 
-        for(Tower tower : towers) {
+        for(Tower tower : towersCopy) {
             int chance = random.nextInt(0, probability);
 
             if(chance == 0) {
@@ -53,17 +53,16 @@ public class GameService {
                     messages.add(String.format("A %s tower was destroyed and removed from your inventory.", tower.getResourceType().label));
                     towers.remove(tower);
                 } else if(choice == 2) {
-                    tower.levelDown();
-                    messages.add(String.format("A %s tower has had its level decreased.", tower.getResourceType().label));
+                    if(tower.getLevel() > 1) {
+                        tower.levelDown();
+                        messages.add(String.format("A %s tower has had its level decreased.", tower.getResourceType().label));
+                    }
                 } else {
                     messages.add(String.format("A %s tower has had its level increased.", tower.getResourceType().label));
                     tower.levelUp();
                 }
             }
         }
-
-
-
 
         return messages;
     }
@@ -94,5 +93,41 @@ public class GameService {
 
     public List<Tower> getActiveTowers() {
         return this.gameManager.getInventory().getActiveTowers().stream().filter(not(Tower::isBroken)).toList();
+    }
+
+    public int getRemainingRounds() {
+        return this.gameManager.getRoundCount() - this.gameManager.getCurrentRound() + 1;
+    }
+
+    public int getCurrentRound() {
+        return this.gameManager.getCurrentRound();
+    }
+
+    public int getRoundsWon() {
+        return this.gameManager.getCurrentRound() - 1;
+    }
+
+    public double getMoney() {
+        return this.gameManager.getMoney();
+    }
+
+    public double getTrackDistance() {
+        return this.gameManager.getTrackDistance();
+    }
+
+    public void launchEndScreen() {
+        this.gameManager.launchEndScreen();
+    }
+
+    public void openInventoryScreen() {
+        this.gameManager.openInventoryScreen();
+    }
+
+    public void openPauseScreen() {
+        this.gameManager.openPauseScreen();
+    }
+
+    public int getLevel() {
+        return this.gameManager.getLevel();
     }
 }

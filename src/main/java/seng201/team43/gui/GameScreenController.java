@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.gui.factories.CartCellFactory;
@@ -25,7 +23,6 @@ import java.util.List;
  * @author Luke Hallett, Riley Jeffcote
  */
 public class GameScreenController {
-    private final GameManager gameManager;
     private final GameService gameService;
 
     @FXML
@@ -68,7 +65,6 @@ public class GameScreenController {
     private ListView<Cart> cartsListView;
 
     public GameScreenController(GameManager gameManager) {
-        this.gameManager = gameManager;
         this.gameService = new GameService(gameManager);
     }
 
@@ -80,8 +76,8 @@ public class GameScreenController {
         this.displayTowers();
         this.updateStats();
 
-        inventoryButton.setOnAction(event -> gameManager.openInventoryScreen());
-        pauseButton.setOnAction(event -> gameManager.openPauseScreen());
+        inventoryButton.setOnAction(event -> this.gameService.openInventoryScreen());
+        pauseButton.setOnAction(event -> this.gameService.openPauseScreen());
 
         startButton.setOnAction(event -> {
             RoundInformation roundInformation = this.gameService.startRound();
@@ -89,7 +85,7 @@ public class GameScreenController {
             if(roundInformation.getWon()) {
                 if(this.gameService.gameEnded()) {
                     this.gameService.setGameWon();
-                    this.gameManager.launchEndScreen();
+                    this.gameService.launchEndScreen();
                 } else {
                     if(!roundInformation.levelledUpTowers.isEmpty()) {
                         for(Purchasable item : roundInformation.levelledUpTowers) {
@@ -98,25 +94,21 @@ public class GameScreenController {
                         }
                     }
 
-                    try {
-                        List<String> randomEventsMessage = this.gameService.runRandomEvents();
+                    List<String> randomEventsMessage = this.gameService.runRandomEvents();
 
-                        if(!randomEventsMessage.isEmpty()) {
-                            for(String eventMessage : randomEventsMessage) {
-                                PopupHelper.display(startButton, eventMessage);
-                            }
+                    if(!randomEventsMessage.isEmpty()) {
+                        for(String eventMessage : randomEventsMessage) {
+                            PopupHelper.display(startButton, eventMessage);
                         }
-                    } catch(GameError e) {
-                        e.displayError(startButton);
                     }
 
-                    PopupHelper.display(startButton, String.format("You Won!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
+                    PopupHelper.display(startButton, String.format("You completed the round!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
 
                     this.gameService.prepareRound();
                     this.updateStats();
                 }
             } else {
-                this.gameManager.launchEndScreen();
+                this.gameService.launchEndScreen();
             }
 
             this.gameService.setPreviousRoundInformation(roundInformation);
@@ -142,12 +134,19 @@ public class GameScreenController {
         });
     }
 
+    /**
+     * Update the stats label and update carts list view
+     */
     private void updateStats() {
-        Integer remainingRounds = this.gameManager.getRoundCount() - this.gameManager.getCurrentRound() + 1;
+        String statsText = String.format("Current Round: %s\n", this.gameService.getCurrentRound()) +
+                String.format("Rounds Won: %s\n", this.gameService.getRoundsWon()) +
+                String.format("Rounds Remaining: %s\n", this.gameService.getRemainingRounds()) +
+                String.format("Money: $%.2f\n", this.gameService.getMoney()) +
+                String.format("Level: %s\n", this.gameService.getLevel()) +
+                String.format("Track Distance: %sm", this.gameService.getTrackDistance());
 
-        statsLabel.setTextAlignment(TextAlignment.CENTER);
-        statsLabel.setFont(new Font(20));
-        statsLabel.setText(String.format("Current Round: %s\nRounds Won: %s\nRounds Remaining: %s\nMoney: $%.2f\nTrack Distance: %sm", this.gameManager.getCurrentRound(), this.gameManager.getCurrentRound() - 1, remainingRounds, this.gameManager.getMoney(), this.gameManager.getTrackDistance()));
+        statsLabel.setText(statsText);
+        statsLabel.setStyle("-fx-text-alignment: center; -fx-font-size: 20;");
 
         cartsListView.setItems(FXCollections.observableArrayList(this.gameService.getCarts()));
     }
@@ -202,9 +201,5 @@ public class GameScreenController {
 
             towerPane.getChildren().add(towerFlowPane);
         }
-    }
-
-    public void leveUpPopupScreen(Tower tower) {
-        PopupHelper.display(startButton, String.format("A %s tower levelled up and production is increased by +50!!", tower.getResourceType()));
     }
 }
