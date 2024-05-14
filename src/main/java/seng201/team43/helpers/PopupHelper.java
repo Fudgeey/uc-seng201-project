@@ -21,8 +21,7 @@ public class PopupHelper {
         ImageView popupBackground = new ImageView(new Image(String.valueOf(PopupHelper.class.getResource("/images/popup.png"))));
 
         Label testLabel = new Label(message);
-        testLabel.setFont(new Font(20));
-        testLabel.setStyle("-fx-text-fill: white;");
+        testLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20;");
 
         GridPane.setConstraints(popupBackground, 0, 0);
         GridPane.setConstraints(testLabel, 0, 0);
@@ -33,8 +32,7 @@ public class PopupHelper {
         GridPane.setValignment(removeButton, VPos.TOP);
         GridPane.setHalignment(removeButton, HPos.RIGHT);
         GridPane.setMargin(removeButton, new Insets(75, 50, 10, 10));
-        removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%");
-        removeButton.setTextFill(Paint.valueOf("white"));
+        removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%; -fx-text-fill: white;");
 
         removeButton.setOnAction(event -> popup.hide());
 
