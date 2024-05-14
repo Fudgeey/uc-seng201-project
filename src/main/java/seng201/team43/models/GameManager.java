@@ -2,8 +2,6 @@ package seng201.team43.models;
 
 import javafx.application.Platform;
 import seng201.team43.exceptions.GameError;
-import seng201.team43.gui.GameScreenController;
-import seng201.team43.helpers.PopupHelper;
 import seng201.team43.helpers.RoundInformation;
 
 import java.util.ArrayList;
@@ -11,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
+
 /**
  * Controller for the game_screen.fxml window
  *
