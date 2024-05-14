@@ -5,10 +5,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
+import seng201.team43.models.Resource;
+import seng201.team43.models.Tower;
 import seng201.team43.services.SetupService;
 
 import java.util.List;
@@ -93,7 +96,7 @@ public class SetupScreenController {
         towerButtons.forEach(button -> {
             button.setOnAction(event -> {
                 try {
-                    this.setupService.addStartingTower(button.getText(), startingTowerPanes);
+                    this.addStartingTower(button.getText(), startingTowerPanes);
                 } catch (GameError e) {
                     e.displayError(button);
                 }
@@ -107,5 +110,39 @@ public class SetupScreenController {
                 e.displayError(startButton);
             }
         });
+    }
+
+    public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
+        Resource resource = switch (resourceText) {
+            case "Water" -> Resource.WATER;
+            case "Wood" -> Resource.WOOD;
+            case "Food" -> Resource.FOOD;
+            default -> null;
+        };
+
+        int slot = this.setupService.findNextSlot(this.setupService.getStartingTowers());
+
+        if(slot == -1) {
+            throw new GameError("You can only have three starting towers.");
+        }
+
+        Tower newTower = new Tower(resource);
+        this.setupService.setStartingTower(slot, newTower);
+
+        GridPane currentPane = startingTowerPanes.get(slot);
+
+        TowerCard towerCard = new TowerCard(newTower);
+        GridPane towerCardPane = towerCard.buildSetup(this, slot);
+
+        currentPane.getChildren().add(towerCardPane);
+
+        currentPane.setVisible(true);
+    }
+
+    public void removeStartingTower(GridPane currentPane, Integer slot) {
+        currentPane.setVisible(false);
+        currentPane.getChildren().clear();
+
+        this.setupService.setStartingTower(slot, null);
     }
 }

@@ -1,15 +1,11 @@
 package seng201.team43.services;
 
-import javafx.scene.layout.GridPane;
-import seng201.team43.components.TowerCard;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
-import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,40 +42,6 @@ public class SetupService {
         return gameDifficulty;
     }
 
-    // move ui stuff to controller
-    public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
-        Resource resource = switch (resourceText) {
-            case "Water" -> Resource.WATER;
-            case "Wood" -> Resource.WOOD;
-            case "Food" -> Resource.FOOD;
-            default -> null;
-        };
-
-        int slot = this.findNextSlot(this.startingTowers);
-
-        if(slot == -1) {
-            throw new GameError("You can only have three starting towers.");
-        }
-
-        Tower newTower = new Tower(resource);
-        startingTowers[slot] = newTower;
-
-        GridPane currentPane = startingTowerPanes.get(slot);
-
-        TowerCard towerCard = new TowerCard(newTower);
-        GridPane towerCardPane = towerCard.buildSetup(this, slot);
-
-        currentPane.getChildren().add(towerCardPane);
-
-        currentPane.setVisible(true);
-    }
-
-    public void removeStartingTower(GridPane currentPane, Integer slot) {
-        currentPane.setVisible(false);
-        currentPane.getChildren().clear();
-
-        this.startingTowers[slot] = null;
-    }
 
     public void startGame() throws GameError {
         if(this.gameManager.getName() == null) {
@@ -114,7 +76,7 @@ public class SetupService {
      *
      * @return the index of the next empty slot
      */
-    private int findNextSlot(Tower[] array) {
+    public int findNextSlot(Tower[] array) {
         for(int i = 0; i < array.length; i++) {
             if(array[i] == null) {
                 return i;
@@ -122,5 +84,13 @@ public class SetupService {
         }
 
         return -1;
+    }
+
+    public Tower[] getStartingTowers() {
+        return this.startingTowers;
+    }
+
+    public void setStartingTower(int index, Tower tower) {
+        this.startingTowers[index] = tower;
     }
 }

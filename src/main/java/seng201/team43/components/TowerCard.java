@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import seng201.team43.gui.SetupScreenController;
 import seng201.team43.models.Tower;
 import seng201.team43.services.SetupService;
 
@@ -23,7 +24,7 @@ public class TowerCard {
         this.tower = tower;
     }
 
-    public GridPane buildSetup(SetupService setupService, int slot) {
+    public GridPane buildSetup(SetupScreenController setupScreenController, int slot) {
         GridPane gridPane = new GridPane();
         FlowPane flowPane = new FlowPane();
 
@@ -53,7 +54,7 @@ public class TowerCard {
         removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%");
         removeButton.setTextFill(Paint.valueOf("white"));
 
-        removeButton.setOnAction(event -> setupService.removeStartingTower((GridPane) gridPane.getParent(), slot));
+        removeButton.setOnAction(event -> setupScreenController.removeStartingTower((GridPane) gridPane.getParent(), slot));
 
         flowPane.getChildren().addAll(nameLabel, resourceTypeLabel, resourceImage);
         gridPane.getChildren().addAll(flowPane, removeButton);
