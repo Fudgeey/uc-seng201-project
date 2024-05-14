@@ -24,17 +24,17 @@ public class EndScreenController {
 
     public void initialize() {
         String titleString;
-        int roundCount = this.endService.getRoundCount();
+        int roundsWon = this.endService.getRoundsWon();
 
         if(this.endService.isGameWon()) {
             titleString = String.format("Well done %s! You won!", this.endService.getName());
-            roundCount += 1;
+            roundsWon += 1;
         } else {
             titleString = String.format("Better luck next time %s! You lost!", this.endService.getName());
         }
 
         String statsString = String.format("Overall Money Gained: $%.2f\n", this.endService.getMoneyGained()) +
-                String.format("Rounds Survived: %s of %s\n", this.endService.getRoundsWon(), roundCount) +
+                String.format("Rounds Survived: %s of %s\n", roundsWon, this.endService.getRoundCount()) +
                 String.format("Level: %s", this.endService.getLevel());
 
         Label titleLabel = new Label(titleString);
