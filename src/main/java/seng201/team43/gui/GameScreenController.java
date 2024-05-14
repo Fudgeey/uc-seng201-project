@@ -86,8 +86,6 @@ public class GameScreenController {
         startButton.setOnAction(event -> {
             RoundInformation roundInformation = this.gameService.startRound();
 
-
-
             if(roundInformation.getWon()) {
                 if(this.gameService.gameEnded()) {
                     this.gameService.setGameWon();
@@ -99,6 +97,15 @@ public class GameScreenController {
                             PopupHelper.display(startButton, String.format("One of your %s towers upgraded and production increased by 50!!", tower.getResourceType().label));
                         }
                     }
+
+                    List<String> randomEventsMessage = this.gameService.runRandomEvents();
+
+                    if(!randomEventsMessage.isEmpty()) {
+                        for(String eventMessage : randomEventsMessage) {
+                            PopupHelper.display(startButton, eventMessage);
+                        }
+                    }
+
                     PopupHelper.display(startButton, String.format("You Won!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
 
                     this.gameService.prepareRound();
@@ -109,15 +116,6 @@ public class GameScreenController {
             }
 
             this.gameService.setPreviousRoundInformation(roundInformation);
-
-            List<String> randomEventsMessage = this.gameService.runRandomEvents();
-
-            if(!randomEventsMessage.isEmpty()) {
-                for(String eventMessage : randomEventsMessage) {
-                    PopupHelper.display(startButton, eventMessage);
-                }
-            }
-
             this.displayTowers();
         });
 
