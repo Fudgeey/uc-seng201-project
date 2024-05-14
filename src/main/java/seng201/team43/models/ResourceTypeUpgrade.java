@@ -25,6 +25,6 @@ public class ResourceTypeUpgrade extends Upgrade {
     }
 
     public String getDescription() {
-        return "Changes the tower's resource type.";
+        return "Changes the tower's resource type to a random one.";
     }
 }
