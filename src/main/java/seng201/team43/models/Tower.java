@@ -68,7 +68,7 @@ public class Tower implements Purchasable {
     public void levelDown() {
         if(this.getLevel() > 1) {
             this.experience -= 10;
-            this.productionUnits -= 50;
+            this.productionUnits -= 25;
         }
     }
 
