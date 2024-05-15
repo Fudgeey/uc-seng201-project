@@ -20,7 +20,7 @@
   </rowConstraints>
    <children>
       <Pane opacity="0.5" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Grey;" />
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.halignment="CENTER">
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="game-title" text="Tower Dynasty" GridPane.halignment="CENTER">
          <font>
             <Font name="System Bold" size="80.0" />
          </font>

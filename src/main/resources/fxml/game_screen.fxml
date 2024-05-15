@@ -52,7 +52,7 @@
         <Font size="35.0" />
       </font>
     </Button>
-    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="game-title" text="Tower Dynasty" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
       <font>
         <Font name="System Bold" size="80.0" />
       </font>

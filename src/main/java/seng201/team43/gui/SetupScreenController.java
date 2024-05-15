@@ -2,6 +2,7 @@ package seng201.team43.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
@@ -22,6 +23,9 @@ import java.util.List;
  */
 public class SetupScreenController {
     private final SetupService setupService;
+
+    @FXML
+    private Label titleLabel;
 
     @FXML
     private TextField nameField;
@@ -72,6 +76,7 @@ public class SetupScreenController {
             this.setupService.setName(nameField.getText());
         });
 
+        roundCountSlider.setStyle("-fx-tick-label-fill: white; -fx-tick-label-font: 20px 'System';");
         roundCountSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 this.setupService.setRoundCount(newValue.intValue());

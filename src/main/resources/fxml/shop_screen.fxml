@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="outerGrid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.ShopScreenController">
+<GridPane fx:id="outerGrid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #3e3e3e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.team43.gui.ShopScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -24,7 +24,7 @@
   </rowConstraints>
   <children>
     <Pane opacity="0.49" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Grey;" GridPane.columnSpan="5" />
-      <Label fx:id="moneyLabel" text="Money: " GridPane.columnIndex="4" GridPane.halignment="CENTER">
+      <Label fx:id="moneyLabel" text="Money: " textFill="WHITE" GridPane.columnIndex="4" GridPane.halignment="CENTER">
          <font>
             <Font size="35.0" />
          </font>
@@ -37,7 +37,7 @@
         <Font size="35.0" />
       </font>
     </Button>
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tower Dynasty" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="game-title" text="Tower Dynasty" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
       <font>
         <Font name="System Bold" size="80.0" />
       </font>

@@ -24,6 +24,7 @@ public class FXWindow extends Application {
         Parent root = baseLoader.load();
         FXWrapper fxWrapper = baseLoader.getController();
         Scene scene = new Scene(root, 1920, 1080);
+        scene.getStylesheets().add(String.valueOf(getClass().getResource("/fonts/fonts.css")));
         primaryStage.setTitle("Tower Dynasty");
         primaryStage.setScene(scene);
         primaryStage.show();
