@@ -39,3 +39,4 @@ IntelliJ has built-in support for Gradle. To import your project:
 ## Copyright
 - Tower icons used under license. [Link to assets](https://admurin.itch.io/mega-admurins-freebies).
 - Game background used under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) license. [Link to assets](https://kenney.nl/assets/tiny-dungeon).
+- Title font used under license. [Link to assets](https://www.fontspace.com/pixemon-trial-font-f107824).
