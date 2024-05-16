@@ -63,7 +63,7 @@ public class InventoryService {
         this.selectedUpgrade = upgrade;
     }
 
-    public void applyUpgrade() {
+    public void applyUpgrade() throws GameError {
         this.selectedTower.applyUpgrade(this.selectedUpgrade);
         this.gameManager.getInventory().removeUpgrade(this.selectedUpgrade);
 

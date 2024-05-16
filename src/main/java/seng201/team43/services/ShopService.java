@@ -3,8 +3,6 @@ package seng201.team43.services;
 import seng201.team43.exceptions.GameError;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Purchasable;
-import seng201.team43.models.Tower;
-import seng201.team43.models.Upgrade;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class ShopService {
      * Goes back to the inventory screen.
      */
     public void close() {
-        this.gameManager.closeShopScreen();
+        this.gameManager.openInventoryScreen();
     }
 
     public double getMoney() {
@@ -44,21 +42,13 @@ public class ShopService {
             throw new GameError("Invalid item was purchased.");
         }
 
-        if(item.getClass() == Tower.class) {
-            if(this.gameManager.getInventory().getActiveTowers().size() == 5) {
-                if(this.gameManager.getInventory().getReserveTowers().size() == 5) {
-                    throw new GameError("You cannot buy any more towers.");
-                }
-            }
-        }
-
         if(this.getMoney() - item.getCost() < 0) {
             throw new GameError("You do not have enough money to buy this.");
         }
 
-        item.setPurchased();
-
-        this.gameManager.removeMoney(item.getCost());
         this.gameManager.getInventory().addItem(item);
+        this.gameManager.removeMoney(item.getCost());
+
+        item.setPurchased();
     }
 }

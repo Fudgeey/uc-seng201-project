@@ -52,8 +52,8 @@ public class InventoryScreenController {
     }
 
     public void initialize() {
-        backButton.setOnAction(event -> gameManager.closeInventoryScreen());
-        shopButton.setOnAction(event -> gameManager.launchShopScreen());
+        backButton.setOnAction(event -> gameManager.openGameScreen());
+        shopButton.setOnAction(event -> gameManager.openShopScreen());
 
         activeTowersListView.setCellFactory(new TowerCellFactory());
         reserveTowersListView.setCellFactory(new TowerCellFactory());
@@ -90,7 +90,12 @@ public class InventoryScreenController {
         });
 
         assignUpgradeButton.setOnAction(event -> {
-            this.inventoryService.applyUpgrade();
+            try {
+                this.inventoryService.applyUpgrade();
+            } catch(GameError e) {
+                e.displayError(assignUpgradeButton);
+            }
+
             this.updateListViewItems();
 
             activeTowersListView.getSelectionModel().clearSelection();

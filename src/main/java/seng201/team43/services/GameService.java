@@ -17,6 +17,10 @@ public class GameService {
         this.gameManager = gameManager;
     }
 
+    public void setPreviousRoundInformation(RoundInformation roundInformation) {
+        this.gameManager.setPreviousRoundInformation(roundInformation);
+    }
+
     public RoundInformation startRound() {
         return this.gameManager.startRound();
     }
@@ -110,16 +114,16 @@ public class GameService {
         return this.gameManager.getTrackDistance();
     }
 
-    public void launchEndScreen() {
-        this.gameManager.launchEndScreen();
+    public void openEndScreen() {
+        this.gameManager.openEndScreen();
     }
 
     public void openInventoryScreen() {
-        this.gameManager.launchInventoryScreen();
+        this.gameManager.openInventoryScreen();
     }
 
     public void openPauseScreen() {
-        this.gameManager.launchPauseScreen();
+        this.gameManager.openPauseScreen();
     }
 
     public int getLevel() {

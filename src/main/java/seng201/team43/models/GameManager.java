@@ -32,6 +32,7 @@ public class GameManager {
     private RoundDifficulty roundDifficulty;
     private List<Purchasable> shopItems;
     private boolean gameWon;
+    private RoundInformation previousRoundInformation;
 
     private final Consumer<GameManager> setupScreenLauncher;
     private final Consumer<GameManager> gameScreenLauncher;
@@ -61,7 +62,11 @@ public class GameManager {
         this.endScreenLauncher = endScreenLauncher;
         this.clearScreen = clearScreen;
 
-        launchSetupScreen();
+        openSetupScreen();
+    }
+
+    public void setPreviousRoundInformation(RoundInformation roundInformation) {
+        this.previousRoundInformation = roundInformation;
     }
 
     public void setName(String setName) {
@@ -267,14 +272,14 @@ public class GameManager {
     /**
      * Launches set up screen.
      */
-    public void launchSetupScreen() {
+    public void openSetupScreen() {
         setupScreenLauncher.accept(this);
     }
 
     /**
      * Launches game screen.
      */
-    public void launchGameScreen() {
+    public void openGameScreen() {
         clearScreen.run();
         gameScreenLauncher.accept(this);
     }
@@ -282,7 +287,7 @@ public class GameManager {
     /**
      * Launches inventory screen.
      */
-    public void launchInventoryScreen() {
+    public void openInventoryScreen() {
         clearScreen.run();
         inventoryScreenLauncher.accept(this);
     }
@@ -290,7 +295,7 @@ public class GameManager {
     /**
      * Launches pause screen.
      */
-    public void launchPauseScreen() {
+    public void openPauseScreen() {
         clearScreen.run();
         pauseScreenLauncher.accept(this);
     }
@@ -298,7 +303,7 @@ public class GameManager {
     /**
      * Launches shop screen.
      */
-    public void launchShopScreen() {
+    public void openShopScreen() {
         clearScreen.run();
         shopScreenLauncher.accept(this);
     }
@@ -306,41 +311,9 @@ public class GameManager {
     /**
      * Launches end screen.
      */
-    public void launchEndScreen() {
+    public void openEndScreen() {
         clearScreen.run();
         endScreenLauncher.accept(this);
-    }
-
-    /**
-     * Closes setup screen.
-     */
-    public void closeSetupScreen() {
-        clearScreen.run();
-        launchGameScreen();
-    }
-
-    /**
-     * Closes inventory screen.
-     */
-    public void closeInventoryScreen() {
-        clearScreen.run();
-        launchGameScreen();
-    }
-
-    /**
-     * Closes pause screen.
-     */
-    public void closePauseScreen() {
-        clearScreen.run();
-        launchGameScreen();
-    }
-
-    /**
-     * Closes shop screen.
-     */
-    public void closeShopScreen() {
-        clearScreen.run();
-        launchInventoryScreen();
     }
 
     /**

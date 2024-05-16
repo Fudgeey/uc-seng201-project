@@ -66,7 +66,7 @@ public class SetupService {
         }
 
         this.gameManager.prepareRound();
-        this.gameManager.closeSetupScreen();
+        this.gameManager.openGameScreen();
     }
 
     /**

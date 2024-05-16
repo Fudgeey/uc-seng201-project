@@ -24,7 +24,7 @@ public class PauseScreenController {
     }
 
     public void initialize() {
-        resumeButton.setOnAction(event -> gameManager.closePauseScreen());
+        resumeButton.setOnAction(event -> gameManager.openGameScreen());
         quitButton.setOnAction(event -> gameManager.quitGame());
     }
 }

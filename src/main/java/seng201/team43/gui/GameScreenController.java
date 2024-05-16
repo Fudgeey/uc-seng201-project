@@ -85,7 +85,7 @@ public class GameScreenController {
             if(roundInformation.getWon()) {
                 if(this.gameService.gameEnded()) {
                     this.gameService.setGameWon();
-                    this.gameService.launchEndScreen();
+                    this.gameService.openEndScreen();
                 } else {
                     if(!roundInformation.levelledUpTowers.isEmpty()) {
                         for(Purchasable item : roundInformation.levelledUpTowers) {
@@ -108,7 +108,7 @@ public class GameScreenController {
                     this.updateStats();
                 }
             } else {
-                this.gameService.launchEndScreen();
+                this.gameService.openEndScreen();
             }
 
             this.gameService.setPreviousRoundInformation(roundInformation);
