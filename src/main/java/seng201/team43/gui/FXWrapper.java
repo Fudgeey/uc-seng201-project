@@ -54,6 +54,10 @@ public class FXWrapper {
         }
     }
 
+    /**
+     * Launches the game screen and defines basic properties.
+     * @param gameManager
+     */
     public void launchGameScreen(GameManager gameManager) {
         try {
             FXMLLoader gameScreenLoader = new FXMLLoader(getClass().getResource("/fxml/game_screen.fxml"));
@@ -65,6 +69,10 @@ public class FXWrapper {
         }
     }
 
+    /**
+     * Launches inventory screen and defines basic properties.
+     * @param gameManager
+     */
     public void launchInventoryScreen(GameManager gameManager) {
         try {
             FXMLLoader inventoryScreenLoader = new FXMLLoader(getClass().getResource("/fxml/inventory_screen.fxml"));
@@ -76,6 +84,10 @@ public class FXWrapper {
         }
     }
 
+    /**
+     * Launches shop screen and defines basic properties.
+     * @param gameManager
+     */
     public void launchShopScreen(GameManager gameManager) {
         try {
             FXMLLoader shopScreenLoader = new FXMLLoader(getClass().getResource("/fxml/shop_screen.fxml"));
@@ -87,6 +99,10 @@ public class FXWrapper {
         }
     }
 
+    /**
+     * Launches pause screen and defines basic properties.
+     * @param gameManager
+     */
     public void launchPauseScreen(GameManager gameManager) {
         try {
             FXMLLoader pauseScreenLoader = new FXMLLoader(getClass().getResource("/fxml/pause_screen.fxml"));
@@ -98,6 +114,10 @@ public class FXWrapper {
         }
     }
 
+    /**
+     * Launches end screen and defines basic properties.
+     * @param gameManager
+     */
     public void launchEndScreen(GameManager gameManager) {
         try {
             FXMLLoader endScreenLoader = new FXMLLoader(getClass().getResource("/fxml/end_screen.fxml"));

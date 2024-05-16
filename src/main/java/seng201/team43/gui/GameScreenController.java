@@ -169,6 +169,10 @@ public class GameScreenController {
         ButtonHelper.setBackground(button, roundDifficulty.colour);
     }
 
+    /**
+     * Updates the round difficulty buttons.
+     * @throws GameError
+     */
     private void updateRoundDifficultyButtons() throws GameError {
         RoundDifficulty roundDifficulty = this.gameService.getRoundDifficulty();
 
@@ -185,6 +189,9 @@ public class GameScreenController {
         ButtonHelper.setBackground(difficultyButton, roundDifficulty.colour);
     }
 
+    /**
+     * Displays the towers on the main track on game screen. Has 5 set positions for the active tower inventory.
+     */
     private void displayTowers() {
         List<Pane> towerPanes = List.of(towerPaneOne, towerPaneTwo, towerPaneThree, towerPaneFour, towerPaneFive);
 

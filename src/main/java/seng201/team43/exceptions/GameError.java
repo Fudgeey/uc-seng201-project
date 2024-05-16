@@ -20,6 +20,10 @@ public class GameError extends Exception {
         return message;
     }
 
+    /**
+     * Displays the error in a popup screen.
+     * @param control
+     */
     public void displayError(Control control) {
         PopupHelper.display(control, this.getMessage());
     }

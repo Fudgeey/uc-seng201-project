@@ -117,6 +117,16 @@ public class SetupScreenController {
         });
     }
 
+    /**
+     * Takes resourseText as a parameter to determine the resource type of the tower. Then it finds the next available
+     * slot and places the tower into it.
+     * @param resourceText
+     * @param startingTowerPanes
+     * @throws GameError
+     */
+    /*
+    TODO: write more on this if needed.
+     */
     public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
         Resource resource = switch (resourceText) {
             case "Water" -> Resource.WATER;
@@ -144,6 +154,11 @@ public class SetupScreenController {
         currentPane.setVisible(true);
     }
 
+    /**
+     * Removes a starting tower. Sets the pane visibility to false and clears the pane.
+     * @param currentPane
+     * @param slot
+     */
     public void removeStartingTower(GridPane currentPane, Integer slot) {
         currentPane.setVisible(false);
         currentPane.getChildren().clear();

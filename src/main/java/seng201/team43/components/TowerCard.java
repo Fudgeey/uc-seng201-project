@@ -23,7 +23,9 @@ public class TowerCard {
     public TowerCard(Tower tower) {
         this.tower = tower;
     }
-
+    /*
+    TODO: write the docstring LUUUKKEEEE :).
+     */
     public GridPane buildSetup(SetupScreenController setupScreenController, int slot) {
         GridPane gridPane = new GridPane();
         FlowPane flowPane = new FlowPane();
@@ -61,7 +63,9 @@ public class TowerCard {
 
         return gridPane;
     }
-
+    /*
+        TODO: write the docstring LUUUKKEEEE :).
+         */
     public FlowPane buildGame() {
         FlowPane flowPane = new FlowPane();
 

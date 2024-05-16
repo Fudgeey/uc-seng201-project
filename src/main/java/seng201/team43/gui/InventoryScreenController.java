@@ -120,12 +120,20 @@ public class InventoryScreenController {
         });
     }
 
+    /**
+     * Updates the active towers, reserve towers, and upgrades list views.
+     */
     private void updateListViewItems() {
         activeTowersListView.setItems(FXCollections.observableArrayList(this.inventoryService.getActiveTowers()));
         reserveTowersListView.setItems(FXCollections.observableArrayList(this.inventoryService.getReserveTowers()));
         upgradesListView.setItems(FXCollections.observableArrayList(this.inventoryService.getUpgrades()));
     }
 
+    /**
+     * Determines whether the buttons for moving towers are visible. Once selected a tower, move button and sell button are visible.
+     * When a tower and an upgrade are selected, the assign upgrade button becomes visible.
+     * @param listView
+     */
     private void setupTowerListViewListener(ListView<Tower> listView) {
         listView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
             this.moveTowerButton.setVisible(true);

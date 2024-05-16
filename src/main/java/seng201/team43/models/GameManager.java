@@ -143,10 +143,6 @@ public class GameManager {
         return this.currentRound;
     }
 
-    /**
-     * Returns the current track distance.
-     * @return track distance
-     */
     public int getTrackDistance() {
         return this.trackDistance;
     }
@@ -159,10 +155,6 @@ public class GameManager {
         this.carts.add(cart);
     }
 
-    /**
-     * Gets current carts
-     * @return list of carts
-     */
     public ArrayList<Cart> getCarts() {
         return this.carts;
     }

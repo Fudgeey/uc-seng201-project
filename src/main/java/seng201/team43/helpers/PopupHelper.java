@@ -16,7 +16,11 @@ import javafx.stage.Window;
  * Helper class to build and display custom popups
  * @author Luke Hallett
  */
+
 public class PopupHelper {
+    /*
+    TODO: write the docstring LUUUKKEEEE :).
+     */
     public static void display(Control control, String message) {
         Popup popup = new Popup();
         GridPane popupContent = new GridPane();

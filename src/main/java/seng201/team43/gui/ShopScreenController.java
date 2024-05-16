@@ -90,6 +90,9 @@ public class ShopScreenController {
         return towerPane;
     }
 
+    /**
+     * Updates the money to a new amount by calling this.shopService.getMoney().
+     */
     private void updateMoney() {
         moneyLabel.setText(String.format("Money: $%.2f", this.shopService.getMoney()));
     }

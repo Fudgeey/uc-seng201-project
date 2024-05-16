@@ -20,6 +20,9 @@ import seng201.team43.models.Upgrade;
 import java.util.Objects;
 
 public class UpgradeCellFactory implements Callback<ListView<Upgrade>, ListCell<Upgrade>>  {
+    /*
+    TODO: write the docstring LUUUKKEEEE :).
+     */
     @Override
     public ListCell<Upgrade> call(ListView<Upgrade> upgradeListView) {
         return new ListCell<>() {

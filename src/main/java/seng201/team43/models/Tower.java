@@ -67,6 +67,9 @@ public class Tower implements Purchasable {
         }
     }
 
+    /**
+     * Upon levelling down, tower looses 10 experience and 25 production units.
+     */
     public void levelDown() {
         if(this.getLevel() > 1) {
             this.experience -= 10;
@@ -91,6 +94,10 @@ public class Tower implements Purchasable {
         this.productionUnits += productionUnits;
     }
 
+    /**
+     * Decreases the reload speed of the tower.
+     * @param reloadSpeed
+     */
     public void decreaseReloadSpeed(Integer reloadSpeed) {
         this.reloadSpeed -= reloadSpeed;
     }
