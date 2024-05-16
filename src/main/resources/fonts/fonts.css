@@ -1,0 +1,7 @@
+@font-face {
+    src: url('pixemon.ttf');
+}
+
+.game-title {
+    -fx-font-family: 'Pixemon Trial';
+}
