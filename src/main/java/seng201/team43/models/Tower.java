@@ -58,11 +58,13 @@ public class Tower implements Purchasable {
     }
 
     public void addExperience(int experience) {
+        int oldLevel = this.getLevel();
         this.experience += experience;
-    }
+        int newLevel = this.getLevel();
 
-    public void levelUp() {
-        this.productionUnits += 25;
+        if(newLevel > oldLevel) {
+            this.productionUnits += 25;
+        }
     }
 
     public void levelDown() {

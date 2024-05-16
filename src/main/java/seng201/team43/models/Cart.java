@@ -1,4 +1,5 @@
 package seng201.team43.models;
+
 /**
  * Class for Carts
  *
@@ -35,5 +36,29 @@ public class Cart {
 
     public void addCurrentFilled(int amount) {
         this.currentFilled += amount;
+    }
+
+    /**
+     * Fills the cart for the round
+     * @param tower tower that the cart is getting filled from
+     * @param trackDistance distance of the track's round
+     * @return the money earned by filling the cart
+     */
+    public double fill(Tower tower, int trackDistance) {
+        if(tower.getResourceType() == this.getType() && !tower.isBroken()) {
+            if (this.getSize() > this.getCurrentFilled()) {
+                int cartTimeOnTrack = trackDistance / this.getSpeed();
+                int towerFillTimes = Math.floorDiv(cartTimeOnTrack, tower.getReloadSpeed()) + 1;
+
+                int unitsToAdd = towerFillTimes * tower.getProductionUnits();
+                this.addCurrentFilled(unitsToAdd);
+
+                tower.addExperience((int) (unitsToAdd * 0.1));
+
+                return towerFillTimes * 10;
+            }
+        }
+
+        return 0;
     }
 }

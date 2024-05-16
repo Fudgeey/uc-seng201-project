@@ -6,10 +6,10 @@ public enum RoundDifficulty {
     HARD("Hard",  60, "#ff3737");
 
     public final String label;
-    public final double trackDistance;
+    public final int trackDistance;
     public final String colour;
 
-    RoundDifficulty(String label, double trackDistance, String colour) {
+    RoundDifficulty(String label, int trackDistance, String colour) {
         this.label = label;
         this.trackDistance = trackDistance;
         this.colour = colour;

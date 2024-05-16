@@ -58,7 +58,7 @@ public class GameService {
                     }
                 } else {
                     messages.add(String.format("A %s tower has had its level increased.", tower.getResourceType().label.toLowerCase()));
-                    tower.levelUp();
+                    tower.addExperience(10);
                 }
             }
         }

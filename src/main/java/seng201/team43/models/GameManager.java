@@ -24,7 +24,7 @@ public class GameManager {
     private Integer roundCount;
     private Integer currentRound;
     private GameDifficulty gameDifficulty;
-    private Double trackDistance;
+    private int trackDistance;
 
     private Double moneyGained;
     private int experienceGained;
@@ -147,7 +147,7 @@ public class GameManager {
      * Returns the current track distance.
      * @return track distance
      */
-    public Double getTrackDistance() {
+    public int getTrackDistance() {
         return this.trackDistance;
     }
 
@@ -206,24 +206,14 @@ public class GameManager {
 
         for(Tower tower : this.getInventory().getActiveTowers()) {
             for(Cart cart : this.getCarts()) {
-                if(tower.getResourceType() == cart.getType() && !tower.isBroken()) {
-                    if (cart.getSize() > cart.getCurrentFilled()) {
-                        double cartTimeOnTrack = this.getTrackDistance() / cart.getSpeed();
-                        int towerAction = Math.floorDiv((int) cartTimeOnTrack, tower.getReloadSpeed()) + 1;
-                        int unitsToAdd = towerAction * tower.getProductionUnits();
-                        double moneyToAdd = towerAction * 10;
-                        cart.addCurrentFilled(unitsToAdd);
-                        this.addMoney(moneyToAdd);
+                int previousLevel = tower.getLevel();
+                double moneyEarned = cart.fill(tower, this.getTrackDistance());
 
-                        int previousLevel = tower.getLevel();
-                        tower.addExperience((int) (unitsToAdd * 0.1));
-                        if (previousLevel < tower.getLevel()) {
-                            tower.levelUp();
+                this.addMoney(moneyEarned);
+                roundInformation.moneyEarned += moneyEarned;
 
-                            roundInformation.levelledUpTowers.add(tower);
-                        }
-                        roundInformation.moneyEarned += moneyToAdd;
-                    }
+                if (previousLevel < tower.getLevel()) {
+                    roundInformation.levelledUpTowers.add(tower);
                 }
             }
         }

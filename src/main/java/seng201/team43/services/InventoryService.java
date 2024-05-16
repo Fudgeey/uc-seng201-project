@@ -35,8 +35,12 @@ public class InventoryService {
     }
 
     public void moveTower() throws GameError {
-        this.gameManager.getInventory().moveTower(this.getSelectedTower());
-        this.setSelectedTower(null);
+        try {
+            this.gameManager.getInventory().moveTower(this.getSelectedTower());
+            this.setSelectedTower(null);
+        } catch(GameError e) {
+            throw new GameError(e.getMessage());
+        }
     }
 
     public ArrayList<Tower> getActiveTowers() {
