@@ -82,10 +82,6 @@ public class GameService {
         return this.gameManager.getCarts();
     }
 
-    public void setPreviousRoundInformation(RoundInformation roundInformation) {
-        this.gameManager.setPreviousRoundInformation(roundInformation);
-    }
-
     public void setGameWon() {
         this.gameManager.setGameWon();
     }
@@ -119,11 +115,11 @@ public class GameService {
     }
 
     public void openInventoryScreen() {
-        this.gameManager.openInventoryScreen();
+        this.gameManager.launchInventoryScreen();
     }
 
     public void openPauseScreen() {
-        this.gameManager.openPauseScreen();
+        this.gameManager.launchPauseScreen();
     }
 
     public int getLevel() {

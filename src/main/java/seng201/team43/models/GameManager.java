@@ -31,7 +31,6 @@ public class GameManager {
     private final ArrayList<Cart> carts;
     private RoundDifficulty roundDifficulty;
     private List<Purchasable> shopItems;
-    private RoundInformation previousRoundInformation;
     private boolean gameWon;
 
     private final Consumer<GameManager> setupScreenLauncher;
@@ -49,7 +48,6 @@ public class GameManager {
         this.money = 0.0;
         this.moneyGained = 0.0;
         this.carts = new ArrayList<>();
-        this.previousRoundInformation = null;
         this.gameWon = false;
 
         this.setGameDifficulty(GameDifficulty.EASY);
@@ -109,11 +107,20 @@ public class GameManager {
         return this.inventory;
     }
 
+    /**
+     * Takes money as a parameter and adds this to the money.
+     * @param money
+     */
     public void addMoney(Double money) {
         this.money += money;
         this.moneyGained += money;
     }
 
+    /**
+     * Takes money as a parameter and takes it away from money after checking that money cant go below 0.
+     * @param money
+     * @throws GameError
+     */
     public void removeMoney(Integer money) throws GameError {
         if(this.getMoney() - money < 0) {
             throw new GameError("You do not have enough money to buy this.");
@@ -126,6 +133,10 @@ public class GameManager {
         return this.money;
     }
 
+    /**
+     * Adds experience.
+     * @param experience
+     */
     public void addExperience(int experience) {
         this.experience += experience;
         this.experienceGained += experience;
@@ -240,82 +251,101 @@ public class GameManager {
         return this.moneyGained;
     }
 
-    public void setPreviousRoundInformation(RoundInformation roundInformation) {
-        this.previousRoundInformation = roundInformation;
-    }
 
     public void setGameWon() {
         this.gameWon = true;
     }
 
+    /**
+     * Returns whether the game is won or not.
+     * @return gameWon
+     */
     public boolean isGameWon() {
         return this.gameWon;
     }
 
+    /**
+     * Launches set up screen.
+     */
     public void launchSetupScreen() {
         setupScreenLauncher.accept(this);
     }
 
+    /**
+     * Launches game screen.
+     */
     public void launchGameScreen() {
+        clearScreen.run();
         gameScreenLauncher.accept(this);
     }
 
+    /**
+     * Launches inventory screen.
+     */
     public void launchInventoryScreen() {
+        clearScreen.run();
         inventoryScreenLauncher.accept(this);
     }
 
+    /**
+     * Launches pause screen.
+     */
     public void launchPauseScreen() {
+        clearScreen.run();
         pauseScreenLauncher.accept(this);
     }
 
+    /**
+     * Launches shop screen.
+     */
     public void launchShopScreen() {
+        clearScreen.run();
         shopScreenLauncher.accept(this);
     }
 
+    /**
+     * Launches end screen.
+     */
     public void launchEndScreen() {
+        clearScreen.run();
         endScreenLauncher.accept(this);
     }
 
+    /**
+     * Closes setup screen.
+     */
     public void closeSetupScreen() {
         clearScreen.run();
         launchGameScreen();
     }
 
+    /**
+     * Closes inventory screen.
+     */
     public void closeInventoryScreen() {
         clearScreen.run();
         launchGameScreen();
     }
 
-    public void openInventoryScreen() {
-        clearScreen.run();
-        launchInventoryScreen();
-    }
-
-    public void openPauseScreen() {
-        clearScreen.run();
-        launchPauseScreen();
-    }
-
-    public void openShopScreen() {
-        clearScreen.run();
-        launchShopScreen();
-    }
-
-    public void openEndScreen() {
-        clearScreen.run();
-        launchEndScreen();
-    }
-
+    /**
+     * Closes pause screen.
+     */
     public void closePauseScreen() {
         clearScreen.run();
         launchGameScreen();
     }
 
+    /**
+     * Closes shop screen.
+     */
     public void closeShopScreen() {
         clearScreen.run();
         launchInventoryScreen();
     }
 
+    /**
+     * Quits the game.
+     */
     public void quitGame() {
         clearScreen.run();
         Platform.exit();

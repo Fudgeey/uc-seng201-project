@@ -53,7 +53,7 @@ public class InventoryScreenController {
 
     public void initialize() {
         backButton.setOnAction(event -> gameManager.closeInventoryScreen());
-        shopButton.setOnAction(event -> gameManager.openShopScreen());
+        shopButton.setOnAction(event -> gameManager.launchShopScreen());
 
         activeTowersListView.setCellFactory(new TowerCellFactory());
         reserveTowersListView.setCellFactory(new TowerCellFactory());
