@@ -1,6 +1,5 @@
 package seng201.team43.models;
 
-import javafx.scene.control.Button;
 import seng201.team43.exceptions.GameError;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class Inventory {
     private final ArrayList<Upgrade> upgrades;
 
     /**
-     * Initialises empty inventory.
+     * Initialises an empty inventory.
      */
     public Inventory() {
         this.activeTowers = new ArrayList<>();
@@ -25,17 +24,16 @@ public class Inventory {
     }
 
     public void setActiveTowers(List<Tower> towers) {
-        this.activeTowers.clear();
         this.activeTowers = new ArrayList<>(towers);
     }
 
     /**
      * Adds a tower to active tower inventory. Only can do this if active towers is not full.
-     * @param tower
-     * @throws GameError
+     * @param tower tower to add to active inventory
+     * @throws GameError error if already have more than five active towers.
      */
     public void addActiveTower(Tower tower) throws GameError {
-        if(this.getActiveTowerCount() == 5) {
+        if(this.getActiveTowers().size() >= 5) {
             throw new GameError("You cannot have more than five active towers.");
         }
 
@@ -44,19 +42,15 @@ public class Inventory {
 
     /**
      * Removes tower from active inventory. There must always be at least one tower in active inventory.
-     * @param tower
-     * @throws GameError
+     * @param tower tower to remove from active inventory.
+     * @throws GameError error if removing last tower from inventory.
      */
     public void removeActiveTower(Tower tower) throws GameError {
-        if(this.getActiveTowerCount() == 1) {
+        if(this.getActiveTowers().size() <= 1) {
             throw new GameError("You cannot have less than one active tower.");
         }
 
         this.activeTowers.remove(tower);
-    }
-
-    public Integer getActiveTowerCount() {
-        return this.activeTowers.size();
     }
 
     public ArrayList<Tower> getReserveTowers() {
@@ -65,24 +59,20 @@ public class Inventory {
 
     /**
      * Adds a tower to reserve inventory. Checks if it is full first.
-     * @param tower
-     * @throws GameError
+     * @param tower tower to add to reserve inventory.
+     * @throws GameError error if already five reserve towers.
      */
     public void addReserveTower(Tower tower) throws GameError {
-        if(this.getReserveTowerCount() == 5) {
+        if(this.getReserveTowers().size() >= 5) {
             throw new GameError("You cannot have more than five reserve towers.");
         }
 
         this.reserveTowers.add(tower);
     }
 
-    public Integer getReserveTowerCount() {
-        return this.reserveTowers.size();
-    }
-
     /**
      * Removes a tower from reserve inventory.
-     * @param tower
+     * @param tower tower to remove from reserve inventory.
      */
     public void removeReserveTower(Tower tower) {
         this.reserveTowers.remove(tower);
@@ -113,19 +103,19 @@ public class Inventory {
      * full, if it is then it goes to reserve inventory, otherwise defaults to active inventory.
      * @param item
      */
-    public void addItem(Purchasable item) {
-        try {
-            if(item.getClass() == Tower.class) {
-                if(this.getActiveTowers().size() == 5) {
+    public void addItem(Purchasable item) throws GameError {
+        if(item.getClass() == Tower.class) {
+            try {
+                this.addActiveTower((Tower) item);
+            } catch (GameError e) {
+                try {
                     this.addReserveTower((Tower) item);
-                } else {
-                    this.addActiveTower((Tower) item);
+                } catch (GameError error) {
+                    throw new GameError("Both your tower inventories are full and you cannot add any more.");
                 }
-            } else {
-                this.addUpgrade((Upgrade) item);
             }
-        } catch(GameError e) {
-            e.displayError(new Button());
+        } else {
+            this.addUpgrade((Upgrade) item);
         }
     }
 
@@ -135,11 +125,11 @@ public class Inventory {
      */
     public void moveTower(Tower tower) throws GameError {
         if(this.getActiveTowers().contains(tower)) {
-            this.removeActiveTower(tower);
             this.addReserveTower(tower);
+            this.removeActiveTower(tower);
         } else {
-            this.removeReserveTower(tower);
             this.addActiveTower(tower);
+            this.removeReserveTower(tower);
         }
     }
 }

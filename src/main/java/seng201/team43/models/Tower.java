@@ -1,5 +1,7 @@
 package seng201.team43.models;
 
+import seng201.team43.exceptions.GameError;
+
 /**
  * Class for Towers
  *
@@ -63,7 +65,8 @@ public class Tower implements Purchasable {
         int newLevel = this.getLevel();
 
         if(newLevel > oldLevel) {
-            this.productionUnits += 25;
+            int levelDifference = newLevel - oldLevel;
+            this.productionUnits += 25 * levelDifference;
         }
     }
 
@@ -81,7 +84,7 @@ public class Tower implements Purchasable {
      * Apply an upgrade to the tower.
      * @param upgrade upgrade to apply
      */
-    public void applyUpgrade(Upgrade upgrade) {
+    public void applyUpgrade(Upgrade upgrade) throws GameError {
         upgrade.apply(this);
         this.cost += upgrade.getCost();
     }
@@ -97,9 +100,14 @@ public class Tower implements Purchasable {
     /**
      * Decreases the reload speed of the tower.
      * @param reloadSpeed
+     * @throws GameError
      */
-    public void decreaseReloadSpeed(Integer reloadSpeed) {
-        this.reloadSpeed -= reloadSpeed;
+    public void decreaseReloadSpeed(Integer reloadSpeed) throws GameError {
+        if(this.reloadSpeed > 1) {
+            this.reloadSpeed -= reloadSpeed;
+        } else {
+            throw new GameError("Cannot decrease reload speed below 1s.");
+        }
     }
 
     public void setBroken(boolean broken) {

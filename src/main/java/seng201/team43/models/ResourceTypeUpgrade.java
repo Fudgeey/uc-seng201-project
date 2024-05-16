@@ -1,5 +1,7 @@
 package seng201.team43.models;
 
+import seng201.team43.exceptions.GameError;
+
 import java.util.Random;
 
 public class ResourceTypeUpgrade extends Upgrade {
@@ -14,11 +16,8 @@ public class ResourceTypeUpgrade extends Upgrade {
         Resource resource = switch(chance){
             case 0 -> Resource.WATER;
             case 1 -> Resource.WOOD;
-            case 2 -> Resource.FOOD;
-            default -> null;
+            default -> Resource.FOOD;
         };
-
-        assert resource != null;
 
         tower.setResourceType(resource);
         tower.setName(String.format("%s Tower", resource.label));

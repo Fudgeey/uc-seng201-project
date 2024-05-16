@@ -1,5 +1,7 @@
 package seng201.team43.models;
 
+import seng201.team43.exceptions.GameError;
+
 /**
  * Generic upgrade class
  * @author Riley Jeffcote, Luke Hallett
@@ -15,7 +17,7 @@ public abstract class Upgrade implements Purchasable {
         this.purchased = false;
     }
 
-    public abstract void apply(Tower tower);
+    public abstract void apply(Tower tower) throws GameError;
 
     public int getCost() {
         return this.cost;

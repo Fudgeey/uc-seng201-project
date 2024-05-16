@@ -51,8 +51,11 @@ public class Cart {
                 int towerFillTimes = Math.floorDiv(cartTimeOnTrack, tower.getReloadSpeed()) + 1;
 
                 int unitsToAdd = towerFillTimes * tower.getProductionUnits();
-                this.addCurrentFilled(unitsToAdd);
+                if(unitsToAdd >= this.getSize()) {
+                    unitsToAdd = this.getSize();
+                }
 
+                this.addCurrentFilled(unitsToAdd);
                 tower.addExperience((int) (unitsToAdd * 0.1));
 
                 return towerFillTimes * 10;

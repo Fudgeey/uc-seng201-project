@@ -1,11 +1,13 @@
 package seng201.team43.models;
 
+import seng201.team43.exceptions.GameError;
+
 public class ReloadUpgrade extends Upgrade {
     public ReloadUpgrade() {
         super(100, "Reload Upgrade");
     }
 
-    public void apply(Tower tower) {
+    public void apply(Tower tower) throws GameError {
         tower.decreaseReloadSpeed(1);
     }
 
