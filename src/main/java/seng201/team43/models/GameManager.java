@@ -1,7 +1,7 @@
 package seng201.team43.models;
 
 import javafx.application.Platform;
-import seng201.team43.exceptions.GameError;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.helpers.RoundInformation;
 
 import java.util.ArrayList;
@@ -77,9 +77,9 @@ public class GameManager {
         return this.playerName;
     }
 
-    public void setRoundCount(Integer setRounds) throws GameError {
+    public void setRoundCount(Integer setRounds) throws GameException {
         if(setRounds < 5 || setRounds > 15) {
-            throw new GameError("Amount of rounds is not between 5 and 15.");
+            throw new GameException("Amount of rounds is not between 5 and 15.");
         }
 
         this.roundCount = setRounds;
@@ -124,11 +124,11 @@ public class GameManager {
     /**
      * Takes money as a parameter and takes it away from money after checking that money cant go below 0.
      * @param money
-     * @throws GameError
+     * @throws GameException
      */
-    public void removeMoney(Integer money) throws GameError {
+    public void removeMoney(Integer money) throws GameException {
         if(this.getMoney() - money < 0) {
-            throw new GameError("You do not have enough money to buy this.");
+            throw new GameException("You do not have enough money to buy this.");
         }
 
         this.money -= money;
@@ -143,8 +143,15 @@ public class GameManager {
      * @param experience
      */
     public void addExperience(int experience) {
+        int oldLevel = this.getLevel();
         this.experience += experience;
         this.experienceGained += experience;
+        int newLevel = this.getLevel();
+
+        if(newLevel > oldLevel) {
+            int levelDifference = newLevel - oldLevel;
+            this.addMoney((double) (100 * levelDifference));
+        }
     }
 
     public int getExperienceGained() {
@@ -152,7 +159,7 @@ public class GameManager {
     }
 
     public int getLevel() {
-        return ((this.experience - this.experience % 10) / 10);
+        return (Math.floorDiv(this.experience, 10) + 1);
     }
 
     public Integer getCurrentRound() {

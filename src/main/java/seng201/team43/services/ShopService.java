@@ -1,6 +1,6 @@
 package seng201.team43.services;
 
-import seng201.team43.exceptions.GameError;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Purchasable;
 
@@ -37,13 +37,13 @@ public class ShopService {
      * Removes money from player and adds item to inventory.
      * @param item tower or upgrade to add
      */
-    public void buyItem(Purchasable item) throws GameError {
+    public void buyItem(Purchasable item) throws GameException {
         if(item == null) {
-            throw new GameError("Invalid item was purchased.");
+            throw new GameException("Invalid item was purchased.");
         }
 
         if(this.getMoney() - item.getCost() < 0) {
-            throw new GameError("You do not have enough money to buy this.");
+            throw new GameException("You do not have enough money to buy this.");
         }
 
         this.gameManager.getInventory().addItem(item);

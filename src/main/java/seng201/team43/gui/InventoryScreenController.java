@@ -5,7 +5,7 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import seng201.team43.exceptions.GameError;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.gui.factories.TowerCellFactory;
 import seng201.team43.gui.factories.UpgradeCellFactory;
 import seng201.team43.models.GameManager;
@@ -84,7 +84,7 @@ public class InventoryScreenController {
                 reserveTowersListView.getSelectionModel().clearSelection();
 
                 moveTowerButton.setVisible(false);
-            } catch (GameError e) {
+            } catch (GameException e) {
                 e.displayError(moveTowerButton);
             }
         });
@@ -92,7 +92,7 @@ public class InventoryScreenController {
         assignUpgradeButton.setOnAction(event -> {
             try {
                 this.inventoryService.applyUpgrade();
-            } catch(GameError e) {
+            } catch(GameException e) {
                 e.displayError(assignUpgradeButton);
             }
 
@@ -110,7 +110,7 @@ public class InventoryScreenController {
         sellButton.setOnAction(event -> {
             try {
                 this.inventoryService.sellItem();
-            } catch (GameError e) {
+            } catch (GameException e) {
                 e.displayError(sellButton);
             }
             this.updateListViewItems();

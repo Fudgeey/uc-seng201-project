@@ -1,20 +1,14 @@
 package seng201.team43.unittests.services.models;
 
 import org.junit.jupiter.api.Test;
-import seng201.team43.exceptions.GameError;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.models.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Class to test upgrades
- */
 public class UpgradeTest {
-    /**
-     * Test repair tower upgrade.
-     */
     @Test
-    void testRepairTower() throws GameError {
+    void testRepairTower() throws GameException {
         Tower tower = new Tower(Resource.FOOD);
         RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade();
 
@@ -24,12 +18,8 @@ public class UpgradeTest {
         assertFalse(tower.isBroken());
     }
 
-    /**
-     * Test reload speed upgrade decreases reload
-     * speed by 1.
-     */
     @Test
-    void testReloadUpgrade() throws GameError {
+    void testReloadUpgrade() throws GameException {
         Tower tower = new Tower(Resource.WATER);
         ReloadUpgrade reloadUpgrade = new ReloadUpgrade();
 
@@ -38,15 +28,12 @@ public class UpgradeTest {
         assertEquals(4, tower.getReloadSpeed());
     }
 
-    /**
-     * Test if reload speed can decrease below 1.
-     */
     @Test
     void testReloadUpgradeBelowOne() {
         Tower tower = new Tower(Resource.WATER);
         ReloadUpgrade reloadUpgrade = new ReloadUpgrade();
 
-        GameError error = assertThrows(GameError.class, () -> {
+        GameException error = assertThrows(GameException.class, () -> {
             tower.applyUpgrade(reloadUpgrade);
             tower.applyUpgrade(reloadUpgrade);
             tower.applyUpgrade(reloadUpgrade);
@@ -58,9 +45,6 @@ public class UpgradeTest {
         assertEquals("Cannot decrease reload speed below 1s.", error.getMessage());
     }
 
-    /**
-     * Test upgrades have correct sell price.
-     */
     @Test
     void testUpgradeSellPrice() {
         RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade();
@@ -68,11 +52,8 @@ public class UpgradeTest {
         assertEquals(40, repairTowerUpgrade.getSellPrice());
     }
 
-    /**
-     * Test production upgrade.
-     */
     @Test
-    void testProductionUpgrade() throws GameError {
+    void testProductionUpgrade() throws GameException {
         Tower tower = new Tower(Resource.WATER);
         ProductionUpgrade productionUpgrade = new ProductionUpgrade(25);
 
@@ -81,11 +62,8 @@ public class UpgradeTest {
         assertEquals(75, tower.getProductionUnits());
     }
 
-    /**
-     * Test resource type upgrade.
-     */
     @Test
-    void testResourceTypeUpgrade() throws GameError {
+    void testResourceTypeUpgrade() throws GameException {
         Tower tower = new Tower(Resource.WATER);
         ResourceTypeUpgrade resourceTypeUpgrade = new ResourceTypeUpgrade();
 

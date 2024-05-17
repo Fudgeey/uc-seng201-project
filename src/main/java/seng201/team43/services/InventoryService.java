@@ -1,6 +1,6 @@
 package seng201.team43.services;
 
-import seng201.team43.exceptions.GameError;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Purchasable;
 import seng201.team43.models.Tower;
@@ -34,12 +34,12 @@ public class InventoryService {
         return this.selectedTower;
     }
 
-    public void moveTower() throws GameError {
+    public void moveTower() throws GameException {
         try {
             this.gameManager.getInventory().moveTower(this.getSelectedTower());
             this.setSelectedTower(null);
-        } catch(GameError e) {
-            throw new GameError(e.getMessage());
+        } catch(GameException e) {
+            throw new GameException(e.getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ public class InventoryService {
         this.selectedUpgrade = upgrade;
     }
 
-    public void applyUpgrade() throws GameError {
+    public void applyUpgrade() throws GameException {
         this.selectedTower.applyUpgrade(this.selectedUpgrade);
         this.gameManager.getInventory().removeUpgrade(this.selectedUpgrade);
 
@@ -71,7 +71,7 @@ public class InventoryService {
         this.setSelectedTower(null);
     }
 
-    public void sellItem() throws GameError {
+    public void sellItem() throws GameException {
         Purchasable item = this.getLastSelectedItem();
         this.gameManager.addMoney((double) item.getSellPrice());
 

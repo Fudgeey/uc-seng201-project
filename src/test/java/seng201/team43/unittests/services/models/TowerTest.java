@@ -6,9 +6,6 @@ import seng201.team43.models.Tower;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Class to test towers.
- */
 public class TowerTest {
     @Test
     void testLevelDownBelowOne() {

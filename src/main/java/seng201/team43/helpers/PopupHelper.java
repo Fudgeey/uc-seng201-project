@@ -14,12 +14,14 @@ import javafx.stage.Window;
 
 /**
  * Helper class to build and display custom popups
- * @author Luke Hallett
+ * @author Luke Hallett, Riley Jeffcote
  */
 
 public class PopupHelper {
-    /*
-    TODO: write the docstring LUUUKKEEEE :).
+    /**
+     * Displays the custom popup over the current scene.
+     * @param control button / control element popup called from
+     * @param message message to be displayed on popup
      */
     public static void display(Control control, String message) {
         Popup popup = new Popup();

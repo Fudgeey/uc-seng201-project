@@ -7,10 +7,10 @@ import seng201.team43.helpers.PopupHelper;
  * Custom error class with a custom popup
  * @author Luke Hallett, Riley Jeffcote
  */
-public class GameError extends Exception {
+public class GameException extends Exception {
     private final String message;
 
-    public GameError(String message) {
+    public GameException(String message) {
         super();
 
         this.message = message;

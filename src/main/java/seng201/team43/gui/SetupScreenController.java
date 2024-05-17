@@ -1,13 +1,20 @@
 package seng201.team43.gui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import seng201.team43.components.TowerCard;
-import seng201.team43.exceptions.GameError;
+import javafx.scene.layout.Priority;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
@@ -16,6 +23,7 @@ import seng201.team43.models.Tower;
 import seng201.team43.services.SetupService;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controller for the setup_screen.fxml window
@@ -23,9 +31,6 @@ import java.util.List;
  */
 public class SetupScreenController {
     private final SetupService setupService;
-
-    @FXML
-    private Label titleLabel;
 
     @FXML
     private TextField nameField;
@@ -70,17 +75,14 @@ public class SetupScreenController {
     public void initialize() {
         List<Button> difficultyButtons = List.of(difficultyEasyButton, difficultyMediumButton, difficultyHardButton);
         List<Button> towerButtons = List.of(waterTowerButton, woodTowerButton, foodTowerButton);
-        List<GridPane> startingTowerPanes = List.of(startingTowerOnePane, startingTowerTwoPane, startingTowerThreePane);
 
-        nameField.setOnKeyReleased(event -> {
-            this.setupService.setName(nameField.getText());
-        });
+        nameField.setOnKeyReleased(event -> this.setupService.setName(nameField.getText()));
 
         roundCountSlider.setStyle("-fx-tick-label-fill: white; -fx-tick-label-font: 20px 'System';");
         roundCountSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 this.setupService.setRoundCount(newValue.intValue());
-            } catch (GameError e) {
+            } catch (GameException e) {
                 e.displayError(roundCountSlider);
             }
         });
@@ -92,7 +94,7 @@ public class SetupScreenController {
 
                     difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
                     ButtonHelper.setBackground(button, gameDifficulty.colour);
-                } catch (GameError e) {
+                } catch (GameException e) {
                     e.displayError(button);
                 }
             });
@@ -101,8 +103,8 @@ public class SetupScreenController {
         towerButtons.forEach(button -> {
             button.setOnAction(event -> {
                 try {
-                    this.addStartingTower(button.getText(), startingTowerPanes);
-                } catch (GameError e) {
+                    this.addStartingTower(button.getText());
+                } catch (GameException e) {
                     e.displayError(button);
                 }
             });
@@ -111,23 +113,20 @@ public class SetupScreenController {
         startButton.setOnAction(event -> {
             try {
                 this.setupService.startGame();
-            } catch (GameError e) {
+            } catch (GameException e) {
                 e.displayError(startButton);
             }
         });
     }
 
     /**
-     * Takes resourseText as a parameter to determine the resource type of the tower. Then it finds the next available
+     * Displays the starting tower selected, then it finds the next available
      * slot and places the tower into it.
-     * @param resourceText
-     * @param startingTowerPanes
-     * @throws GameError
+     * @param resourceText text from button of tower clicked
+     * @throws GameException error if there are more than three starting towers
      */
-    /*
-    TODO: write more on this if needed.
-     */
-    public void addStartingTower(String resourceText, List<GridPane> startingTowerPanes) throws GameError {
+    public void addStartingTower(String resourceText) throws GameException {
+        List<GridPane> startingTowerPanes = List.of(startingTowerOnePane, startingTowerTwoPane, startingTowerThreePane);
         Resource resource = switch (resourceText) {
             case "Water" -> Resource.WATER;
             case "Wood" -> Resource.WOOD;
@@ -138,7 +137,7 @@ public class SetupScreenController {
         int slot = this.setupService.findNextSlot(this.setupService.getStartingTowers());
 
         if(slot == -1) {
-            throw new GameError("You can only have three starting towers.");
+            throw new GameException("You can only have three starting towers.");
         }
 
         Tower newTower = new Tower(resource);
@@ -146,10 +145,36 @@ public class SetupScreenController {
 
         GridPane currentPane = startingTowerPanes.get(slot);
 
-        TowerCard towerCard = new TowerCard(newTower);
-        GridPane towerCardPane = towerCard.buildSetup(this, slot);
+        GridPane towerGridPane = new GridPane();
+        FlowPane towerFlowPane = new FlowPane();
 
-        currentPane.getChildren().add(towerCardPane);
+        GridPane.setValignment(towerFlowPane, VPos.CENTER);
+        GridPane.setHalignment(towerFlowPane, HPos.CENTER);
+        GridPane.setVgrow(towerFlowPane, Priority.ALWAYS);
+        GridPane.setHgrow(towerFlowPane, Priority.ALWAYS);
+        towerFlowPane.setAlignment(Pos.CENTER);
+        towerFlowPane.setOrientation(Orientation.VERTICAL);
+        towerFlowPane.setColumnHalignment(HPos.CENTER);
+
+        Label nameLabel = new Label(newTower.getName());
+        nameLabel.setStyle("-fx-font-size: 30;");
+
+        Label resourceTypeLabel = new Label(newTower.getResourceType().label);
+        resourceTypeLabel.setStyle("-fx-font-size: 25;");
+
+        ImageView resourceImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(String.format("/images/towers/%s.png", newTower.getResourceType().label.toLowerCase())))));
+        resourceImage.setFitWidth(180);
+        resourceImage.setPreserveRatio(true);
+
+        Button removeButton = new Button("X");
+        GridPane.setValignment(removeButton, VPos.TOP);
+        GridPane.setHalignment(removeButton, HPos.RIGHT);
+        removeButton.setStyle("-fx-background-color: red; -fx-background-radius: 100%; -fx-text-fill: white;");
+        removeButton.setOnAction(event -> this.removeStartingTower((GridPane) towerGridPane.getParent(), slot));
+
+        towerFlowPane.getChildren().addAll(nameLabel, resourceTypeLabel, resourceImage);
+        towerGridPane.getChildren().addAll(towerFlowPane, removeButton);
+        currentPane.getChildren().add(towerGridPane);
 
         currentPane.setVisible(true);
     }

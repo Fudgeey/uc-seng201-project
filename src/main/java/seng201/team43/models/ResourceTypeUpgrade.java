@@ -1,7 +1,5 @@
 package seng201.team43.models;
 
-import seng201.team43.exceptions.GameError;
-
 import java.util.Random;
 
 public class ResourceTypeUpgrade extends Upgrade {

@@ -1,6 +1,6 @@
 package seng201.team43.services;
 
-import seng201.team43.exceptions.GameError;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Tower;
@@ -22,11 +22,11 @@ public class SetupService {
         this.gameManager.setName(name);
     }
 
-    public void setRoundCount(Integer roundCount) throws GameError {
+    public void setRoundCount(Integer roundCount) throws GameException {
         this.gameManager.setRoundCount(roundCount);
     }
 
-    public GameDifficulty setGameDifficulty(String difficultyText) throws GameError {
+    public GameDifficulty setGameDifficulty(String difficultyText) throws GameException {
         GameDifficulty gameDifficulty = switch(difficultyText) {
             case "Easy" -> GameDifficulty.EASY;
             case "Medium" -> GameDifficulty.MEDIUM;
@@ -35,7 +35,7 @@ public class SetupService {
         };
 
         if (gameDifficulty == null) {
-            throw new GameError("Invalid difficulty selected.");
+            throw new GameException("Invalid difficulty selected.");
         }
 
         this.gameManager.setGameDifficulty(gameDifficulty);
@@ -43,26 +43,26 @@ public class SetupService {
     }
 
 
-    public void startGame() throws GameError {
+    public void startGame() throws GameException {
         if(this.gameManager.getName() == null) {
-            throw new GameError("A name is required.");
+            throw new GameException("A name is required.");
         }
 
         Pattern specialCharacterPattern = Pattern.compile("[^a-zA-Z ]");
         Matcher specialCharacterMatcher = specialCharacterPattern.matcher(this.gameManager.getName());
 
         if(specialCharacterMatcher.find()) {
-            throw new GameError("Your name must not contains special characters.");
+            throw new GameException("Your name must not contains special characters.");
         }
 
         if (gameManager.getName().length() > 15 || gameManager.getName().length() < 3) {
-            throw new GameError("Your name must be between 3-15 characters.");
+            throw new GameException("Your name must be between 3-15 characters.");
         }
 
         this.gameManager.getInventory().setActiveTowers(Arrays.stream(startingTowers).filter((Objects::nonNull)).toList());
 
         if(this.gameManager.getInventory().getActiveTowers().isEmpty()) {
-            throw new GameError("At least one starting tower is required.");
+            throw new GameException("At least one starting tower is required.");
         }
 
         this.gameManager.prepareRound();

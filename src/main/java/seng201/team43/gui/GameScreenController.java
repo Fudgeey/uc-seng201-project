@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import seng201.team43.components.TowerCard;
-import seng201.team43.exceptions.GameError;
+import seng201.team43.exceptions.GameException;
 import seng201.team43.gui.factories.CartCellFactory;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.helpers.PopupHelper;
@@ -16,6 +17,7 @@ import seng201.team43.models.*;
 import seng201.team43.services.GameService;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controller for the game_screen.fxml window
@@ -64,74 +66,41 @@ public class GameScreenController {
     @FXML
     private ListView<Cart> cartsListView;
 
+    /**
+     * Creates the game screen controller with the game manager
+     * @param gameManager persistent game manager instance
+     */
     public GameScreenController(GameManager gameManager) {
         this.gameService = new GameService(gameManager);
     }
 
+    /**
+     * Initialises the JavaFX scene, sets visuals and actions
+     */
     public void initialize() {
-        List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
+        this.updateVisuals();
 
         cartsListView.setCellFactory(new CartCellFactory());
 
-        this.displayTowers();
-        this.updateStats();
-
         inventoryButton.setOnAction(event -> this.gameService.openInventoryScreen());
         pauseButton.setOnAction(event -> this.gameService.openPauseScreen());
+        startButton.setOnAction(event -> this.startGame());
 
-        startButton.setOnAction(event -> {
-            RoundInformation roundInformation = this.gameService.startRound();
+        List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
+        difficultyButtons.forEach(button -> button.setOnAction(event -> {
+            this.setRoundDifficulty(button, difficultyButtons);
+            this.updateVisuals();
+        }));
+    }
 
-            if(roundInformation.getWon()) {
-                if(this.gameService.gameEnded()) {
-                    this.gameService.setGameWon();
-                    this.gameService.openEndScreen();
-                } else {
-                    if(!roundInformation.levelledUpTowers.isEmpty()) {
-                        for(Purchasable item : roundInformation.levelledUpTowers) {
-                            Tower tower = (Tower) item;
-                            PopupHelper.display(startButton, String.format("One of your %s towers upgraded and its production increased by 25!", tower.getResourceType().label.toLowerCase()));
-                        }
-                    }
-
-                    List<String> randomEventsMessage = this.gameService.runRandomEvents();
-
-                    if(!randomEventsMessage.isEmpty()) {
-                        for(String eventMessage : randomEventsMessage) {
-                            PopupHelper.display(startButton, eventMessage);
-                        }
-                    }
-
-                    PopupHelper.display(startButton, String.format("You completed the round!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
-
-                    this.gameService.prepareRound();
-                    this.updateStats();
-                }
-            } else {
-                this.gameService.openEndScreen();
-            }
-
-            this.gameService.setPreviousRoundInformation(roundInformation);
-            this.displayTowers();
-        });
-
-        try {
-            this.updateRoundDifficultyButtons();
-        } catch (GameError e) {
-            e.displayError(easyDifficultyButton);
-        }
-
-        difficultyButtons.forEach(button -> {
-            button.setOnAction(event -> {
-                try {
-                    this.setRoundDifficulty(button, difficultyButtons);
-                } catch (GameError e) {
-                    e.displayError(button);
-                }
-
-                this.updateStats();
-            });
-        });
+    /**
+     * Updates all the game's visuals: towers, carts, stats, difficulty buttons
+     */
+    private void updateVisuals() {
+        this.displayTowers();
+        this.updateStats();
+        this.updateRoundDifficultyButtons();
+        cartsListView.setItems(FXCollections.observableArrayList(this.gameService.getCarts()));
     }
 
     /**
@@ -147,21 +116,19 @@ public class GameScreenController {
 
         statsLabel.setText(statsText);
         statsLabel.setStyle("-fx-text-alignment: center; -fx-font-size: 20;");
-
-        cartsListView.setItems(FXCollections.observableArrayList(this.gameService.getCarts()));
     }
 
-    private void setRoundDifficulty(Button button, List<Button> difficultyButtons) throws GameError {
+    /**
+     * Sets the round difficulty depending on the button selected
+     * @param button button that was pressed
+     * @param difficultyButtons all three difficulty buttons
+     */
+    private void setRoundDifficulty(Button button, List<Button> difficultyButtons) {
         RoundDifficulty roundDifficulty = switch(button.getText()) {
             case "Easy" -> RoundDifficulty.EASY;
             case "Medium" -> RoundDifficulty.MEDIUM;
-            case "Hard" -> RoundDifficulty.HARD;
-            default -> null;
+            default -> RoundDifficulty.HARD;
         };
-
-        if(roundDifficulty == null) {
-            throw new GameError("Invalid difficulty selected.");
-        }
 
         this.gameService.setRoundDifficulty(roundDifficulty);
 
@@ -171,20 +138,15 @@ public class GameScreenController {
 
     /**
      * Updates the round difficulty buttons.
-     * @throws GameError
      */
-    private void updateRoundDifficultyButtons() throws GameError {
+    private void updateRoundDifficultyButtons() {
         RoundDifficulty roundDifficulty = this.gameService.getRoundDifficulty();
 
         Button difficultyButton = switch(roundDifficulty) {
             case EASY -> easyDifficultyButton;
             case MEDIUM -> mediumDifficultyButton;
-            case HARD -> hardDifficultyButton;
+            default -> hardDifficultyButton;
         };
-
-        if(difficultyButton == null) {
-            throw new GameError("Invalid round difficulty selected.");
-        }
 
         ButtonHelper.setBackground(difficultyButton, roundDifficulty.colour);
     }
@@ -203,10 +165,53 @@ public class GameScreenController {
             Tower tower = this.gameService.getActiveTowers().get(i);
             Pane towerPane = towerPanes.get(i);
 
-            TowerCard towerCard = new TowerCard(tower);
-            FlowPane towerFlowPane = towerCard.buildGame();
+            FlowPane towerFlowPane = new FlowPane();
+            towerFlowPane.setStyle("-fx-background-color: white; -fx-pref-height: 150; -fx-pref-width: 150; -fx-column-halignment: center; -fx-alignment: center; -fx-orientation: vertical;");
 
+            Label nameLabel = new Label(tower.getName());
+            nameLabel.setStyle("-fx-font-size: 15");
+
+            ImageView resourceImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(String.format("/images/towers/%s.png", tower.getResourceType().label.toLowerCase())))));
+            resourceImage.setFitWidth(100);
+            resourceImage.setPreserveRatio(true);
+
+            towerFlowPane.getChildren().addAll(nameLabel, resourceImage);
             towerPane.getChildren().add(towerFlowPane);
         }
+    }
+
+    private void startGame() {
+        RoundInformation roundInformation = this.gameService.startRound();
+
+        if(roundInformation.getWon()) {
+            if(this.gameService.gameEnded()) {
+                this.gameService.setGameWon();
+                this.gameService.openEndScreen();
+            } else {
+                if(!roundInformation.levelledUpTowers.isEmpty()) {
+                    for(Purchasable item : roundInformation.levelledUpTowers) {
+                        Tower tower = (Tower) item;
+                        PopupHelper.display(startButton, String.format("One of your %s towers upgraded and its production increased by 25!", tower.getResourceType().label.toLowerCase()));
+                    }
+                }
+
+                List<String> randomEventsMessage = this.gameService.runRandomEvents();
+                if(!randomEventsMessage.isEmpty()) {
+                    for(String eventMessage : randomEventsMessage) {
+                        PopupHelper.display(startButton, eventMessage);
+                    }
+                }
+
+                PopupHelper.display(startButton, String.format("You completed the round!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
+
+                this.gameService.prepareRound();
+                this.updateVisuals();
+            }
+        } else {
+            this.gameService.openEndScreen();
+        }
+
+        this.gameService.setPreviousRoundInformation(roundInformation);
+        this.displayTowers();
     }
 }
