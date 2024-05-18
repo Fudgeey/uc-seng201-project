@@ -1,33 +1,23 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Tower implements Storable {
+class Tower implements Purchasable {
     - resourceType: Resource
-    - resourceAmount
-    - reloadSpeed
-    - xp
+    - productionUnits: int
+    - reloadSpeed: int
+    - experience: int
+    - cost: int
+    - name: string
 
-    + getLevel(): Integer
-    + applyUpgrade(Upgrade): void
-}
-
-class Cart {
-    - size
-    - resourceType
-    - speed
-}
-
-class Round {
-    - carts
-    - difficulty
-
-    + setDifficulty(): void
-}
-
-enum Difficulty {
-    EASY
-    MEDIUM
-    HARD
+    + Tower(resourceType: Resource)
+    + Tower(resourceType: Resource, name: String)
+    + applyUpgrade(upgrade: Upgrade): void
+    + getLevel(): int
+    + addExperience(experience: int): void
+    + levelDown(): void
+    + increaseProductionUnits(): void
+    + decreaseReloadSpeed(): void
+    + getSellPrice(): int
 }
 
 enum Resource {
@@ -36,39 +26,110 @@ enum Resource {
     FOOD
 }
 
-abstract Upgrade implements Storable {
-    - name
-    - effectType
-    - effectAmount
+class GameManager {
+    - name: string
+    - money: int
+    - experience: int
+    - inventory: Inventory
+    - roundCount: Integer
+    - currentRound: Integer
+    - roundDifficulty: RoundDifficulty
+    - carts: List<Cart>
+    - gameDifficulty: GameDifficulty
+    - trackDistance: int
+
+    + GameManager()
+    + addMoney(money: int): void
+    + removeMoney(money: int): void
+    + addExperience(experience: int): void
+    + getLevel(): int
+    + addCart(cart: Cart): void
+    + prepareRound(): void
+    + startRound(): RoundInformation
+
+}
+
+Tower --> Resource
+GameManager --> GameDifficulty
+GameManager --> RoundDifficulty
+GameManager *- Inventory
+Inventory o- Tower
+Inventory o- Upgrade
+Inventory o- Purchasable
+
+
+class Cart {
+    - size: int
+    - speed: int
+    - type: Resource
+    - currentFilled: int
+
+    + Cart(size: int, speed: int, type: Resource)
+    + addCurrentFilled(amount: int): void
+    + fill(tower: Tower, trackDistance: int): int
+}
+
+Cart --> Resource
+GameManager *- Cart
+
+enum GameDifficulty {
+    EASY
+    MEDIUM
+    HARD
+}
+
+enum RoundDifficulty {
+    EASY
+    MEDIUM
+    HARD
+}
+
+interface Purchasable {
+    - purchased: boolean
+
+    + getSellPrice(): int
+}
+
+abstract Upgrade implements Purchasable {
+    - cost: int
+    - name: String
+
+    + Upgrade(cost: int, name:String)
+    + apply(tower: Tower): void
+    + getDescription(): string
 }
 
 class ProductionUpgrade extends Upgrade {
+    - units: int
+
+    + ProductionUpgrade(units: int)
 }
 
 class ReloadSpeedUpgrade extends Upgrade {
+    + ReloadSpeedUpgrade()
 }
 
+class ResourceTypeUpgrade extends Upgrade {
+    + ResourceTypeUpgrade()
+}
 
-interface Storable {
-    - cost
+class RepairTowerUpgrade extends Upgrade {
+    + RepairTowerUpgrade()
 }
 
 class Inventory {
-    - activeTowers: ArrayList<Tower>
-}
+    - activeTowers: List<Tower>
+    - reserveTowers: List<Tower>
+    - upgrades: List<Upgrade>
 
-class GameManager {
-    - playerName: string
-    - roundCount: Integer
-    - currentRound: Integer
-    - difficulty: Difficulty
-    - inventory: Inventory
-    - setupScreenLauncher: Consumer<GameManager>
-    - mainScreenLauncher: Consumer<GameManager>
-    - clearScreen: Runnable
+    + Inventory()
+    + addActiveTower(tower: Tower): void
+    + removeActiveTower(tower: Tower): void
+    + addReserveTower(tower: Tower): void
+    + removeReserveTower(tower: Tower): void
+    + addUpgrade(upgrade: Upgrade): void
+    + removeUpgrade(upgrade: Upgrade): void
+    + addItem(item: Purchasable): void
+    + moveTower(tower: Tower): void
 }
-
-GameManager *- Difficulty
-GameManager *- Inventory
-Inventory o- Tower
 @enduml
