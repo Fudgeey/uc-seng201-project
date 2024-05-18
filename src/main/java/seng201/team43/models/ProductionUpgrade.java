@@ -17,10 +17,12 @@ public class ProductionUpgrade extends Upgrade {
      * Applies it to a tower by increasing the tower's production units by production upgrades units.
      * @param tower
      */
+    @Override
     public void apply(Tower tower) {
         tower.increaseProductionUnits(this.units);
     }
 
+    @Override
     public String getDescription() {
         return String.format("Increases a tower's production by %s units.", this.units);
     }

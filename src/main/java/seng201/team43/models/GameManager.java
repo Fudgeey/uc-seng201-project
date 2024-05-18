@@ -16,20 +16,20 @@ import java.util.function.Consumer;
  * @author Luke Hallett, Riley Jeffcote
  */
 public class GameManager {
-    private String playerName;
-    private Double money;
+    private String name;
+    private int money;
     private int experience;
+    private int moneyGained;
+    private int experienceGained;
     private final Inventory inventory;
 
     private Integer roundCount;
     private Integer currentRound;
+    private RoundDifficulty roundDifficulty;
+    private final List<Cart> carts;
+
     private GameDifficulty gameDifficulty;
     private int trackDistance;
-
-    private Double moneyGained;
-    private int experienceGained;
-    private final ArrayList<Cart> carts;
-    private RoundDifficulty roundDifficulty;
     private List<Purchasable> shopItems;
     private boolean gameWon;
     private RoundInformation previousRoundInformation;
@@ -46,8 +46,8 @@ public class GameManager {
         this.roundCount = 5;
         this.currentRound = 0;
         this.inventory = new Inventory();
-        this.money = 0.0;
-        this.moneyGained = 0.0;
+        this.money = 0;
+        this.moneyGained = 0;
         this.carts = new ArrayList<>();
         this.gameWon = false;
 
@@ -70,11 +70,11 @@ public class GameManager {
     }
 
     public void setName(String setName) {
-        this.playerName = setName;
+        this.name = setName;
     }
 
     public String getName() {
-        return this.playerName;
+        return this.name;
     }
 
     public void setRoundCount(Integer setRounds) throws GameException {
@@ -95,10 +95,6 @@ public class GameManager {
         this.moneyGained = gameDifficulty.startingMoney;
     }
 
-    public GameDifficulty getGameDifficulty() {
-        return this.gameDifficulty;
-    }
-
     public void setRoundDifficulty(RoundDifficulty roundDifficulty) {
         this.roundDifficulty = roundDifficulty;
         this.trackDistance = roundDifficulty.trackDistance;
@@ -114,19 +110,19 @@ public class GameManager {
 
     /**
      * Takes money as a parameter and adds this to the money.
-     * @param money
+     * @param money money to add
      */
-    public void addMoney(Double money) {
+    public void addMoney(int money) {
         this.money += money;
         this.moneyGained += money;
     }
 
     /**
      * Takes money as a parameter and takes it away from money after checking that money cant go below 0.
-     * @param money
-     * @throws GameException
+     * @param money money to remove
+     * @throws GameException error if balance will go below 0
      */
-    public void removeMoney(Integer money) throws GameException {
+    public void removeMoney(int money) throws GameException {
         if(this.getMoney() - money < 0) {
             throw new GameException("You do not have enough money to buy this.");
         }
@@ -134,7 +130,7 @@ public class GameManager {
         this.money -= money;
     }
 
-    public Double getMoney() {
+    public int getMoney() {
         return this.money;
     }
 
@@ -150,7 +146,7 @@ public class GameManager {
 
         if(newLevel > oldLevel) {
             int levelDifference = newLevel - oldLevel;
-            this.addMoney((double) (100 * levelDifference));
+            this.addMoney(100 * levelDifference);
         }
     }
 
@@ -178,7 +174,7 @@ public class GameManager {
         this.carts.add(cart);
     }
 
-    public ArrayList<Cart> getCarts() {
+    public List<Cart> getCarts() {
         return this.carts;
     }
 
@@ -222,7 +218,7 @@ public class GameManager {
         for(Tower tower : this.getInventory().getActiveTowers()) {
             for(Cart cart : this.getCarts()) {
                 int previousLevel = tower.getLevel();
-                double moneyEarned = cart.fill(tower, this.getTrackDistance());
+                int moneyEarned = cart.fill(tower, this.getTrackDistance());
 
                 this.addMoney(moneyEarned);
                 roundInformation.moneyEarned += moneyEarned;
@@ -242,13 +238,13 @@ public class GameManager {
                 roundInformation.setMessage(String.format("Carts Not Filled: %s", cartsNotFilled));
             } else {
                 this.addExperience(2);
-                this.addMoney(25.0);
+                this.addMoney(25);
                 roundInformation.moneyEarned += 25;
             }
         }
 
         if(roundInformation.getWon()) {
-            this.addMoney(50.0);
+            this.addMoney(50);
             roundInformation.moneyEarned += 50;
         }
 
@@ -259,7 +255,7 @@ public class GameManager {
         return this.shopItems;
     }
 
-    public Double getMoneyGained() {
+    public int getMoneyGained() {
         return this.moneyGained;
     }
 

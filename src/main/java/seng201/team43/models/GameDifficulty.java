@@ -7,10 +7,10 @@ public enum GameDifficulty {
 
     public final String label;
     public final double multiplier;
-    public final double startingMoney;
+    public final int startingMoney;
     public final String colour;
 
-    GameDifficulty(String label, double multiplier, double startingMoney, String colour) {
+    GameDifficulty(String label, double multiplier, int startingMoney, String colour) {
         this.label = label;
         this.multiplier = multiplier;
         this.startingMoney = startingMoney;

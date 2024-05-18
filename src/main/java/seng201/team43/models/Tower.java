@@ -133,12 +133,13 @@ public class Tower implements Purchasable {
     }
 
     @Override
+    public Boolean getPurchased() {
+        return this.purchased;
+    }
+
+    @Override
     public void setPurchased() {
         this.purchased = true;
     }
 
-    @Override
-    public Boolean getPurchased() {
-        return this.purchased;
-    }
 }

@@ -73,7 +73,7 @@ public class InventoryService {
 
     public void sellItem() throws GameException {
         Purchasable item = this.getLastSelectedItem();
-        this.gameManager.addMoney((double) item.getSellPrice());
+        this.gameManager.addMoney(item.getSellPrice());
 
         if(item.getClass() == Tower.class) {
             if(this.gameManager.getInventory().getActiveTowers().contains(item)) {

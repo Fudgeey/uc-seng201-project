@@ -6,9 +6,9 @@ package seng201.team43.models;
  * @author Riley Jeffcote, Luke Hallett
  */
 public class Cart {
-    private int size;
-    private int speed;
-    private Resource type;
+    private final int size;
+    private final int speed;
+    private final Resource type;
     private int currentFilled;
 
     public Cart(int size, int speed, Resource type) {
@@ -44,7 +44,7 @@ public class Cart {
      * @param trackDistance distance of the track's round
      * @return the money earned by filling the cart
      */
-    public double fill(Tower tower, int trackDistance) {
+    public int fill(Tower tower, int trackDistance) {
         if(tower.getResourceType() == this.getType() && !tower.isBroken()) {
             if (this.getSize() > this.getCurrentFilled()) {
                 int cartTimeOnTrack = trackDistance / this.getSpeed();

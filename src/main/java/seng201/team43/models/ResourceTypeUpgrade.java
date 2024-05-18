@@ -7,6 +7,7 @@ public class ResourceTypeUpgrade extends Upgrade {
         super(75, "Resource Type Upgrade");
     }
 
+    @Override
     public void apply(Tower tower) {
         Random random = new Random();
         int chance = random.nextInt(0, 3);
@@ -21,6 +22,7 @@ public class ResourceTypeUpgrade extends Upgrade {
         tower.setName(String.format("%s Tower", resource.label));
     }
 
+    @Override
     public String getDescription() {
         return "Changes the tower's resource type to a random one.";
     }
