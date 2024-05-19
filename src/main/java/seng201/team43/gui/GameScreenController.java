@@ -179,6 +179,9 @@ public class GameScreenController {
         }
     }
 
+    /**
+     * Starts the round and does logic for displaying popups of random events and other details
+     */
     private void startGame() {
         RoundInformation roundInformation = this.gameService.startRound();
 
@@ -187,9 +190,8 @@ public class GameScreenController {
                 this.gameService.setGameWon();
                 this.gameService.openEndScreen();
             } else {
-                if(!roundInformation.levelledUpTowers.isEmpty()) {
-                    for(Purchasable item : roundInformation.levelledUpTowers) {
-                        Tower tower = (Tower) item;
+                if(!roundInformation.getLevelledUpTowers().isEmpty()) {
+                    for(Tower tower : roundInformation.getLevelledUpTowers()) {
                         PopupHelper.display(startButton, String.format("One of your %s towers upgraded and its production increased by 25!", tower.getResourceType().label.toLowerCase()));
                     }
                 }
@@ -201,7 +203,7 @@ public class GameScreenController {
                     }
                 }
 
-                PopupHelper.display(startButton, String.format("You completed the round!\nMoney Earned: $%.2f", roundInformation.moneyEarned));
+                PopupHelper.display(startButton, String.format("You completed the round!\nMoney Earned: $%s.00", roundInformation.getMoneyEarned()));
 
                 this.gameService.prepareRound();
                 this.updateVisuals();

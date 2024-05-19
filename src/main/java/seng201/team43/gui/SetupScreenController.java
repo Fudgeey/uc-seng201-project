@@ -68,10 +68,17 @@ public class SetupScreenController {
     @FXML
     private Button startButton;
 
+    /**
+     * Initialises the setup screen controller
+     * @param gameManager persistent game manager to use
+     */
     public SetupScreenController(GameManager gameManager) {
         this.setupService = new SetupService(gameManager);
     }
 
+    /**
+     * Initialises the JavaFX scene, sets visuals and actions and calls logic functions
+     */
     public void initialize() {
         List<Button> difficultyButtons = List.of(difficultyEasyButton, difficultyMediumButton, difficultyHardButton);
         List<Button> towerButtons = List.of(waterTowerButton, woodTowerButton, foodTowerButton);
@@ -181,8 +188,8 @@ public class SetupScreenController {
 
     /**
      * Removes a starting tower. Sets the pane visibility to false and clears the pane.
-     * @param currentPane
-     * @param slot
+     * @param currentPane tower pane to remove
+     * @param slot slot in starting tower array
      */
     public void removeStartingTower(GridPane currentPane, Integer slot) {
         currentPane.setVisible(false);

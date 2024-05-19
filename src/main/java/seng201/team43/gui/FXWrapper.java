@@ -3,7 +3,6 @@ package seng201.team43.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seng201.team43.models.GameManager;
@@ -48,7 +47,6 @@ public class FXWrapper {
             stage.setTitle("Tower Dynasty");
             stage.setFullScreenExitHint("");
             stage.setFullScreen(true);
-//            stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,7 +54,7 @@ public class FXWrapper {
 
     /**
      * Launches the game screen and defines basic properties.
-     * @param gameManager
+     * @param gameManager game manager to parse into screen
      */
     public void launchGameScreen(GameManager gameManager) {
         try {
@@ -71,7 +69,7 @@ public class FXWrapper {
 
     /**
      * Launches inventory screen and defines basic properties.
-     * @param gameManager
+     * @param gameManager game manager to parse into screen
      */
     public void launchInventoryScreen(GameManager gameManager) {
         try {
@@ -86,7 +84,7 @@ public class FXWrapper {
 
     /**
      * Launches shop screen and defines basic properties.
-     * @param gameManager
+     * @param gameManager game manager to parse into screen
      */
     public void launchShopScreen(GameManager gameManager) {
         try {
@@ -101,7 +99,7 @@ public class FXWrapper {
 
     /**
      * Launches pause screen and defines basic properties.
-     * @param gameManager
+     * @param gameManager game manager to parse into screen
      */
     public void launchPauseScreen(GameManager gameManager) {
         try {
@@ -116,7 +114,7 @@ public class FXWrapper {
 
     /**
      * Launches end screen and defines basic properties.
-     * @param gameManager
+     * @param gameManager game manager to parse into screen
      */
     public void launchEndScreen(GameManager gameManager) {
         try {

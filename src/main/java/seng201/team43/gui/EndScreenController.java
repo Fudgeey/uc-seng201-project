@@ -7,6 +7,11 @@ import javafx.scene.layout.FlowPane;
 import seng201.team43.models.GameManager;
 import seng201.team43.services.EndService;
 
+/**
+ * Controller for the end_screen.fxml window
+ *
+ * @author Luke Hallett, Riley Jeffcote
+ */
 public class EndScreenController {
     private final EndService endService;
 
@@ -16,10 +21,17 @@ public class EndScreenController {
     @FXML
     private Button closeButton;
 
+    /**
+     * Initialises the end screen controller with the given game manager
+     * @param gameManager game manager to use
+     */
     public EndScreenController(GameManager gameManager) {
         this.endService = new EndService(gameManager);
     }
 
+    /**
+     * JavaFX initialise function to set up everything being displayed
+     */
     public void initialize() {
         String titleString;
         int roundsWon = this.endService.getRoundsWon();

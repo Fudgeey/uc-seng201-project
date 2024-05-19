@@ -10,6 +10,10 @@ import seng201.team43.helpers.PopupHelper;
 public class GameException extends Exception {
     private final String message;
 
+    /**
+     * Initialises the exception with the error message
+     * @param message the error message
+     */
     public GameException(String message) {
         super();
 
@@ -22,7 +26,7 @@ public class GameException extends Exception {
 
     /**
      * Displays the error in a popup screen.
-     * @param control
+     * @param control the parent JavaFX control the popup is launched from
      */
     public void displayError(Control control) {
         PopupHelper.display(control, this.getMessage());

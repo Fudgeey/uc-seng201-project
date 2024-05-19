@@ -7,9 +7,6 @@ import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -17,11 +14,15 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import seng201.team43.models.Upgrade;
 
-import java.util.Objects;
-
+/**
+ * Cell factory for tower to use in ListView
+ * @author seng201 teaching team, Luke Hallett, Riley Jeffcote
+ */
 public class UpgradeCellFactory implements Callback<ListView<Upgrade>, ListCell<Upgrade>>  {
-    /*
-    TODO: write the docstring LUUUKKEEEE :).
+    /**
+     * Updates the list view with the required list
+     * @param upgradeListView the list view to update
+     * @return cells for the list view
      */
     @Override
     public ListCell<Upgrade> call(ListView<Upgrade> upgradeListView) {

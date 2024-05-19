@@ -21,11 +21,13 @@ import java.util.Objects;
 
 /**
  * Cell factory for tower to use in ListView
- * @author seng201 teaching team, Luke Hallett
+ * @author seng201 teaching team, Luke Hallett, Riley Jeffcote
  */
 public class TowerCellFactory implements Callback<ListView<Tower>, ListCell<Tower>> {
-    /*
-    TODO: write the docstring LUUUKKEEEE :).
+    /**
+     * Updates the list view with the required list
+     * @param towerListView the list view to update
+     * @return cells for the list view
      */
     @Override
     public ListCell<Tower> call(ListView<Tower> towerListView) {

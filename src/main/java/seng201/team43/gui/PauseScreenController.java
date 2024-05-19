@@ -19,10 +19,17 @@ public class PauseScreenController {
     @FXML
     private Button quitButton;
 
+    /**
+     * Initialises the pause screen controller
+     * @param gameManager persistent game manager to use
+     */
     public PauseScreenController(GameManager gameManager)  {
         this.gameManager = gameManager;
     }
 
+    /**
+     * Initialises the JavaFX scene, sets visuals and actions
+     */
     public void initialize() {
         resumeButton.setOnAction(event -> gameManager.openGameScreen());
         quitButton.setOnAction(event -> gameManager.quitGame());

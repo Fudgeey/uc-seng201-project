@@ -9,11 +9,13 @@ import seng201.team43.models.Cart;
 
 /**
  * Cell factory for carts to use in ListView
- * @author seng201 teaching team, Luke Hallett
+ * @author seng201 teaching team, Luke Hallett, Riley Jeffcote
  */
 public class CartCellFactory implements Callback<ListView<Cart>, ListCell<Cart>> {
-    /*
-    TODO: write the docstring LUUUKKEEEE :).
+    /**
+     * Updates the list view with the required list
+     * @param cartListView the list view to update
+     * @return cells for the list view
      */
     @Override
     public ListCell<Cart> call(ListView<Cart> cartListView) {

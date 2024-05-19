@@ -32,10 +32,17 @@ public class ShopScreenController {
     @FXML
     private GridPane outerGrid;
 
+    /**
+     * Initialises the shop screen controller
+     * @param gameManager persistent game manager to use
+     */
     public ShopScreenController(GameManager gameManager) {
         this.shopService = new ShopService(gameManager);
     }
 
+    /**
+     * JavaFX initialise function. Sets up all actions and displays all shop items.
+     */
     public void initialize() {
         backButton.setOnAction(event -> shopService.close());
         this.updateMoney();

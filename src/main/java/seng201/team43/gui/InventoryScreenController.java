@@ -19,7 +19,6 @@ import seng201.team43.services.InventoryService;
  * @author Riley Jeffcote, Luke Hallett
  */
 public class InventoryScreenController {
-    private final GameManager gameManager;
     private final InventoryService inventoryService;
 
     @FXML
@@ -46,14 +45,20 @@ public class InventoryScreenController {
     @FXML
     private Button assignUpgradeButton;
 
+    /**
+     * Initialises the inventory screen controller
+     * @param gameManager persistent game manager to use
+     */
     public InventoryScreenController(GameManager gameManager) {
-        this.gameManager = gameManager;
-        this.inventoryService = new InventoryService(this.gameManager);
+        this.inventoryService = new InventoryService(gameManager);
     }
 
+    /**
+     * Initialises the JavaFX scene, sets visuals and actions
+     */
     public void initialize() {
-        backButton.setOnAction(event -> gameManager.openGameScreen());
-        shopButton.setOnAction(event -> gameManager.openShopScreen());
+        backButton.setOnAction(event -> this.inventoryService.openGameScreen());
+        shopButton.setOnAction(event -> this.inventoryService.openShopScreen());
 
         activeTowersListView.setCellFactory(new TowerCellFactory());
         reserveTowersListView.setCellFactory(new TowerCellFactory());
@@ -135,9 +140,8 @@ public class InventoryScreenController {
     }
 
     /**
-     * Determines whether the buttons for moving towers are visible. Once selected a tower, move button and sell button are visible.
-     * When a tower and an upgrade are selected, the assign upgrade button becomes visible.
-     * @param listView
+     * Listener for active and reserve towers and calls logic based on selection
+     * @param listView list view to set up listener for
      */
     private void setupTowerListViewListener(ListView<Tower> listView) {
         listView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Tower>) t -> {
