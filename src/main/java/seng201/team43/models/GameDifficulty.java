@@ -1,5 +1,8 @@
 package seng201.team43.models;
 
+/**
+ * Enum for game difficulty options
+ */
 public enum GameDifficulty {
     EASY("Easy", 0.75, 200, "#22a359"),
     MEDIUM("Medium", 1,  150, "#ff9c1c"),

@@ -42,6 +42,16 @@ public class GameManager {
     private final Consumer<GameManager> endScreenLauncher;
     private final Runnable clearScreen;
 
+    /**
+     * Initalises the game manager which JavaFX screens
+     * @param setupScreenLauncher setup_screen.fxml launcher
+     * @param gameScreenLauncher game_screen.fxml launcher
+     * @param inventoryScreenLauncher inventory_screen.fxml launcher
+     * @param shopScreenLauncher shop_screen.fxml launcher
+     * @param pauseScreenLauncher pause_screen.fxml launcher
+     * @param endScreenLauncher end_screen.fxml launcher
+     * @param clearScreen clears current JavaFX scene
+     */
     public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Consumer<GameManager> endScreenLauncher, Runnable clearScreen) {
         this.roundCount = 5;
         this.currentRound = 0;
@@ -154,6 +164,10 @@ public class GameManager {
         return this.experienceGained;
     }
 
+    /**
+     * Gets current level based on experience
+     * @return current player level
+     */
     public int getLevel() {
         return (Math.floorDiv(this.experience, 10) + 1);
     }

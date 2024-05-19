@@ -5,6 +5,9 @@ import seng201.team43.exceptions.GameException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to manage inventory of player
+ */
 public class Inventory {
     private ArrayList<Tower> activeTowers;
     private final ArrayList<Tower> reserveTowers;
@@ -84,7 +87,7 @@ public class Inventory {
 
     /**
      * Adds an upgrade item to upgrade inventory.
-     * @param upgrade
+     * @param upgrade upgrade to add to inventory
      */
     public void addUpgrade(Upgrade upgrade) {
         this.upgrades.add(upgrade);
@@ -92,7 +95,7 @@ public class Inventory {
 
     /**
      * Removes an upgrade item from upgrades inventory.
-     * @param upgrade
+     * @param upgrade upgrade to remove from inventory
      */
     public void removeUpgrade(Upgrade upgrade) {
         this.upgrades.remove(upgrade);
@@ -101,7 +104,7 @@ public class Inventory {
     /**
      * Adds an item to inventory. Checks what kind of item it is. i.e. tower or upgrade. If tower, checks if active is
      * full, if it is then it goes to reserve inventory, otherwise defaults to active inventory.
-     * @param item
+     * @param item item to add to inventory
      */
     public void addItem(Purchasable item) throws GameException {
         if(item.getClass() == Tower.class) {

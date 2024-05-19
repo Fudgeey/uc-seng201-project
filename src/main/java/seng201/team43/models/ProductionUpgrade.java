@@ -5,7 +5,7 @@ public class ProductionUpgrade extends Upgrade {
 
     /**
      * Initialises the cost and production units of a production upgrade.
-     * @param units
+     * @param units units for upgrade
      */
     public ProductionUpgrade(int units) {
         super(100, "Production Upgrade");
@@ -15,7 +15,7 @@ public class ProductionUpgrade extends Upgrade {
 
     /**
      * Applies it to a tower by increasing the tower's production units by production upgrades units.
-     * @param tower
+     * @param tower tower to apply upgrade to
      */
     @Override
     public void apply(Tower tower) {

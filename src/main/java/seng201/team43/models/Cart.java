@@ -11,6 +11,12 @@ public class Cart {
     private final Resource type;
     private int currentFilled;
 
+    /**
+     * Initialise cart with given parameters
+     * @param size size of cart
+     * @param speed speed of cart
+     * @param type resource type of cart
+     */
     public Cart(int size, int speed, Resource type) {
         this.size = size;
         this.speed = speed;

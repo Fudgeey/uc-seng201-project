@@ -2,11 +2,19 @@ package seng201.team43.models;
 
 import seng201.team43.exceptions.GameException;
 
+/**
+ * Class for reload upgrade, extending abstract features of upgrade
+ */
 public class ReloadUpgrade extends Upgrade {
     public ReloadUpgrade() {
         super(100, "Reload Upgrade");
     }
 
+    /**
+     * Apply reload upgrade by decreasing reload speed
+     * @param tower tower to upgrade
+     * @throws GameException if reload speed tries to go below 1
+     */
     @Override
     public void apply(Tower tower) throws GameException {
         tower.decreaseReloadSpeed(1);
