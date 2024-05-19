@@ -3,8 +3,8 @@ package seng201.team43;
 import seng201.team43.gui.FXWindow;
 
 /**
- * Default entry point class
- * @author seng201 teaching team, Luke Hallett
+ * Entry point for game, runs JavaFX functions
+ * @author seng201 teaching team, Luke Hallett, Riley Jeffcote
  */
 public class App {
 
