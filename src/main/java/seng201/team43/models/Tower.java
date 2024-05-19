@@ -18,12 +18,8 @@ public class Tower implements Purchasable {
     private boolean broken;
 
     public Tower(Resource resourceType) {
-        this(resourceType, String.format("%s Tower", resourceType.label));
-    }
-
-    public Tower(Resource resourceType, String name) {
         this.resourceType = resourceType;
-        this.name = name;
+        this.name = String.format("%s Tower", resourceType.label);
         this.reloadSpeed = 5;
         this.productionUnits = 50;
         this.experience = 0;
