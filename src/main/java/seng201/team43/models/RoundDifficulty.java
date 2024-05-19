@@ -1,5 +1,9 @@
 package seng201.team43.models;
 
+/**
+ * Class for round difficulty.
+ * @author Riley Jeffcote, Luke Hallett.
+ */
 public enum RoundDifficulty {
     EASY("Easy", 100, "#22a359"),
     MEDIUM("Medium",  80, "#ff9c1c"),
@@ -9,6 +13,12 @@ public enum RoundDifficulty {
     public final int trackDistance;
     public final String colour;
 
+    /**
+     * Initialises round difficulty.
+     * @param label initialises label.
+     * @param trackDistance initialises track distance.
+     * @param colour initialises colour. e.g. green for easy.
+     */
     RoundDifficulty(String label, int trackDistance, String colour) {
         this.label = label;
         this.trackDistance = trackDistance;
