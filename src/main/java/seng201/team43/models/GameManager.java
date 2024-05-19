@@ -221,31 +221,28 @@ public class GameManager {
                 int moneyEarned = cart.fill(tower, this.getTrackDistance());
 
                 this.addMoney(moneyEarned);
-                roundInformation.moneyEarned += moneyEarned;
+                roundInformation.addMoneyEarned(moneyEarned);
 
                 if (previousLevel < tower.getLevel()) {
-                    roundInformation.levelledUpTowers.add(tower);
+                    roundInformation.addLevelledUpTower(tower);
                 }
             }
         }
 
-        int cartsNotFilled = 0;
-
         for(Cart cart : this.getCarts()) {
             if(cart.getCurrentFilled() < cart.getSize()) {
-                cartsNotFilled += 1;
                 roundInformation.setWon(false);
-                roundInformation.setMessage(String.format("Carts Not Filled: %s", cartsNotFilled));
-            } else {
-                this.addExperience(2);
-                this.addMoney(25);
-                roundInformation.moneyEarned += 25;
+                break;
             }
+
+            this.addExperience(2);
+            this.addMoney(25);
+            roundInformation.addMoneyEarned(25);
         }
 
         if(roundInformation.getWon()) {
             this.addMoney(50);
-            roundInformation.moneyEarned += 50;
+            roundInformation.addMoneyEarned(50);
         }
 
         return roundInformation;

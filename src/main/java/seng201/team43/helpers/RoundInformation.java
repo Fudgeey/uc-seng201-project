@@ -1,51 +1,49 @@
 package seng201.team43.helpers;
 
-import seng201.team43.models.Purchasable;
+import seng201.team43.models.Tower;
 
 import java.util.ArrayList;
 
+/**
+ * Class to store information about the round.
+ */
 public class RoundInformation {
     private boolean won;
-    public double moneyEarned;
-    public double experienceEarned;
+    private int moneyEarned;
+    private int experienceEarned;
+    private ArrayList<Tower> levelledUpTowers;
 
-    public ArrayList<Purchasable> levelledUpTowers;
-
-    private String title;
-    private String message;
-
+    /**
+     * Initialises the round information with starting values
+     */
     public RoundInformation() {
         this.won = true;
         this.moneyEarned = 0;
         this.experienceEarned = 0;
-
-        this.title = null;
-        this.message = null;
-
         this.levelledUpTowers = new ArrayList<>();
-    }
-
-    public void setWon(boolean won) {
-        this.won = won;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public boolean getWon() {
         return this.won;
     }
 
-    public String getTitle() {
-        return this.title;
+    public void setWon(boolean won) {
+        this.won = won;
     }
 
-    public String getMessage() {
-        return this.message;
+    public int getMoneyEarned() {
+        return this.getMoneyEarned();
+    }
+
+    public void addMoneyEarned(int money) {
+        this.moneyEarned += money;
+    }
+
+    public ArrayList<Tower> getLevelledUpTowers() {
+        return this.getLevelledUpTowers();
+    }
+
+    public void addLevelledUpTower(Tower tower) {
+        this.levelledUpTowers.add(tower);
     }
 }
