@@ -10,8 +10,7 @@ import java.util.ArrayList;
 public class RoundInformation {
     private boolean won;
     private int moneyEarned;
-    private int experienceEarned;
-    private ArrayList<Tower> levelledUpTowers;
+    private final ArrayList<Tower> levelledUpTowers;
 
     /**
      * Initialises the round information with starting values
@@ -19,7 +18,6 @@ public class RoundInformation {
     public RoundInformation() {
         this.won = true;
         this.moneyEarned = 0;
-        this.experienceEarned = 0;
         this.levelledUpTowers = new ArrayList<>();
     }
 
@@ -32,7 +30,7 @@ public class RoundInformation {
     }
 
     public int getMoneyEarned() {
-        return this.getMoneyEarned();
+        return this.moneyEarned;
     }
 
     public void addMoneyEarned(int money) {
@@ -40,7 +38,7 @@ public class RoundInformation {
     }
 
     public ArrayList<Tower> getLevelledUpTowers() {
-        return this.getLevelledUpTowers();
+        return this.levelledUpTowers;
     }
 
     public void addLevelledUpTower(Tower tower) {
