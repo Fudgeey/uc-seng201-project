@@ -10,10 +10,18 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class for logic behind set up screen.
+ * @author Riley Jeffcote, Luke Hallett.
+ */
 public class SetupService {
     private final GameManager gameManager;
     private final Tower[] startingTowers = new Tower[3];
 
+    /**
+     * Initialises Set up service with data from game manager
+     * @param gameManager pulls game manager through to link
+     */
     public SetupService(GameManager gameManager) {
         this.gameManager = gameManager;
     }
@@ -42,7 +50,10 @@ public class SetupService {
         return gameDifficulty;
     }
 
-
+    /**
+     * Starts the game. Goes to the main game screen from the setup screen.
+     * @throws GameException if requirements are not met. e.g. name and towers not filled out.
+     */
     public void startGame() throws GameException {
         if(this.gameManager.getName() == null) {
             throw new GameException("A name is required.");

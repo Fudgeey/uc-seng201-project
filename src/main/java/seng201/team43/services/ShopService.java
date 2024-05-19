@@ -14,6 +14,10 @@ import java.util.List;
 public class ShopService {
     private final GameManager gameManager;
 
+    /**
+     * Initialises the shop service with the data from game manager.
+     * @param gameManager gameManager to use for pulling data through and linking to Shop Screen.
+     */
     public ShopService(GameManager gameManager) {
         this.gameManager = gameManager;
     }

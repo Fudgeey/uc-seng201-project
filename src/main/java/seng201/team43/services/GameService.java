@@ -10,9 +10,17 @@ import java.util.stream.Stream;
 
 import static java.util.function.Predicate.not;
 
+/**
+ * Class for logic behind Game screen.
+ * @author Riley Jeffcote, Luke Hallett.
+ */
 public class GameService {
     private final GameManager gameManager;
 
+    /**
+     * Initialises game service with game manager
+     * @param gameManager to initialise game service.
+     */
     public GameService(GameManager gameManager) {
         this.gameManager = gameManager;
     }
@@ -21,14 +29,25 @@ public class GameService {
         this.gameManager.setPreviousRoundInformation(roundInformation);
     }
 
+    /**
+     * Starts the round.
+     * @return Round information on the round that has been played.
+     */
     public RoundInformation startRound() {
         return this.gameManager.startRound();
     }
 
+    /**
+     * Prepares the round.
+     */
     public void prepareRound() {
         this.gameManager.prepareRound();
     }
 
+    /**
+     * Runs random events. Called at the end of a round to run the random events.
+     * @return the events that happened.
+     */
     public List<String> runRandomEvents() {
         List<Tower> activeTowers = this.gameManager.getInventory().getActiveTowers().stream().filter(not(Tower::isBroken)).toList();
         List<Tower> reserveTowers = this.gameManager.getInventory().getReserveTowers().stream().filter(not(Tower::isBroken)).toList();
@@ -39,6 +58,13 @@ public class GameService {
         return Stream.concat(activeTowersMessages.stream(), reserveTowersMessages.stream()).toList();
     }
 
+    /**
+     * Runs the random tower events.
+     * @param towersToCheck the towers to check and run events on.
+     * @param towers the towers.
+     * @param probability the chance of random event happening.
+     * @return the message containing what random events happened.
+     */
     private ArrayList<String> runTowersRandomEvent(List<Tower> towersToCheck, ArrayList<Tower> towers, int probability) {
         Random random = new Random();
         ArrayList<String> messages = new ArrayList<>();
@@ -78,6 +104,10 @@ public class GameService {
         return this.gameManager.getRoundDifficulty();
     }
 
+    /**
+     * See if the game is ended.
+     * @return boolean of whether the game has ended.
+     */
     public boolean gameEnded() {
         return this.gameManager.getCurrentRound() + 1 > this.gameManager.getRoundCount();
     }
@@ -114,14 +144,23 @@ public class GameService {
         return this.gameManager.getTrackDistance();
     }
 
+    /**
+     * Opens ending screen.
+     */
     public void openEndScreen() {
         this.gameManager.openEndScreen();
     }
 
+    /**
+     * Opens inventory screen.
+     */
     public void openInventoryScreen() {
         this.gameManager.openInventoryScreen();
     }
 
+    /**
+     * Opens pause screen.
+     */
     public void openPauseScreen() {
         this.gameManager.openPauseScreen();
     }
