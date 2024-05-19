@@ -2,11 +2,22 @@ package seng201.team43.models;
 
 import java.util.Random;
 
+/**
+ * Class for resource type upgrade.
+ * @author Riley Jeffcote, Luke Hallett.
+ */
 public class ResourceTypeUpgrade extends Upgrade {
+    /**
+     * Initialises resource type upgrade.
+     */
     public ResourceTypeUpgrade() {
         super(75, "Resource Type Upgrade");
     }
 
+    /**
+     * Applies it to a tower.
+     * @param tower passed in which the upgrade will be applied to.
+     */
     @Override
     public void apply(Tower tower) {
         Random random = new Random();

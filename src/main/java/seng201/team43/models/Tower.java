@@ -17,6 +17,10 @@ public class Tower implements Purchasable {
     private boolean purchased;
     private boolean broken;
 
+    /**
+     * Initialises Tower
+     * @param resourceType takes a resource type and initialises the value to this tower.
+     */
     public Tower(Resource resourceType) {
         this.resourceType = resourceType;
         this.name = String.format("%s Tower", resourceType.label);
@@ -55,6 +59,10 @@ public class Tower implements Purchasable {
         return (Math.floorDiv(this.experience, 10) + 1);
     }
 
+    /**
+     * Adds experience to tower.
+     * @param experience takes experience and adds it.
+     */
     public void addExperience(int experience) {
         int oldLevel = this.getLevel();
         this.experience += experience;
@@ -110,6 +118,10 @@ public class Tower implements Purchasable {
         this.broken = broken;
     }
 
+    /**
+     * Checks if the tower is broken
+     * @return boolean if the tower is broken or not.
+     */
     public boolean isBroken() {
         return this.broken;
     }
