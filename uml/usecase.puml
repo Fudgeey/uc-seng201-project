@@ -1,20 +1,33 @@
 @startuml
-'https://plantuml.com/use-case-diagram
-
 actor "Player" as A1
 actor "Time" as A2
 
 rectangle "Tower Dynasty" {
-    usecase "Setup game" as UC1
-    usecase "Play round" as UC2
-    usecase "Shop" as UC3
-    usecase "Inventory" as UC4
+    usecase "Play round" as UC1
+    usecase "Show current items" as UC2
+    usecase "View inventory" as UC3
+    usecase "Buy item" as UC4
+    usecase "Break tower" as UC5
+    usecase "Pick towers" as UC6
+    usecase "Upgrade towers" as UC7
+    usecase "Go to shop" as UC8
+    usecase "Update money" as UC9
+    usecase "Run random events" as UC10
 }
 
-A1 --> UC1
-A1 --> UC2
-A1 --> UC3
-A1 --> UC4
+A1 -- UC1
+A1 -- UC3
+A1 -- UC6
+A1 -- UC8
 
-A2 --> UC2
+A2 -- UC1
+
+UC3 <.. UC2: <<extends>>
+UC3 ..> UC7: <<includes>>
+UC10 ..> UC7: <<includes>>
+UC10 <.. UC5: <<extends>
+UC8 <.. UC4: <<extends>>
+UC9 ..> UC4: <<include>>
+UC9 ..> UC1: <<include>>
+UC1 <.. UC10: <<extend>>
 @enduml

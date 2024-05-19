@@ -45,7 +45,7 @@ class GameManager {
     + getLevel(): int
     + addCart(cart: Cart): void
     + prepareRound(): void
-    + startRound(): RoundInformation
+    + startRound(): void
 
 }
 
@@ -56,7 +56,6 @@ GameManager *- Inventory
 Inventory o- Tower
 Inventory o- Upgrade
 Inventory o- Purchasable
-
 
 class Cart {
     - size: int
