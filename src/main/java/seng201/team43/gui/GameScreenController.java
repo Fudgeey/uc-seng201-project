@@ -8,7 +8,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import seng201.team43.exceptions.GameException;
 import seng201.team43.gui.factories.CartCellFactory;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.helpers.PopupHelper;
