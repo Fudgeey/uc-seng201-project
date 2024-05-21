@@ -1,4 +1,4 @@
-package seng201.team43.unittests.services.models;
+package seng201.team43.unittests.models;
 
 import org.junit.jupiter.api.Test;
 import seng201.team43.models.Cart;
