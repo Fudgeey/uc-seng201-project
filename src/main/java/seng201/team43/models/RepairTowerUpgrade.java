@@ -1,5 +1,7 @@
 package seng201.team43.models;
 
+import seng201.team43.exceptions.GameException;
+
 /**
  * Class for repair tower upgrade
  * @author Luke Hallett, Riley Jeffcote
@@ -17,7 +19,11 @@ public class RepairTowerUpgrade extends Upgrade {
      * @param tower passed in which the upgrade will be applied to.
      */
     @Override
-    public void apply(Tower tower) {
+    public void apply(Tower tower) throws GameException {
+        if(!tower.isBroken()) {
+            throw new GameException("You cannot repair a tower that isn't broken.");
+        }
+
         tower.setBroken(false);
     }
 
