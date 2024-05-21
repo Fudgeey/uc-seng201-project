@@ -61,4 +61,23 @@ class GameManagerTest {
         this.gameManager.setRoundCount(7);
         assertEquals(7, this.gameManager.getRoundCount());
     }
+
+    @Test
+    void testRemoveMoney() throws GameException {
+        this.gameManager.removeMoney(10);
+        assertEquals(190, this.gameManager.getMoney());
+
+        GameException error = assertThrows(GameException.class, () -> {
+            this.gameManager.removeMoney(200);
+        });
+
+        assertEquals("You do not have enough money to buy this.", error.getMessage());
+    }
+
+    @Test
+    void testLevelUp() {
+        this.gameManager.addExperience(15);
+
+        assertEquals(2, this.gameManager.getLevel());
+    }
 }
