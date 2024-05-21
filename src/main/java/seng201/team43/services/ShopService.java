@@ -22,13 +22,6 @@ public class ShopService {
         this.gameManager = gameManager;
     }
 
-    /**
-     * Goes back to the inventory screen.
-     */
-    public void close() {
-        this.gameManager.openInventoryScreen();
-    }
-
     public double getMoney() {
         return this.gameManager.getMoney();
     }

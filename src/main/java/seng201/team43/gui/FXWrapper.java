@@ -15,10 +15,11 @@ import java.io.IOException;
  * @author seng201 teaching team, Luke Hallett, Riley Jeffcote
  */
 public class FXWrapper {
+    private Stage stage;
+    private GameManager gameManager;
+
     @FXML
     private Pane pane;
-
-    private Stage stage;
 
     /**
      * Initialise the window with the given stage,
@@ -28,20 +29,20 @@ public class FXWrapper {
      */
     public void init(Stage stage) {
         this.stage = stage;
-
-        new GameManager(this::launchSetupScreen, this::launchGameScreen, this::launchInventoryScreen, this::launchShopScreen, this::launchPauseScreen, this::launchEndScreen, this::clearPane);
+        this.gameManager = new GameManager();
+        new GUIManager(this::launchSetupScreen, this::launchGameScreen, this::launchInventoryScreen, this::launchShopScreen, this::launchPauseScreen, this::launchEndScreen, this::clearPane);
     }
 
     /**
      * Launches the setup screen and defines basic properties,
      * e.g. title, fullscreen
      *
-     * @param gameManager current game manager instance
+     * @param guiManager current GUI manager instance
      */
-    public void launchSetupScreen(GameManager gameManager) {
+    public void launchSetupScreen(GUIManager guiManager) {
         try {
             FXMLLoader setupLoader = new FXMLLoader(getClass().getResource("/fxml/setup_screen.fxml"));
-            setupLoader.setControllerFactory(param -> new SetupScreenController(gameManager));
+            setupLoader.setControllerFactory(param -> new SetupScreenController(gameManager, guiManager));
             Parent setupParent  = setupLoader.load();
             pane.getChildren().add(setupParent);
             stage.setTitle("Tower Dynasty");
@@ -54,12 +55,12 @@ public class FXWrapper {
 
     /**
      * Launches the game screen and defines basic properties.
-     * @param gameManager game manager to parse into screen
+     * @param guiManager GUI manager to parse into screen
      */
-    public void launchGameScreen(GameManager gameManager) {
+    public void launchGameScreen(GUIManager guiManager) {
         try {
             FXMLLoader gameScreenLoader = new FXMLLoader(getClass().getResource("/fxml/game_screen.fxml"));
-            gameScreenLoader.setControllerFactory(param -> new GameScreenController(gameManager));
+            gameScreenLoader.setControllerFactory(param -> new GameScreenController(gameManager, guiManager));
             Parent setupParent  = gameScreenLoader.load();
             pane.getChildren().add(setupParent);
         } catch (IOException e) {
@@ -69,12 +70,12 @@ public class FXWrapper {
 
     /**
      * Launches inventory screen and defines basic properties.
-     * @param gameManager game manager to parse into screen
+     * @param guiManager GUI manager to parse into screen
      */
-    public void launchInventoryScreen(GameManager gameManager) {
+    public void launchInventoryScreen(GUIManager guiManager) {
         try {
             FXMLLoader inventoryScreenLoader = new FXMLLoader(getClass().getResource("/fxml/inventory_screen.fxml"));
-            inventoryScreenLoader.setControllerFactory(param -> new InventoryScreenController(gameManager));
+            inventoryScreenLoader.setControllerFactory(param -> new InventoryScreenController(gameManager, guiManager));
             Parent setupParent  = inventoryScreenLoader.load();
             pane.getChildren().add(setupParent);
         } catch (IOException e) {
@@ -84,12 +85,12 @@ public class FXWrapper {
 
     /**
      * Launches shop screen and defines basic properties.
-     * @param gameManager game manager to parse into screen
+     * @param guiManager GUI manager to parse into screen
      */
-    public void launchShopScreen(GameManager gameManager) {
+    public void launchShopScreen(GUIManager guiManager) {
         try {
             FXMLLoader shopScreenLoader = new FXMLLoader(getClass().getResource("/fxml/shop_screen.fxml"));
-            shopScreenLoader.setControllerFactory(param -> new ShopScreenController(gameManager));
+            shopScreenLoader.setControllerFactory(param -> new ShopScreenController(gameManager, guiManager));
             Parent setupParent  = shopScreenLoader.load();
             pane.getChildren().add(setupParent);
         } catch (IOException e) {
@@ -99,12 +100,12 @@ public class FXWrapper {
 
     /**
      * Launches pause screen and defines basic properties.
-     * @param gameManager game manager to parse into screen
+     * @param guiManager GUI manager to parse into screen
      */
-    public void launchPauseScreen(GameManager gameManager) {
+    public void launchPauseScreen(GUIManager guiManager) {
         try {
             FXMLLoader pauseScreenLoader = new FXMLLoader(getClass().getResource("/fxml/pause_screen.fxml"));
-            pauseScreenLoader.setControllerFactory(param -> new PauseScreenController(gameManager));
+            pauseScreenLoader.setControllerFactory(param -> new PauseScreenController(gameManager, guiManager));
             Parent setupParent  = pauseScreenLoader.load();
             pane.getChildren().add(setupParent);
         } catch (IOException e) {
@@ -114,12 +115,12 @@ public class FXWrapper {
 
     /**
      * Launches end screen and defines basic properties.
-     * @param gameManager game manager to parse into screen
+     * @param guiManager GUI manager to parse into screen
      */
-    public void launchEndScreen(GameManager gameManager) {
+    public void launchEndScreen(GUIManager guiManager) {
         try {
             FXMLLoader endScreenLoader = new FXMLLoader(getClass().getResource("/fxml/end_screen.fxml"));
-            endScreenLoader.setControllerFactory(param -> new EndScreenController(gameManager));
+            endScreenLoader.setControllerFactory(param -> new EndScreenController(gameManager, guiManager));
             Parent setupParent  = endScreenLoader.load();
             pane.getChildren().add(setupParent);
         } catch (IOException e) {

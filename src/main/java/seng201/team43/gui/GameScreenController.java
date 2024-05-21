@@ -25,6 +25,7 @@ import java.util.Objects;
  */
 public class GameScreenController {
     private final GameService gameService;
+    private final GUIManager guiManager;
 
     @FXML
     private Button inventoryButton;
@@ -69,8 +70,9 @@ public class GameScreenController {
      * Creates the game screen controller with the game manager
      * @param gameManager persistent game manager instance
      */
-    public GameScreenController(GameManager gameManager) {
+    public GameScreenController(GameManager gameManager, GUIManager guiManager) {
         this.gameService = new GameService(gameManager);
+        this.guiManager = guiManager;
     }
 
     /**
@@ -81,8 +83,8 @@ public class GameScreenController {
 
         cartsListView.setCellFactory(new CartCellFactory());
 
-        inventoryButton.setOnAction(event -> this.gameService.openInventoryScreen());
-        pauseButton.setOnAction(event -> this.gameService.openPauseScreen());
+        inventoryButton.setOnAction(event -> this.guiManager.openInventoryScreen());
+        pauseButton.setOnAction(event -> this.guiManager.openPauseScreen());
         startButton.setOnAction(event -> this.startGame());
 
         List<Button> difficultyButtons = List.of(easyDifficultyButton, mediumDifficultyButton, hardDifficultyButton);
@@ -188,7 +190,7 @@ public class GameScreenController {
         if(roundInformation.getWon()) {
             if(this.gameService.gameEnded()) {
                 this.gameService.setGameWon();
-                this.gameService.openEndScreen();
+                this.guiManager.openEndScreen();
             } else {
                 if(!roundInformation.getLevelledUpTowers().isEmpty()) {
                     for(Tower tower : roundInformation.getLevelledUpTowers()) {
@@ -209,7 +211,7 @@ public class GameScreenController {
                 this.updateVisuals();
             }
         } else {
-            this.gameService.openEndScreen();
+            this.guiManager.openEndScreen();
         }
 
         this.gameService.setPreviousRoundInformation(roundInformation);

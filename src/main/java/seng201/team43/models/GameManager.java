@@ -1,6 +1,5 @@
 package seng201.team43.models;
 
-import javafx.application.Platform;
 import seng201.team43.exceptions.GameException;
 import seng201.team43.helpers.RoundInformation;
 
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Consumer;
 
 /**
  * Controller for the game_screen.fxml window
@@ -34,25 +32,10 @@ public class GameManager {
     private boolean gameWon;
     private RoundInformation previousRoundInformation;
 
-    private final Consumer<GameManager> setupScreenLauncher;
-    private final Consumer<GameManager> gameScreenLauncher;
-    private final Consumer<GameManager> inventoryScreenLauncher;
-    private final Consumer<GameManager> pauseScreenLauncher;
-    private final Consumer<GameManager> shopScreenLauncher;
-    private final Consumer<GameManager> endScreenLauncher;
-    private final Runnable clearScreen;
-
     /**
      * Initalises the game manager which JavaFX screens
-     * @param setupScreenLauncher setup_screen.fxml launcher
-     * @param gameScreenLauncher game_screen.fxml launcher
-     * @param inventoryScreenLauncher inventory_screen.fxml launcher
-     * @param shopScreenLauncher shop_screen.fxml launcher
-     * @param pauseScreenLauncher pause_screen.fxml launcher
-     * @param endScreenLauncher end_screen.fxml launcher
-     * @param clearScreen clears current JavaFX scene
      */
-    public GameManager(Consumer<GameManager> setupScreenLauncher, Consumer<GameManager> gameScreenLauncher, Consumer<GameManager> inventoryScreenLauncher, Consumer<GameManager> shopScreenLauncher, Consumer<GameManager> pauseScreenLauncher, Consumer<GameManager> endScreenLauncher, Runnable clearScreen) {
+    public GameManager() {
         this.roundCount = 5;
         this.currentRound = 0;
         this.inventory = new Inventory();
@@ -63,16 +46,6 @@ public class GameManager {
 
         this.setGameDifficulty(GameDifficulty.EASY);
         this.setRoundDifficulty(RoundDifficulty.EASY);
-
-        this.setupScreenLauncher = setupScreenLauncher;
-        this.gameScreenLauncher = gameScreenLauncher;
-        this.inventoryScreenLauncher = inventoryScreenLauncher;
-        this.pauseScreenLauncher = pauseScreenLauncher;
-        this.shopScreenLauncher = shopScreenLauncher;
-        this.endScreenLauncher = endScreenLauncher;
-        this.clearScreen = clearScreen;
-
-        openSetupScreen();
     }
 
     public void setPreviousRoundInformation(RoundInformation roundInformation) {
@@ -281,60 +254,5 @@ public class GameManager {
      */
     public boolean isGameWon() {
         return this.gameWon;
-    }
-
-    /**
-     * Launches set up screen.
-     */
-    public void openSetupScreen() {
-        setupScreenLauncher.accept(this);
-    }
-
-    /**
-     * Launches game screen.
-     */
-    public void openGameScreen() {
-        clearScreen.run();
-        gameScreenLauncher.accept(this);
-    }
-
-    /**
-     * Launches inventory screen.
-     */
-    public void openInventoryScreen() {
-        clearScreen.run();
-        inventoryScreenLauncher.accept(this);
-    }
-
-    /**
-     * Launches pause screen.
-     */
-    public void openPauseScreen() {
-        clearScreen.run();
-        pauseScreenLauncher.accept(this);
-    }
-
-    /**
-     * Launches shop screen.
-     */
-    public void openShopScreen() {
-        clearScreen.run();
-        shopScreenLauncher.accept(this);
-    }
-
-    /**
-     * Launches end screen.
-     */
-    public void openEndScreen() {
-        clearScreen.run();
-        endScreenLauncher.accept(this);
-    }
-
-    /**
-     * Quits the game.
-     */
-    public void quitGame() {
-        clearScreen.run();
-        Platform.exit();
     }
 }

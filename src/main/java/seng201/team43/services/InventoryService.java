@@ -110,12 +110,4 @@ public class InventoryService {
     public Purchasable getLastSelectedItem() {
         return this.lastSelectedItem;
     }
-
-    public void openGameScreen() {
-        this.gameManager.openGameScreen();
-    }
-
-    public void openShopScreen() {
-        this.gameManager.openShopScreen();
-    }
 }
