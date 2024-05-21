@@ -4,6 +4,10 @@ import javafx.application.Platform;
 
 import java.util.function.Consumer;
 
+/**
+ * Class for GUI Manager. Manages changing between javaFX scenes.
+ * @author Luke Hallett, Riley Jeffcote
+ */
 public class GUIManager {
     private final Consumer<GUIManager> setupScreenLauncher;
     private final Consumer<GUIManager> gameScreenLauncher;
@@ -13,6 +17,16 @@ public class GUIManager {
     private final Consumer<GUIManager> endScreenLauncher;
     private final Runnable clearScreen;
 
+    /**
+     * Initialises GUI manager
+     * @param setupScreenLauncher set up screen initialise
+     * @param gameScreenLauncher game screen initialise
+     * @param inventoryScreenLauncher inventory screen initialise
+     * @param shopScreenLauncher shop screen initialise
+     * @param pauseScreenLauncher pause screen initialise
+     * @param endScreenLauncher end screen initialise
+     * @param clearScreen clear screen initialise
+     */
     public GUIManager(Consumer<GUIManager> setupScreenLauncher, Consumer<GUIManager> gameScreenLauncher, Consumer<GUIManager> inventoryScreenLauncher, Consumer<GUIManager> shopScreenLauncher, Consumer<GUIManager> pauseScreenLauncher, Consumer<GUIManager> endScreenLauncher, Runnable clearScreen) {
         this.setupScreenLauncher = setupScreenLauncher;
         this.gameScreenLauncher = gameScreenLauncher;
