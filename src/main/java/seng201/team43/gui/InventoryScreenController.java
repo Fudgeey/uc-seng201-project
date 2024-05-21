@@ -20,6 +20,7 @@ import seng201.team43.services.InventoryService;
  */
 public class InventoryScreenController {
     private final InventoryService inventoryService;
+    private final GUIManager guiManager;
 
     @FXML
     private Button backButton;
@@ -49,16 +50,17 @@ public class InventoryScreenController {
      * Initialises the inventory screen controller
      * @param gameManager persistent game manager to use
      */
-    public InventoryScreenController(GameManager gameManager) {
+    public InventoryScreenController(GameManager gameManager, GUIManager guiManager) {
         this.inventoryService = new InventoryService(gameManager);
+        this.guiManager = guiManager;
     }
 
     /**
      * Initialises the JavaFX scene, sets visuals and actions
      */
     public void initialize() {
-        backButton.setOnAction(event -> this.inventoryService.openGameScreen());
-        shopButton.setOnAction(event -> this.inventoryService.openShopScreen());
+        backButton.setOnAction(event -> this.guiManager.openGameScreen());
+        shopButton.setOnAction(event -> this.guiManager.openShopScreen());
 
         activeTowersListView.setCellFactory(new TowerCellFactory());
         reserveTowersListView.setCellFactory(new TowerCellFactory());

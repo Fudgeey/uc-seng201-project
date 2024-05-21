@@ -144,27 +144,6 @@ public class GameService {
         return this.gameManager.getTrackDistance();
     }
 
-    /**
-     * Opens ending screen.
-     */
-    public void openEndScreen() {
-        this.gameManager.openEndScreen();
-    }
-
-    /**
-     * Opens inventory screen.
-     */
-    public void openInventoryScreen() {
-        this.gameManager.openInventoryScreen();
-    }
-
-    /**
-     * Opens pause screen.
-     */
-    public void openPauseScreen() {
-        this.gameManager.openPauseScreen();
-    }
-
     public int getLevel() {
         return this.gameManager.getLevel();
     }

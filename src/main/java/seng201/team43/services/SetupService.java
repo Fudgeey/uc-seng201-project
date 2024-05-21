@@ -77,7 +77,6 @@ public class SetupService {
         }
 
         this.gameManager.prepareRound();
-        this.gameManager.openGameScreen();
     }
 
     /**

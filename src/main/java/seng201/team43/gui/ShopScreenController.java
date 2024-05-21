@@ -22,6 +22,7 @@ import java.util.List;
 
 public class ShopScreenController {
     private final ShopService shopService;
+    private final GUIManager guiManager;
 
     @FXML
     private Button backButton;
@@ -36,15 +37,16 @@ public class ShopScreenController {
      * Initialises the shop screen controller
      * @param gameManager persistent game manager to use
      */
-    public ShopScreenController(GameManager gameManager) {
+    public ShopScreenController(GameManager gameManager, GUIManager guiManager) {
         this.shopService = new ShopService(gameManager);
+        this.guiManager = guiManager;
     }
 
     /**
      * JavaFX initialise function. Sets up all actions and displays all shop items.
      */
     public void initialize() {
-        backButton.setOnAction(event -> shopService.close());
+        backButton.setOnAction(event -> this.guiManager.openInventoryScreen());
         this.updateMoney();
 
         List<Purchasable> items = this.shopService.getShopItems();
