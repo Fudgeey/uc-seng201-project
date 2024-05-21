@@ -41,6 +41,12 @@ public class GameService {
      * Prepares the round.
      */
     public void prepareRound() {
+        List<Cart> carts = this.gameManager.getCarts();
+
+        for(Cart cart : carts) {
+            cart.setCurrentFilled(0);
+        }
+
         this.gameManager.prepareRound();
     }
 

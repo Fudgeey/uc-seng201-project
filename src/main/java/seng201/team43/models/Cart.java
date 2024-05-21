@@ -44,6 +44,10 @@ public class Cart {
         this.currentFilled += amount;
     }
 
+    public void setCurrentFilled(int size) {
+        this.currentFilled = size;
+    }
+
     /**
      * Fills the cart for the round
      * @param tower tower that the cart is getting filled from
