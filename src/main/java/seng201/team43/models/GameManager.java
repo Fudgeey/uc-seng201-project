@@ -186,14 +186,14 @@ public class GameManager {
             this.addCart(cart);
         }
 
-        List<Purchasable> shopItems = new ArrayList<>(List.of(new ProductionUpgrade(25), new ReloadUpgrade(), new ResourceTypeUpgrade(), new RepairTowerUpgrade()));
+        List<Purchasable> items = new ArrayList<>(List.of(new ProductionUpgrade(25), new ReloadUpgrade(), new ResourceTypeUpgrade(), new RepairTowerUpgrade()));
 
         for(Resource resource : Resource.values()) {
-            shopItems.add(new Tower(resource));
+            items.add(new Tower(resource));
         }
 
-        Collections.shuffle(shopItems);
-        this.shopItems = shopItems.stream().limit(5).toList();
+        Collections.shuffle(items);
+        this.shopItems = items.stream().limit(5).toList();
     }
 
     /**

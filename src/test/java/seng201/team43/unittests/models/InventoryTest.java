@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class InventoryTest {
+class InventoryTest {
     @Test
     void emptyInventoryTest() {
         Inventory inventory = new Inventory();
@@ -30,15 +30,16 @@ public class InventoryTest {
     }
 
     @Test
-    void moreThanFiveActiveTowersTest() {
+    void moreThanFiveActiveTowersTest() throws GameException {
         Inventory inventory = new Inventory();
 
+        inventory.addActiveTower(new Tower(Resource.FOOD));
+        inventory.addActiveTower(new Tower(Resource.WOOD));
+        inventory.addActiveTower(new Tower(Resource.WATER));
+        inventory.addActiveTower(new Tower(Resource.FOOD));
+        inventory.addActiveTower(new Tower(Resource.WOOD));
+
         GameException error = assertThrows(GameException.class, () -> {
-            inventory.addActiveTower(new Tower(Resource.FOOD));
-            inventory.addActiveTower(new Tower(Resource.WOOD));
-            inventory.addActiveTower(new Tower(Resource.WATER));
-            inventory.addActiveTower(new Tower(Resource.FOOD));
-            inventory.addActiveTower(new Tower(Resource.WOOD));
             inventory.addActiveTower(new Tower(Resource.WATER));
         });
 

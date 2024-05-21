@@ -10,7 +10,7 @@ import seng201.team43.models.Tower;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GameManagerTest {
+class GameManagerTest {
     private GameManager gameManager;
 
     @BeforeEach

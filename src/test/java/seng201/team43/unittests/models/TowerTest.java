@@ -6,7 +6,7 @@ import seng201.team43.models.Tower;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TowerTest {
+class TowerTest {
     @Test
     void testLevelDownBelowOne() {
         Tower tower = new Tower(Resource.WOOD);

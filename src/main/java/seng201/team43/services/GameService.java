@@ -53,7 +53,7 @@ public class GameService {
         List<Tower> reserveTowers = this.gameManager.getInventory().getReserveTowers().stream().filter(not(Tower::isBroken)).toList();
 
         ArrayList<String> activeTowersMessages = this.runTowersRandomEvent(activeTowers, this.gameManager.getInventory().getActiveTowers(), 5);
-        ArrayList<String> reserveTowersMessages = this.runTowersRandomEvent(reserveTowers, this.gameManager.getInventory().getReserveTowers(),6);
+        ArrayList<String> reserveTowersMessages = this.runTowersRandomEvent(reserveTowers, this.gameManager.getInventory().getReserveTowers(), 6);
 
         return Stream.concat(activeTowersMessages.stream(), reserveTowersMessages.stream()).toList();
     }

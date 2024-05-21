@@ -7,7 +7,7 @@ import seng201.team43.models.Tower;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CartTest {
+class CartTest {
     @Test
     void testSuccessfulFill() {
         Cart cart = new Cart(100, 10, Resource.FOOD);
