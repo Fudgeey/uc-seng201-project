@@ -15,6 +15,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import seng201.team43.exceptions.GameException;
+import seng201.team43.helpers.ArrayHelper;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.models.GameDifficulty;
 import seng201.team43.models.GameManager;
@@ -140,11 +141,10 @@ public class SetupScreenController {
         Resource resource = switch (resourceText) {
             case "Water" -> Resource.WATER;
             case "Wood" -> Resource.WOOD;
-            case "Food" -> Resource.FOOD;
-            default -> null;
+            default -> Resource.FOOD;
         };
 
-        int slot = this.setupService.findNextSlot(this.setupService.getStartingTowers());
+        int slot = ArrayHelper.findNextSlot(this.setupService.getStartingTowers());
 
         if(slot == -1) {
             throw new GameException("You can only have three starting towers.");
