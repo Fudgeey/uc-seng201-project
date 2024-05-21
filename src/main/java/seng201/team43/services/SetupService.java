@@ -79,23 +79,6 @@ public class SetupService {
         this.gameManager.prepareRound();
     }
 
-    /**
-     * Helper function to find next empty slot in array.
-     *
-     * @param array array to find next empty slot
-     *
-     * @return the index of the next empty slot
-     */
-    public int findNextSlot(Tower[] array) {
-        for(int i = 0; i < array.length; i++) {
-            if(array[i] == null) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
     public Tower[] getStartingTowers() {
         return this.startingTowers;
     }
