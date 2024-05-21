@@ -16,6 +16,7 @@ import static java.util.function.Predicate.not;
  */
 public class GameService {
     private final GameManager gameManager;
+    private final Random random;
 
     /**
      * Initialises game service with game manager
@@ -23,6 +24,17 @@ public class GameService {
      */
     public GameService(GameManager gameManager) {
         this.gameManager = gameManager;
+        this.random = new Random();
+    }
+
+    /**
+     * Initialises game service with game manager and a predefined random.
+     * @param gameManager to initialise game service.
+     * @param random the random class
+     */
+    public GameService(GameManager gameManager, Random random) {
+        this.gameManager = gameManager;
+        this.random = random;
     }
 
     public void setPreviousRoundInformation(RoundInformation roundInformation) {
@@ -72,14 +84,13 @@ public class GameService {
      * @return the message containing what random events happened.
      */
     private ArrayList<String> runTowersRandomEvent(List<Tower> towersToCheck, ArrayList<Tower> towers, int probability) {
-        Random random = new Random();
         ArrayList<String> messages = new ArrayList<>();
 
         for(Tower tower : towersToCheck) {
-            int chance = random.nextInt(0, probability);
+            int chance = this.random.nextInt(0, probability);
 
             if(chance == 0) {
-                int choice = random.nextInt(0, 4);
+                int choice = this.random.nextInt(0, 4);
 
                 if(choice == 0) {
                     messages.add(String.format("A %s tower was broken.", tower.getResourceType().label.toLowerCase()));
