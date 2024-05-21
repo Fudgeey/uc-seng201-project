@@ -14,6 +14,7 @@ import seng201.team43.services.EndService;
  */
 public class EndScreenController {
     private final EndService endService;
+    private final GUIManager guiManager;
 
     @FXML
     private FlowPane innerPane;
@@ -25,8 +26,9 @@ public class EndScreenController {
      * Initialises the end screen controller with the given game manager
      * @param gameManager game manager to use
      */
-    public EndScreenController(GameManager gameManager) {
+    public EndScreenController(GameManager gameManager, GUIManager guiManager) {
         this.endService = new EndService(gameManager);
+        this.guiManager = guiManager;
     }
 
     /**
@@ -56,7 +58,7 @@ public class EndScreenController {
         innerPane.getChildren().addAll(titleLabel, statsLabel);
 
         closeButton.setOnAction(event -> {
-            this.endService.closeGame();
+            this.guiManager.quitGame();
         });
     }
 }

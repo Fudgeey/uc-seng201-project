@@ -12,6 +12,7 @@ import seng201.team43.models.GameManager;
 
 public class PauseScreenController {
     private final GameManager gameManager;
+    private final GUIManager guiManager;
 
     @FXML
     private Button resumeButton;
@@ -23,15 +24,16 @@ public class PauseScreenController {
      * Initialises the pause screen controller
      * @param gameManager persistent game manager to use
      */
-    public PauseScreenController(GameManager gameManager)  {
+    public PauseScreenController(GameManager gameManager, GUIManager guiManager)  {
         this.gameManager = gameManager;
+        this.guiManager = guiManager;
     }
 
     /**
      * Initialises the JavaFX scene, sets visuals and actions
      */
     public void initialize() {
-        resumeButton.setOnAction(event -> gameManager.openGameScreen());
-        quitButton.setOnAction(event -> gameManager.quitGame());
+        resumeButton.setOnAction(event -> this.guiManager.openGameScreen());
+        quitButton.setOnAction(event -> this.guiManager.quitGame());
     }
 }

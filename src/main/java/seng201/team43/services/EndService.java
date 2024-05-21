@@ -48,11 +48,4 @@ public class EndService {
     public int getExperienceGained() {
         return this.gameManager.getExperienceGained();
     }
-
-    /**
-     * Closes the game.
-     */
-    public void closeGame() {
-        this.gameManager.quitGame();
-    }
 }

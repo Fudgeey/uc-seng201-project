@@ -31,6 +31,7 @@ import java.util.Objects;
  */
 public class SetupScreenController {
     private final SetupService setupService;
+    private final GUIManager guiManager;
 
     @FXML
     private TextField nameField;
@@ -72,8 +73,9 @@ public class SetupScreenController {
      * Initialises the setup screen controller
      * @param gameManager persistent game manager to use
      */
-    public SetupScreenController(GameManager gameManager) {
+    public SetupScreenController(GameManager gameManager, GUIManager guiManager) {
         this.setupService = new SetupService(gameManager);
+        this.guiManager = guiManager;
     }
 
     /**
@@ -120,6 +122,7 @@ public class SetupScreenController {
         startButton.setOnAction(event -> {
             try {
                 this.setupService.startGame();
+                this.guiManager.openGameScreen();
             } catch (GameException e) {
                 e.displayError(startButton);
             }
