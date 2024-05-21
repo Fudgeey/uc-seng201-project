@@ -131,4 +131,59 @@ class Inventory {
     + addItem(item: Purchasable): void
     + moveTower(tower: Tower): void
 }
+
+class EndService {
+    - gameManager: GameManager
+
+    + EndService(gameManager: GameManager)
+    + closeGame(): void
+}
+
+class GameService {
+    - gameManager: GameManager
+
+    + GameService(gameManager: GameManager)
+    + startRound(): void
+    + prepareRound(): void
+    + runRandomEvents(): void
+    + openEndScreen(): void
+    + openPauseScreen(): void
+    + openInventoryScreen(): void
+}
+
+class InventoryService {
+    - gameManager: GameManager
+    - selectedTower: Tower
+    - selectedUpgrade: Upgrade
+
+    + InventoryService(gameManager: GameManager)
+    + moveTower(tower: Tower): void
+    + applyUpgrade(): void
+    + sellItem(): void
+    + openGameScreen(): void
+    + openShopScreen(): void
+}
+
+class SetupService {
+    - gameManager: GameManager
+    - startingTowers: Tower[]
+
+    + SetupService(gameManager: GameManager)
+    + startGame(): void
+    + findNextSlot(array: Tower[]): int
+}
+
+class ShopService {
+    - gameManager: GameManager
+
+    + ShopService(gameManager: GameManager)
+    + openInventoryScreen(): void
+    + buyItem(item: Purchasable): void
+}
+
+EndService -* GameManager
+GameService -* GameManager
+InventoryService -* GameManager
+SetupService -* GameManager
+ShopService -* GameManager
 @enduml
