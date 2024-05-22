@@ -72,6 +72,10 @@ public class GameManager {
         return this.roundCount;
     }
 
+    public GameDifficulty getGameDifficulty() {
+        return this.gameDifficulty;
+    }
+
     public void setGameDifficulty(GameDifficulty gameDifficulty) {
         this.gameDifficulty = gameDifficulty;
         this.money = gameDifficulty.startingMoney;

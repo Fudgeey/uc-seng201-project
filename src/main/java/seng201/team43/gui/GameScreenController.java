@@ -194,7 +194,7 @@ public class GameScreenController {
             } else {
                 if(!roundInformation.getLevelledUpTowers().isEmpty()) {
                     for(Tower tower : roundInformation.getLevelledUpTowers()) {
-                        PopupHelper.display(startButton, String.format("One of your %s towers upgraded and its production increased by 25!", tower.getResourceType().label.toLowerCase()));
+                        PopupHelper.display(startButton, String.format("One of your %s towers upgraded and its production increased by 25.", tower.getResourceType().label.toLowerCase()));
                     }
                 }
 

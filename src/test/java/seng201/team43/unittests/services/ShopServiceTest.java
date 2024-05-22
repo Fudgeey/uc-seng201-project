@@ -42,4 +42,11 @@ class ShopServiceTest {
 
         assertEquals("You do not have enough money to buy this.", errorTwo.getMessage());
     }
+
+    @Test
+    void testGetShopItems() {
+        this.gameManager.prepareRound();
+
+        assertEquals(5, this.shopService.getShopItems().size());
+    }
 }

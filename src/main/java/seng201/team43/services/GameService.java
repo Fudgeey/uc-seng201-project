@@ -91,21 +91,27 @@ public class GameService {
 
             if(chance == 0) {
                 int choice = this.random.nextInt(0, 4);
+                String resourceLabel = tower.getResourceType().label.toLowerCase();
 
-                if(choice == 0) {
-                    messages.add(String.format("A %s tower was broken.", tower.getResourceType().label.toLowerCase()));
-                    tower.setBroken(true);
-                } else if(choice == 1) {
-                    messages.add(String.format("A %s tower was destroyed and removed from your inventory.", tower.getResourceType().label.toLowerCase()));
-                    towers.remove(tower);
-                } else if(choice == 2) {
-                    if(tower.getLevel() > 1) {
-                        tower.levelDown();
-                        messages.add(String.format("A %s tower has had its level decreased.", tower.getResourceType().label.toLowerCase()));
-                    }
-                } else {
-                    messages.add(String.format("A %s tower has had its level increased.", tower.getResourceType().label.toLowerCase()));
-                    tower.addExperience(10);
+                switch(choice) {
+                    case 0:
+                        messages.add(String.format("A %s tower was broken.", resourceLabel));
+                        tower.setBroken(true);
+                        break;
+                    case 1:
+                        messages.add(String.format("A %s tower was destroyed and removed from your inventory.", resourceLabel));
+                        towers.remove(tower);
+                        break;
+                    case 2:
+                        if(tower.getLevel() > 1) {
+                            tower.levelDown();
+                            messages.add(String.format("A %s tower has had its level decreased.", resourceLabel));
+                        }
+                        break;
+                    case 3:
+                        messages.add(String.format("A %s tower has had its level increased.", resourceLabel));
+                        tower.addExperience(10);
+                        break;
                 }
             }
         }

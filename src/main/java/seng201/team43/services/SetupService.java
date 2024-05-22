@@ -34,17 +34,12 @@ public class SetupService {
         this.gameManager.setRoundCount(roundCount);
     }
 
-    public GameDifficulty setGameDifficulty(String difficultyText) throws GameException {
+    public GameDifficulty setGameDifficulty(String difficultyText) {
         GameDifficulty gameDifficulty = switch(difficultyText) {
-            case "Easy" -> GameDifficulty.EASY;
             case "Medium" -> GameDifficulty.MEDIUM;
             case "Hard" -> GameDifficulty.HARD;
-            default -> null;
+            default -> GameDifficulty.EASY;
         };
-
-        if (gameDifficulty == null) {
-            throw new GameException("Invalid difficulty selected.");
-        }
 
         this.gameManager.setGameDifficulty(gameDifficulty);
         return gameDifficulty;

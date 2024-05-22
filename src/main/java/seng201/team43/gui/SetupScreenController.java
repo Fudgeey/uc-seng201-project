@@ -99,14 +99,10 @@ public class SetupScreenController {
 
         difficultyButtons.forEach(button -> {
             button.setOnAction(event -> {
-                try {
-                    GameDifficulty gameDifficulty = this.setupService.setGameDifficulty(button.getText());
+                GameDifficulty gameDifficulty = this.setupService.setGameDifficulty(button.getText());
 
-                    difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
-                    ButtonHelper.setBackground(button, gameDifficulty.colour);
-                } catch (GameException e) {
-                    e.displayError(button);
-                }
+                difficultyButtons.forEach(otherButton -> otherButton.setStyle(""));
+                ButtonHelper.setBackground(button, gameDifficulty.colour);
             });
         });
 
