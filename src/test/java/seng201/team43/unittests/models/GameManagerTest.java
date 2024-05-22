@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng201.team43.exceptions.GameException;
 import seng201.team43.helpers.RoundInformation;
+import seng201.team43.models.Cart;
 import seng201.team43.models.GameManager;
 import seng201.team43.models.Resource;
 import seng201.team43.models.Tower;
@@ -39,9 +40,14 @@ class GameManagerTest {
         this.gameManager.getInventory().addActiveTower(new Tower(Resource.WOOD));
         this.gameManager.getInventory().addActiveTower(new Tower(Resource.FOOD));
 
-        RoundInformation roundInformation = this.gameManager.startRound();
+        RoundInformation roundOneInformation = this.gameManager.startRound();
+        assertTrue(roundOneInformation.getWon());
 
-        assertTrue(roundInformation.getWon());
+        this.gameManager.addCart(new Cart(100, 10, Resource.WATER));
+
+        RoundInformation roundTwoInformation = this.gameManager.startRound();
+        assertTrue(roundTwoInformation.getWon());
+
     }
 
     @Test
