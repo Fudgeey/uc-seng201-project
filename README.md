@@ -1,7 +1,5 @@
 # Tower Dynasty - SENG201 Project
-Welcome to the template project for SENG201 which you will transform into your own.
-This README file includes some useful information to help you get started.
-However, we expect that this README becomes your own
+A resource stockpiling game where you have to fill carts from towers. Made for SENG201. This readme shows how to build, run, and test the game.
 
 ## Authors
 - Luke Hallett
@@ -33,8 +31,6 @@ IntelliJ has built-in support for Gradle. To import your project:
 ## Run Tests
 1. Open a command line interface inside the project directory and run `./gradlew test` to run the tests.
 2. Test results should be printed to the command line
-
-**Note:** *This Jar is **NOT** cross-platform, so you **must** build the jar you submit on Linux.* 
 
 ## Copyright
 - Tower icons used under license. [Link to assets](https://admurin.itch.io/mega-admurins-freebies).
