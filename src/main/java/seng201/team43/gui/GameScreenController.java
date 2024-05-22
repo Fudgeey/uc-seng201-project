@@ -7,20 +7,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import seng201.team43.gui.factories.CartCellFactory;
 import seng201.team43.helpers.ButtonHelper;
 import seng201.team43.helpers.PopupHelper;
 import seng201.team43.helpers.RoundInformation;
-import seng201.team43.models.*;
+import seng201.team43.models.Cart;
+import seng201.team43.models.GameManager;
+import seng201.team43.models.RoundDifficulty;
+import seng201.team43.models.Tower;
 import seng201.team43.services.GameService;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Controller for the game_screen.fxml window
- *
+ * Controller for the game_screen.fxml window.
  * @author Luke Hallett, Riley Jeffcote
  */
 public class GameScreenController {
@@ -67,8 +70,9 @@ public class GameScreenController {
     private ListView<Cart> cartsListView;
 
     /**
-     * Creates the game screen controller with the game manager
+     * Creates the game screen controller with the game manager.
      * @param gameManager persistent game manager instance
+     * @param guiManager manager to deal with JavaFX scene switching
      */
     public GameScreenController(GameManager gameManager, GUIManager guiManager) {
         this.gameService = new GameService(gameManager);
@@ -76,7 +80,7 @@ public class GameScreenController {
     }
 
     /**
-     * Initialises the JavaFX scene, sets visuals and actions
+     * Initialises the JavaFX scene, sets visuals and actions.
      */
     public void initialize() {
         this.updateVisuals();
@@ -95,7 +99,7 @@ public class GameScreenController {
     }
 
     /**
-     * Updates all the game's visuals: towers, carts, stats, difficulty buttons
+     * Updates all the game's visuals: towers, carts, stats, difficulty buttons.
      */
     private void updateVisuals() {
         this.displayTowers();
@@ -105,7 +109,7 @@ public class GameScreenController {
     }
 
     /**
-     * Update the stats label and update carts list view
+     * Update the stats label and update carts list view.
      */
     private void updateStats() {
         String statsText = String.format("Current Round: %s\n", this.gameService.getCurrentRound()) +
@@ -120,7 +124,7 @@ public class GameScreenController {
     }
 
     /**
-     * Sets the round difficulty depending on the button selected
+     * Sets the round difficulty depending on the button selected.
      * @param button button that was pressed
      * @param difficultyButtons all three difficulty buttons
      */
@@ -182,7 +186,7 @@ public class GameScreenController {
     }
 
     /**
-     * Starts the round and does logic for displaying popups of random events and other details
+     * Starts the round and does logic for displaying popups of random events and other details.
      */
     private void startGame() {
         RoundInformation roundInformation = this.gameService.startRound();
