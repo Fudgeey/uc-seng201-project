@@ -2,6 +2,9 @@ package seng201.team43.models;
 
 import seng201.team43.exceptions.GameException;
 import seng201.team43.helpers.RoundInformation;
+import seng201.team43.models.enums.GameDifficulty;
+import seng201.team43.models.enums.Resource;
+import seng201.team43.models.enums.RoundDifficulty;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +48,7 @@ public class GameManager {
         this.gameWon = false;
 
         this.setGameDifficulty(GameDifficulty.EASY);
-        this.setRoundDifficulty(RoundDifficulty.EASY);
+        this.setRoundDifficulty(RoundDifficulty.MEDIUM);
     }
 
     public void setPreviousRoundInformation(RoundInformation roundInformation) {
@@ -85,6 +88,10 @@ public class GameManager {
     public void setRoundDifficulty(RoundDifficulty roundDifficulty) {
         this.roundDifficulty = roundDifficulty;
         this.trackDistance = roundDifficulty.trackDistance;
+
+        for(Cart cart : this.getCarts()) {
+            cart.setSpeed(roundDifficulty);
+        }
     }
 
     public RoundDifficulty getRoundDifficulty() {
@@ -190,10 +197,12 @@ public class GameManager {
             this.addCart(cart);
         }
 
-        List<Purchasable> items = new ArrayList<>(List.of(new ProductionUpgrade(25), new ReloadUpgrade(), new ResourceTypeUpgrade(), new RepairTowerUpgrade()));
+        double costMultiplier = this.getGameDifficulty().multiplier;
+
+        List<Purchasable> items = new ArrayList<>(List.of(new ProductionUpgrade((int) (100 * costMultiplier), 25), new ReloadUpgrade((int) (100 * costMultiplier)), new ResourceTypeUpgrade((int) (75 * costMultiplier)), new RepairTowerUpgrade((int) (50 * costMultiplier))));
 
         for(Resource resource : Resource.values()) {
-            items.add(new Tower(resource));
+            items.add(new Tower((int) (100 * costMultiplier), resource));
         }
 
         Collections.shuffle(items);

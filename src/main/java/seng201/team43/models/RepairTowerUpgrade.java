@@ -10,8 +10,8 @@ public class RepairTowerUpgrade extends Upgrade {
     /**
      * Initialises repair tower upgrade.
      */
-    public RepairTowerUpgrade() {
-        super(50, "Repair Tower");
+    public RepairTowerUpgrade(int cost) {
+        super(cost, "Repair Tower Upgrade");
     }
 
     /**

@@ -15,7 +15,7 @@ import seng201.team43.helpers.PopupHelper;
 import seng201.team43.helpers.RoundInformation;
 import seng201.team43.models.Cart;
 import seng201.team43.models.GameManager;
-import seng201.team43.models.RoundDifficulty;
+import seng201.team43.models.enums.RoundDifficulty;
 import seng201.team43.models.Tower;
 import seng201.team43.services.GameService;
 
@@ -150,7 +150,7 @@ public class GameScreenController {
         Button difficultyButton = switch(roundDifficulty) {
             case EASY -> easyDifficultyButton;
             case MEDIUM -> mediumDifficultyButton;
-            default -> hardDifficultyButton;
+            case HARD -> hardDifficultyButton;
         };
 
         ButtonHelper.setBackground(difficultyButton, roundDifficulty.colour);

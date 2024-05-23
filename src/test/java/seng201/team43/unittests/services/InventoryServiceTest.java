@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng201.team43.exceptions.GameException;
 import seng201.team43.models.*;
+import seng201.team43.models.enums.Resource;
 import seng201.team43.services.InventoryService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +40,7 @@ class InventoryServiceTest {
         this.inventoryService.sellItem();
         assertEquals(0, this.inventoryService.getReserveTowers().size());
 
-        RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade();
+        RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade(50);
         this.gameManager.getInventory().addUpgrade(repairTowerUpgrade);
 
         this.inventoryService.setSelectedUpgrade(repairTowerUpgrade);
@@ -52,7 +53,7 @@ class InventoryServiceTest {
     @Test
     void testApplyUpgrade() throws GameException {
         Tower tower = new Tower(Resource.WATER);
-        ReloadUpgrade upgrade = new ReloadUpgrade();
+        ReloadUpgrade upgrade = new ReloadUpgrade(100);
         this.gameManager.getInventory().addActiveTower(tower);
         this.gameManager.getInventory().addUpgrade(upgrade);
 

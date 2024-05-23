@@ -1,6 +1,7 @@
 package seng201.team43.models;
 
 import seng201.team43.exceptions.GameException;
+import seng201.team43.models.enums.Resource;
 
 /**
  * Class for Towers
@@ -22,12 +23,21 @@ public class Tower implements Purchasable {
      * @param resourceType takes a resource type and initialises the value to this tower.
      */
     public Tower(Resource resourceType) {
+        this(100, resourceType);
+    }
+
+    /**
+     * Initialises Tower with a cost for shop
+     * @param resourceType takes a resource type and initialises the value to this tower.
+     * @param cost cost to buy tower
+     */
+    public Tower(int cost, Resource resourceType) {
         this.resourceType = resourceType;
         this.name = String.format("%s Tower", resourceType.label);
         this.reloadSpeed = 5;
         this.productionUnits = 50;
         this.experience = 0;
-        this.cost = 100;
+        this.cost = cost;
         this.purchased = false;
     }
 
