@@ -1,5 +1,8 @@
 package seng201.team43.models;
 
+import seng201.team43.models.enums.Resource;
+import seng201.team43.models.enums.RoundDifficulty;
+
 /**
  * Class for Carts
  *
@@ -7,7 +10,8 @@ package seng201.team43.models;
  */
 public class Cart {
     private final int size;
-    private final int speed;
+    private int speed;
+    private final int baseSpeed;
     private final Resource type;
     private int currentFilled;
 
@@ -20,12 +24,21 @@ public class Cart {
     public Cart(int size, int speed, Resource type) {
         this.size = size;
         this.speed = speed;
+        this.baseSpeed = speed;
         this.type = type;
         this.currentFilled = 0;
     }
 
     public int getSize() {
         return this.size;
+    }
+
+    public void setSpeed(RoundDifficulty roundDifficulty) {
+        this.speed = switch(roundDifficulty) {
+            case EASY -> this.baseSpeed - 1;
+            case MEDIUM -> this.baseSpeed;
+            case HARD -> this.baseSpeed + 1;
+        };
     }
 
     public int getSpeed() {

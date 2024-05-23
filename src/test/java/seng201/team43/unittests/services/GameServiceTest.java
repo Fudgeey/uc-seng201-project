@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng201.team43.exceptions.GameException;
 import seng201.team43.models.*;
+import seng201.team43.models.enums.Resource;
 import seng201.team43.services.GameService;
 
 import java.util.List;

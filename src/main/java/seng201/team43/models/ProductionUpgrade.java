@@ -7,8 +7,8 @@ public class ProductionUpgrade extends Upgrade {
      * Initialises the cost and production units of a production upgrade.
      * @param units units for upgrade
      */
-    public ProductionUpgrade(int units) {
-        super(100, "Production Upgrade");
+    public ProductionUpgrade(int cost, int units) {
+        super(cost, "Production Upgrade");
 
         this.units = units;
     }

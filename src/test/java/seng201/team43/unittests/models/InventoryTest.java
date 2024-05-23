@@ -3,6 +3,7 @@ package seng201.team43.unittests.models;
 import org.junit.jupiter.api.Test;
 import seng201.team43.exceptions.GameException;
 import seng201.team43.models.*;
+import seng201.team43.models.enums.Resource;
 
 import java.util.ArrayList;
 
@@ -84,7 +85,7 @@ class InventoryTest {
     @Test
     void addItemTest() throws GameException {
         Inventory inventory = new Inventory();
-        ResourceTypeUpgrade resourceTypeUpgrade = new ResourceTypeUpgrade();
+        ResourceTypeUpgrade resourceTypeUpgrade = new ResourceTypeUpgrade(75);
         Tower towerOne = new Tower(Resource.WOOD);
         Tower towerTwo = new Tower(Resource.WOOD);
         Tower towerThree = new Tower(Resource.WOOD);
@@ -126,7 +127,7 @@ class InventoryTest {
     @Test
     void removeUpgradeTest() throws GameException {
         Inventory inventory = new Inventory();
-        ReloadUpgrade reloadUpgrade = new ReloadUpgrade();
+        ReloadUpgrade reloadUpgrade = new ReloadUpgrade(100);
 
         inventory.addItem(reloadUpgrade);
         inventory.removeUpgrade(reloadUpgrade);

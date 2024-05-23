@@ -17,9 +17,9 @@ import javafx.scene.layout.Priority;
 import seng201.team43.exceptions.GameException;
 import seng201.team43.helpers.ArrayHelper;
 import seng201.team43.helpers.ButtonHelper;
-import seng201.team43.models.GameDifficulty;
+import seng201.team43.models.enums.GameDifficulty;
 import seng201.team43.models.GameManager;
-import seng201.team43.models.Resource;
+import seng201.team43.models.enums.Resource;
 import seng201.team43.models.Tower;
 import seng201.team43.services.SetupService;
 
