@@ -1,4 +1,4 @@
-package seng201.team43.models;
+package seng201.team43.models.enums;
 
 /**
  * Enum for game difficulty options

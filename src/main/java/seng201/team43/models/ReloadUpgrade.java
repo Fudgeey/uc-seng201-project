@@ -6,8 +6,8 @@ import seng201.team43.exceptions.GameException;
  * Class for reload upgrade, extending abstract features of upgrade
  */
 public class ReloadUpgrade extends Upgrade {
-    public ReloadUpgrade() {
-        super(100, "Reload Upgrade");
+    public ReloadUpgrade(int cost) {
+        super(cost, "Reload Upgrade");
     }
 
     /**

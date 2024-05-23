@@ -1,5 +1,7 @@
 package seng201.team43.models;
 
+import seng201.team43.models.enums.Resource;
+
 import java.util.Random;
 
 /**
@@ -10,8 +12,8 @@ public class ResourceTypeUpgrade extends Upgrade {
     /**
      * Initialises resource type upgrade.
      */
-    public ResourceTypeUpgrade() {
-        super(75, "Resource Type Upgrade");
+    public ResourceTypeUpgrade(int cost) {
+        super(cost, "Resource Type Upgrade");
     }
 
     /**

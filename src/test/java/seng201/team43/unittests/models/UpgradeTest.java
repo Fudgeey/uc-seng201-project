@@ -3,6 +3,7 @@ package seng201.team43.unittests.models;
 import org.junit.jupiter.api.Test;
 import seng201.team43.exceptions.GameException;
 import seng201.team43.models.*;
+import seng201.team43.models.enums.Resource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +11,7 @@ public class UpgradeTest {
     @Test
     void testRepairTower() throws GameException {
         Tower tower = new Tower(Resource.FOOD);
-        RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade();
+        RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade(50);
 
         tower.setBroken(true);
         tower.applyUpgrade(repairTowerUpgrade);
@@ -21,7 +22,7 @@ public class UpgradeTest {
     @Test
     void testReloadUpgrade() throws GameException {
         Tower tower = new Tower(Resource.WATER);
-        ReloadUpgrade reloadUpgrade = new ReloadUpgrade();
+        ReloadUpgrade reloadUpgrade = new ReloadUpgrade(100);
 
         tower.applyUpgrade(reloadUpgrade);
 
@@ -31,7 +32,7 @@ public class UpgradeTest {
     @Test
     void testReloadUpgradeBelowOne() {
         Tower tower = new Tower(Resource.WATER);
-        ReloadUpgrade reloadUpgrade = new ReloadUpgrade();
+        ReloadUpgrade reloadUpgrade = new ReloadUpgrade(100);
 
         GameException error = assertThrows(GameException.class, () -> {
             tower.applyUpgrade(reloadUpgrade);
@@ -47,7 +48,7 @@ public class UpgradeTest {
 
     @Test
     void testUpgradeSellPrice() {
-        RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade();
+        RepairTowerUpgrade repairTowerUpgrade = new RepairTowerUpgrade(50);
 
         assertEquals(40, repairTowerUpgrade.getSellPrice());
     }
@@ -55,7 +56,7 @@ public class UpgradeTest {
     @Test
     void testProductionUpgrade() throws GameException {
         Tower tower = new Tower(Resource.WATER);
-        ProductionUpgrade productionUpgrade = new ProductionUpgrade(25);
+        ProductionUpgrade productionUpgrade = new ProductionUpgrade(100, 25);
 
         tower.applyUpgrade(productionUpgrade);
 
@@ -65,7 +66,7 @@ public class UpgradeTest {
     @Test
     void testResourceTypeUpgrade() throws GameException {
         Tower tower = new Tower(Resource.WATER);
-        ResourceTypeUpgrade resourceTypeUpgrade = new ResourceTypeUpgrade();
+        ResourceTypeUpgrade resourceTypeUpgrade = new ResourceTypeUpgrade(75);
 
         tower.applyUpgrade(resourceTypeUpgrade);
 

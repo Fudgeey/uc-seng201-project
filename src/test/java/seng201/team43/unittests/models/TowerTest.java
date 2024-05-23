@@ -1,7 +1,7 @@
 package seng201.team43.unittests.models;
 
 import org.junit.jupiter.api.Test;
-import seng201.team43.models.Resource;
+import seng201.team43.models.enums.Resource;
 import seng201.team43.models.Tower;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
