@@ -148,6 +148,10 @@ public class GameService {
         return this.gameManager.getInventory().getActiveTowers().stream().filter(not(Tower::isBroken)).toList();
     }
 
+    /**
+     * Calculates remaining rounds based on current round and total rounds
+     * @return remaining round count
+     */
     public int getRemainingRounds() {
         return this.gameManager.getRoundCount() - this.gameManager.getCurrentRound() + 1;
     }

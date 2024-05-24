@@ -79,12 +79,20 @@ public class GameManager {
         return this.gameDifficulty;
     }
 
+    /**
+     * Sets the game difficulty and sets starting balance
+     * @param gameDifficulty game difficulty to set
+     */
     public void setGameDifficulty(GameDifficulty gameDifficulty) {
         this.gameDifficulty = gameDifficulty;
         this.money = gameDifficulty.startingMoney;
         this.moneyGained = gameDifficulty.startingMoney;
     }
 
+    /**
+     * Sets the round difficulty by changing track distance and cart speed
+     * @param roundDifficulty round difficulty to set
+     */
     public void setRoundDifficulty(RoundDifficulty roundDifficulty) {
         this.roundDifficulty = roundDifficulty;
         this.trackDistance = roundDifficulty.trackDistance;
@@ -130,7 +138,7 @@ public class GameManager {
 
     /**
      * Adds experience.
-     * @param experience
+     * @param experience amount of experience to add
      */
     public void addExperience(int experience) {
         int oldLevel = this.getLevel();
@@ -193,6 +201,7 @@ public class GameManager {
             int speed = 5 + this.getCurrentRound();
 
             Cart cart = new Cart(size, speed, resources[resourceIndex]);
+            cart.setSpeed(this.getRoundDifficulty());
 
             this.addCart(cart);
         }
@@ -211,6 +220,7 @@ public class GameManager {
 
     /**
      * Starts the current round.
+     * @return information about the just played round
      */
     public RoundInformation startRound() {
         RoundInformation roundInformation = new RoundInformation();

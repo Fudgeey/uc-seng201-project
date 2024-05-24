@@ -105,6 +105,7 @@ public class Inventory {
      * Adds an item to inventory. Checks what kind of item it is. i.e. tower or upgrade. If tower, checks if active is
      * full, if it is then it goes to reserve inventory, otherwise defaults to active inventory.
      * @param item item to add to inventory
+     * @throws GameException if there is an error adding item to inventory
      */
     public void addItem(Purchasable item) throws GameException {
         if(item.getClass() == Tower.class) {
@@ -125,6 +126,7 @@ public class Inventory {
     /**
      * Moves a tower between active and reserve lists.
      * @param tower tower to move
+     * @throws GameException if one tower inventory is full
      */
     public void moveTower(Tower tower) throws GameException {
         if(this.getActiveTowers().contains(tower)) {

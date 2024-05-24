@@ -32,6 +32,7 @@ public class ShopService {
     /**
      * Removes money from player and adds item to inventory.
      * @param item tower or upgrade to add
+     * @throws GameException if there is an error adding the item
      */
     public void buyItem(Purchasable item) throws GameException {
         if(item == null) {

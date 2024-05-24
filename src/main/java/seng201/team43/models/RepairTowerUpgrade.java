@@ -9,6 +9,7 @@ import seng201.team43.exceptions.GameException;
 public class RepairTowerUpgrade extends Upgrade {
     /**
      * Initialises repair tower upgrade.
+     * @param cost Cost to purchase the upgrade.
      */
     public RepairTowerUpgrade(int cost) {
         super(cost, "Repair Tower Upgrade");

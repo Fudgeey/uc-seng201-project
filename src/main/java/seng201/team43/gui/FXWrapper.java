@@ -105,7 +105,7 @@ public class FXWrapper {
     public void launchPauseScreen(GUIManager guiManager) {
         try {
             FXMLLoader pauseScreenLoader = new FXMLLoader(getClass().getResource("/fxml/pause_screen.fxml"));
-            pauseScreenLoader.setControllerFactory(param -> new PauseScreenController(gameManager, guiManager));
+            pauseScreenLoader.setControllerFactory(param -> new PauseScreenController(guiManager));
             Parent setupParent  = pauseScreenLoader.load();
             pane.getChildren().add(setupParent);
         } catch (IOException e) {

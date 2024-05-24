@@ -11,6 +11,7 @@ import java.util.Random;
 public class ResourceTypeUpgrade extends Upgrade {
     /**
      * Initialises resource type upgrade.
+     * @param cost Cost to purchase the upgrade.
      */
     public ResourceTypeUpgrade(int cost) {
         super(cost, "Resource Type Upgrade");

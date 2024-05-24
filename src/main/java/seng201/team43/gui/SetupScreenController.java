@@ -73,6 +73,7 @@ public class SetupScreenController {
     /**
      * Initialises the setup screen controller
      * @param gameManager persistent game manager to use
+     * @param guiManager Class for managing JavaFX scenes
      */
     public SetupScreenController(GameManager gameManager, GUIManager guiManager) {
         this.setupService = new SetupService(gameManager);

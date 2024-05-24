@@ -36,6 +36,7 @@ public class ShopScreenController {
     /**
      * Initialises the shop screen controller
      * @param gameManager persistent game manager to use
+     * @param guiManager Class for managing JavaFX scenes
      */
     public ShopScreenController(GameManager gameManager, GUIManager guiManager) {
         this.shopService = new ShopService(gameManager);

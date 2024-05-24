@@ -7,11 +7,10 @@ import seng201.team43.models.GameManager;
 /**
  * Controller for the pause_screen.fxml window
  *
- * @author Riley Jeffcote
+ * @author Riley Jeffcote, Luke Hallett
  */
 
 public class PauseScreenController {
-    private final GameManager gameManager;
     private final GUIManager guiManager;
 
     @FXML
@@ -21,11 +20,10 @@ public class PauseScreenController {
     private Button quitButton;
 
     /**
-     * Initialises the pause screen controller
-     * @param gameManager persistent game manager to use
+     * Initialises the pause screen controller class
+     * @param guiManager class for JavaFX scene management
      */
-    public PauseScreenController(GameManager gameManager, GUIManager guiManager)  {
-        this.gameManager = gameManager;
+    public PauseScreenController(GUIManager guiManager)  {
         this.guiManager = guiManager;
     }
 

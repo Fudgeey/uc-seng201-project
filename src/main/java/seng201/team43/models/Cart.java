@@ -33,6 +33,10 @@ public class Cart {
         return this.size;
     }
 
+    /**
+     * Sets cart speed based on round difficulty
+     * @param roundDifficulty difficulty of current round
+     */
     public void setSpeed(RoundDifficulty roundDifficulty) {
         this.speed = switch(roundDifficulty) {
             case EASY -> this.baseSpeed - 1;

@@ -25,6 +25,7 @@ public class EndScreenController {
     /**
      * Initialises the end screen controller with the given game manager
      * @param gameManager game manager to use
+     * @param guiManager Class for managing JavaFX scenes
      */
     public EndScreenController(GameManager gameManager, GUIManager guiManager) {
         this.endService = new EndService(gameManager);

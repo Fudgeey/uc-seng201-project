@@ -1,5 +1,8 @@
 package seng201.team43.models;
 
+/**
+ * Class for the production upgrade, which inherits the upgrade class
+ */
 public class ProductionUpgrade extends Upgrade {
     private final int units;
 

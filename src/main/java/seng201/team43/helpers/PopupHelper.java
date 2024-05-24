@@ -16,7 +16,6 @@ import javafx.stage.Window;
  * Helper class to build and display custom popups
  * @author Luke Hallett, Riley Jeffcote
  */
-
 public class PopupHelper {
     /**
      * Displays the custom popup over the current scene.

@@ -30,6 +30,11 @@ public class SetupService {
         this.gameManager.setName(name);
     }
 
+    /**
+     * Sets round count
+     * @param roundCount round count to set
+     * @throws GameException if rounds below 5 or above 15
+     */
     public void setRoundCount(Integer roundCount) throws GameException {
         this.gameManager.setRoundCount(roundCount);
     }
@@ -78,6 +83,11 @@ public class SetupService {
         return this.startingTowers;
     }
 
+    /**
+     * Sets the starting tower in the array
+     * @param index index of array where to put tower
+     * @param tower tower to add
+     */
     public void setStartingTower(int index, Tower tower) {
         this.startingTowers[index] = tower;
     }

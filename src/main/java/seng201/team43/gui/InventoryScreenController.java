@@ -49,6 +49,7 @@ public class InventoryScreenController {
     /**
      * Initialises the inventory screen controller
      * @param gameManager persistent game manager to use
+     * @param guiManager Class for managing JavaFX scenes
      */
     public InventoryScreenController(GameManager gameManager, GUIManager guiManager) {
         this.inventoryService = new InventoryService(gameManager);
